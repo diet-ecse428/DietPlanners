@@ -17,11 +17,12 @@ public class User
 	private String name;
 	private String lastName;
 	private String email;
+	private String username;
 	private String password;
 	private String height;
-	private String targetWeight;
-	private String targetDate;
-	private String startWeight;
+	private int targetWeight;
+	private Date targetDate;
+	private int startWeight;
 
 	//User Associations
 	private LogBook logBook;
@@ -56,6 +57,14 @@ public class User
 		return wasSet;
 	}
 
+	public boolean setUsername(String aUsername)
+	{
+		boolean wasSet = false;
+		username = aUsername;
+		wasSet = true;
+		return wasSet;
+	}
+	
 	public boolean setPassword(String aPassword)
 	{
 		boolean wasSet = false;
@@ -72,7 +81,7 @@ public class User
 		return wasSet;
 	}
 
-	public boolean setTargetWeight(String aTargetWeight)
+	public boolean setTargetWeight(int aTargetWeight)
 	{
 		boolean wasSet = false;
 		targetWeight = aTargetWeight;
@@ -80,7 +89,7 @@ public class User
 		return wasSet;
 	}
 
-	public boolean setTargetDate(String aTargetDate)
+	public boolean setTargetDate(Date aTargetDate)
 	{
 		boolean wasSet = false;
 		targetDate = aTargetDate;
@@ -88,7 +97,7 @@ public class User
 		return wasSet;
 	}
 
-	public boolean setStartWeight(String aStartWeight)
+	public boolean setStartWeight(int aStartWeight)
 	{
 		boolean wasSet = false;
 		startWeight = aStartWeight;
@@ -110,6 +119,10 @@ public class User
 	{
 		return email;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
 
 	public String getPassword()
 	{
@@ -121,17 +134,17 @@ public class User
 		return height;
 	}
 
-	public String getTargetWeight()
+	public int getTargetWeight()
 	{
 		return targetWeight;
 	}
 
-	public String getTargetDate()
+	public Date getTargetDate()
 	{
 		return targetDate;
 	}
 
-	public String getStartWeight()
+	public int getStartWeight()
 	{
 		return startWeight;
 	}

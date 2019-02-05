@@ -5,11 +5,42 @@ public class UserDTO {
 	private String name;
 	private String lastName;
 	private String email;
+	private String username;
 	private String password;
 	private String height;
 	private String targetWeight;
 	private String targetDate;
 	private String startWeight;
+	
+	public UserDTO(String name, String lastName, String email, String username, String password) {
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
+	public UserDTO(String name, String lastName, String email, String username, String password, String height, String targetWeight,
+			String targetDate, String startWeight) {
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.height = height;
+		this.targetWeight = targetWeight;
+		this.targetDate = targetDate;
+		this.startWeight = startWeight;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getName() {
 		return name;
 	}
