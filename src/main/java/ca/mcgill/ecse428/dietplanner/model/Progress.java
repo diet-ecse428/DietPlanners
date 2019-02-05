@@ -4,7 +4,7 @@
 package ca.mcgill.ecse428.dietplanner.model;
 import java.sql.Date;
 
-// line 52 "../../../../../dietplanners_model.ump"
+// line 52 "../../../../../dietplanner_model.ump"
 public class Progress
 {
 
@@ -21,11 +21,10 @@ public class Progress
   // CONSTRUCTOR
   //------------------------
 
-  public Progress(int aWeight, Date aDate, String aPicture)
+  public Progress()
   {
-    weight = aWeight;
-    date = aDate;
-    picture = aPicture;
+    date = null;
+    picture = null;
   }
 
   //------------------------

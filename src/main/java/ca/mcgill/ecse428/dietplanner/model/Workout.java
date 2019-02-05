@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
-// line 45 "../../../../../dietplanners_model.ump"
+// line 45 "../../../../../dietplanner_model.ump"
 public class Workout
 {
 
@@ -20,11 +20,9 @@ public class Workout
   // CONSTRUCTOR
   //------------------------
 
-  public Workout(int aDuration, int aCaloriesLost, String aType)
+  public Workout()
   {
-    duration = aDuration;
-    caloriesLost = aCaloriesLost;
-    type = aType;
+    type = null;
   }
 
   //------------------------

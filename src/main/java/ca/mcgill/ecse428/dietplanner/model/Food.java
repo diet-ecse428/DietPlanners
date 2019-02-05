@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
-// line 32 "../../../../../dietplanners_model.ump"
+// line 32 "../../../../../dietplanner_model.ump"
 public class Food
 {
 
@@ -26,11 +26,8 @@ public class Food
   // CONSTRUCTOR
   //------------------------
 
-  public Food(MealType aMealType, int aCalories, double aServing)
+  public Food()
   {
-    mealType = aMealType;
-    calories = aCalories;
-    serving = aServing;
   }
 
   //------------------------

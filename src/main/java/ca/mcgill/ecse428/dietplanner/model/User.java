@@ -5,7 +5,7 @@ package ca.mcgill.ecse428.dietplanner.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 3 "../../../../../dietplanners_model.ump"
+// line 3 "../../../../../dietplanner_model.ump"
 public class User
 {
 
@@ -31,20 +31,16 @@ public class User
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aName, String aLastName, String aEmail, String aPassword, String aHeight, String aTargetWeight, String aTargetDate, String aStartWeight, LogBook aLogBook)
+  public User()
   {
-    name = aName;
-    lastName = aLastName;
-    email = aEmail;
-    password = aPassword;
-    height = aHeight;
-    targetWeight = aTargetWeight;
-    targetDate = aTargetDate;
-    startWeight = aStartWeight;
-    if (!setLogBook(aLogBook))
-    {
-      throw new RuntimeException("Unable to create User due to aLogBook");
-    }
+    name = null;
+    lastName = null;
+    email = null;
+    password = null;
+    height = null;
+    targetWeight = null;
+    targetDate = null;
+    startWeight = null;
     progresses = new ArrayList<Progress>();
   }
 
@@ -160,6 +156,12 @@ public class User
   {
     return logBook;
   }
+
+  public boolean hasLogBook()
+  {
+    boolean has = logBook != null;
+    return has;
+  }
   /* Code from template association_GetMany */
   public Progress getProgress(int index)
   {
@@ -190,15 +192,12 @@ public class User
     int index = progresses.indexOf(aProgress);
     return index;
   }
-  /* Code from template association_SetUnidirectionalOne */
+  /* Code from template association_SetUnidirectionalOptionalOne */
   public boolean setLogBook(LogBook aNewLogBook)
   {
     boolean wasSet = false;
-    if (aNewLogBook != null)
-    {
-      logBook = aNewLogBook;
-      wasSet = true;
-    }
+    logBook = aNewLogBook;
+    wasSet = true;
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */

@@ -5,7 +5,7 @@ package ca.mcgill.ecse428.dietplanner.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 15 "../../../../../dietplanners_model.ump"
+// line 15 "../../../../../dietplanner_model.ump"
 public class LogBook
 {
 

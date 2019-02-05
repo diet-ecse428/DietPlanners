@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
-// line 39 "../../../../../dietplanners_model.ump"
+// line 39 "../../../../../dietplanner_model.ump"
 public class Liquid
 {
 
@@ -19,10 +19,8 @@ public class Liquid
   // CONSTRUCTOR
   //------------------------
 
-  public Liquid(int aCalories, double aVolume)
+  public Liquid()
   {
-    calories = aCalories;
-    volume = aVolume;
   }
 
   //------------------------

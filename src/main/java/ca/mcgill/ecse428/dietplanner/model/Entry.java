@@ -5,7 +5,7 @@ package ca.mcgill.ecse428.dietplanner.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 20 "../../../../../dietplanners_model.ump"
+// line 20 "../../../../../dietplanner_model.ump"
 public class Entry
 {
 
@@ -34,12 +34,10 @@ public class Entry
   // CONSTRUCTOR
   //------------------------
 
-  public Entry(Date aDate, int aRemaingCal, int aTotalCalCount, String aNote)
+  public Entry()
   {
-    date = aDate;
-    remaingCal = aRemaingCal;
-    totalCalCount = aTotalCalCount;
-    note = aNote;
+    date = null;
+    note = null;
     workouts = new ArrayList<Workout>();
     liquids = new ArrayList<Liquid>();
     foods = new ArrayList<Food>();
