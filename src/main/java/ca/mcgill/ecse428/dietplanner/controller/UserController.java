@@ -13,7 +13,7 @@ import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 public class UserController {
 	
 	@Autowired
-	UserRepository repository;
+	private UserRepository repository;
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody

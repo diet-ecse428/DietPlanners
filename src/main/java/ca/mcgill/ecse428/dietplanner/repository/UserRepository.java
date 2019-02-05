@@ -12,7 +12,7 @@ import ca.mcgill.ecse428.dietplanner.model.User;
 public class UserRepository {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 	
 	@Transactional
 	public User createUser(String name, String lastName, String username, String email, String password) {
