@@ -7,60 +7,42 @@ package ca.mcgill.ecse428.dietplanner.model;
 public class Liquid
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+	//------------------------
+	// MEMBER VARIABLES
+	//------------------------
 
-  //Liquid Attributes
-  private int calories;
-  private double volume;
+	//Liquid Attributes
+	private int calories;
+	private double volume;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+	//------------------------
+	// INTERFACE
+	//------------------------
 
-  public Liquid()
-  {
-  }
+	public boolean setCalories(int aCalories)
+	{
+		boolean wasSet = false;
+		calories = aCalories;
+		wasSet = true;
+		return wasSet;
+	}
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+	public boolean setVolume(double aVolume)
+	{
+		boolean wasSet = false;
+		volume = aVolume;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public boolean setCalories(int aCalories)
-  {
-    boolean wasSet = false;
-    calories = aCalories;
-    wasSet = true;
-    return wasSet;
-  }
+	public int getCalories()
+	{
+		return calories;
+	}
 
-  public boolean setVolume(double aVolume)
-  {
-    boolean wasSet = false;
-    volume = aVolume;
-    wasSet = true;
-    return wasSet;
-  }
+	public double getVolume()
+	{
+		return volume;
+	}
 
-  public int getCalories()
-  {
-    return calories;
-  }
-
-  public double getVolume()
-  {
-    return volume;
-  }
-
-  public void delete()
-  {}
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "calories" + ":" + getCalories()+ "," +
-            "volume" + ":" + getVolume()+ "]";
-  }
 }

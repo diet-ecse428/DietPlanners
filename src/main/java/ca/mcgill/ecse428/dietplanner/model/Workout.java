@@ -7,76 +7,56 @@ package ca.mcgill.ecse428.dietplanner.model;
 public class Workout
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+	//------------------------
+	// MEMBER VARIABLES
+	//------------------------
 
-  //Workout Attributes
-  private int duration;
-  private int caloriesLost;
-  private String type;
+	//Workout Attributes
+	private int duration;
+	private int caloriesLost;
+	private String type;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+	//------------------------
+	// INTERFACE
+	//------------------------
 
-  public Workout()
-  {
-    type = null;
-  }
+	public boolean setDuration(int aDuration)
+	{
+		boolean wasSet = false;
+		duration = aDuration;
+		wasSet = true;
+		return wasSet;
+	}
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+	public boolean setCaloriesLost(int aCaloriesLost)
+	{
+		boolean wasSet = false;
+		caloriesLost = aCaloriesLost;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public boolean setDuration(int aDuration)
-  {
-    boolean wasSet = false;
-    duration = aDuration;
-    wasSet = true;
-    return wasSet;
-  }
+	public boolean setType(String aType)
+	{
+		boolean wasSet = false;
+		type = aType;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public boolean setCaloriesLost(int aCaloriesLost)
-  {
-    boolean wasSet = false;
-    caloriesLost = aCaloriesLost;
-    wasSet = true;
-    return wasSet;
-  }
+	public int getDuration()
+	{
+		return duration;
+	}
 
-  public boolean setType(String aType)
-  {
-    boolean wasSet = false;
-    type = aType;
-    wasSet = true;
-    return wasSet;
-  }
+	public int getCaloriesLost()
+	{
+		return caloriesLost;
+	}
 
-  public int getDuration()
-  {
-    return duration;
-  }
+	public String getType()
+	{
+		return type;
+	}
 
-  public int getCaloriesLost()
-  {
-    return caloriesLost;
-  }
-
-  public String getType()
-  {
-    return type;
-  }
-
-  public void delete()
-  {}
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "duration" + ":" + getDuration()+ "," +
-            "caloriesLost" + ":" + getCaloriesLost()+ "," +
-            "type" + ":" + getType()+ "]";
-  }
 }

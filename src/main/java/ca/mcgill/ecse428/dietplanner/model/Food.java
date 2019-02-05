@@ -7,81 +7,62 @@ package ca.mcgill.ecse428.dietplanner.model;
 public class Food
 {
 
-  //------------------------
-  // ENUMERATIONS
-  //------------------------
+	//------------------------
+	// ENUMERATIONS
+	//------------------------
 
-  public enum MealType { Breakfast, Lunch, Dinner, Snack }
+	public enum MealType { Breakfast, Lunch, Dinner, Snack }
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+	//------------------------
+	// MEMBER VARIABLES
+	//------------------------
 
-  //Food Attributes
-  private MealType mealType;
-  private int calories;
-  private double serving;
+	//Food Attributes
+	private MealType mealType;
+	private int calories;
+	private double serving;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+	//------------------------
+	// INTERFACE
+	//------------------------
 
-  public Food()
-  {
-  }
+	public boolean setMealType(MealType aMealType)
+	{
+		boolean wasSet = false;
+		mealType = aMealType;
+		wasSet = true;
+		return wasSet;
+	}
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+	public boolean setCalories(int aCalories)
+	{
+		boolean wasSet = false;
+		calories = aCalories;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public boolean setMealType(MealType aMealType)
-  {
-    boolean wasSet = false;
-    mealType = aMealType;
-    wasSet = true;
-    return wasSet;
-  }
+	public boolean setServing(double aServing)
+	{
+		boolean wasSet = false;
+		serving = aServing;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public boolean setCalories(int aCalories)
-  {
-    boolean wasSet = false;
-    calories = aCalories;
-    wasSet = true;
-    return wasSet;
-  }
+	public MealType getMealType()
+	{
+		return mealType;
+	}
 
-  public boolean setServing(double aServing)
-  {
-    boolean wasSet = false;
-    serving = aServing;
-    wasSet = true;
-    return wasSet;
-  }
+	public int getCalories()
+	{
+		return calories;
+	}
 
-  public MealType getMealType()
-  {
-    return mealType;
-  }
+	public double getServing()
+	{
+		return serving;
+	}
 
-  public int getCalories()
-  {
-    return calories;
-  }
-
-  public double getServing()
-  {
-    return serving;
-  }
-
-  public void delete()
-  {}
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "calories" + ":" + getCalories()+ "," +
-            "serving" + ":" + getServing()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "mealType" + "=" + (getMealType() != null ? !getMealType().equals(this)  ? getMealType().toString().replaceAll("  ","    ") : "this" : "null");
-  }
 }
