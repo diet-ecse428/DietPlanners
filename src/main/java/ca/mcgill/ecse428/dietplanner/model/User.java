@@ -3,9 +3,17 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 import java.util.*;
+
+import javax.persistence.*;
+
 import java.sql.Date;
 
 // line 3 "../../../../../dietplanner_model.ump"
+@Entity
+@Table(name = "users")
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
+})
 public class User
 {
 
@@ -105,91 +113,109 @@ public class User
 		return wasSet;
 	}
 
+	@Column(name="firstname")
 	public String getName()
 	{
 		return name;
 	}
 
+	@Column(name="lastname")
 	public String getLastName()
 	{
 		return lastName;
 	}
 
+	@Column(name="email")
 	public String getEmail()
 	{
 		return email;
 	}
 	
+	@Id
+	@Column(name="username")
 	public String getUsername() {
 		return username;
 	}
 
+	@Column(name="password")
 	public String getPassword()
 	{
 		return password;
 	}
 
+	@Column(name="height", nullable=true)
 	public String getHeight()
 	{
 		return height;
 	}
 
+	@Column(name="target_weight", nullable=true)
 	public int getTargetWeight()
 	{
 		return targetWeight;
 	}
 
+	@Column(name="target_date", nullable=true)
 	public Date getTargetDate()
 	{
 		return targetDate;
 	}
 
+	@Column(name="start_weight", nullable=true)
 	public int getStartWeight()
 	{
 		return startWeight;
 	}
 	/* Code from template association_GetOne */
+	@Column(name="logbook", nullable=true)
 	public LogBook getLogBook()
 	{
 		return logBook;
 	}
 
+	@Transient
 	public boolean hasLogBook()
 	{
 		boolean has = logBook != null;
 		return has;
 	}
 	/* Code from template association_GetMany */
+	@Transient
 	public Progress getProgress(int index)
 	{
 		Progress aProgress = progresses.get(index);
 		return aProgress;
 	}
 
+	@Transient
 	public List<Progress> getProgresses()
 	{
 		List<Progress> newProgresses = Collections.unmodifiableList(progresses);
 		return newProgresses;
 	}
 
+	@Transient
 	public int numberOfProgresses()
 	{
 		int number = progresses.size();
 		return number;
 	}
 
+	@Transient
 	public boolean hasProgresses()
 	{
 		boolean has = progresses.size() > 0;
 		return has;
 	}
 
+	@Transient
 	public int indexOfProgress(Progress aProgress)
 	{
 		int index = progresses.indexOf(aProgress);
 		return index;
 	}
 	/* Code from template association_SetUnidirectionalOptionalOne */
+	@Transient
 	public boolean setLogBook(LogBook aNewLogBook)
 	{
 		boolean wasSet = false;
@@ -198,11 +224,13 @@ public class User
 		return wasSet;
 	}
 	/* Code from template association_MinimumNumberOfMethod */
+	@Transient
 	public static int minimumNumberOfProgresses()
 	{
 		return 0;
 	}
 	/* Code from template association_AddUnidirectionalMany */
+	@Transient
 	public boolean addProgress(Progress aProgress)
 	{
 		boolean wasAdded = false;
@@ -212,6 +240,7 @@ public class User
 		return wasAdded;
 	}
 
+	@Transient
 	public boolean removeProgress(Progress aProgress)
 	{
 		boolean wasRemoved = false;
@@ -223,6 +252,7 @@ public class User
 		return wasRemoved;
 	}
 	/* Code from template association_AddIndexControlFunctions */
+	@Transient
 	public boolean addProgressAt(Progress aProgress, int index)
 	{  
 		boolean wasAdded = false;
@@ -237,6 +267,7 @@ public class User
 		return wasAdded;
 	}
 
+	@Transient
 	public boolean addOrMoveProgressAt(Progress aProgress, int index)
 	{
 		boolean wasAdded = false;
