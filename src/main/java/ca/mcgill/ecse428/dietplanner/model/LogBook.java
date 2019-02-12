@@ -8,6 +8,11 @@ import javax.persistence.*;
 
 // line 15 "../../../../../dietplanner_model.ump"
 
+@Entity
+@Table(name = "logbook")
+@NamedQueries({
+    @NamedQuery(name = "LogBook.findAll", query = "SELECT e FROM LogBook e")
+})
 public class LogBook
 {
 
@@ -19,6 +24,7 @@ public class LogBook
 	private List<Entry> entries;
 	
 	private int id;
+	private User user;
 
 	//------------------------
 	// CONSTRUCTOR
@@ -34,41 +40,22 @@ public class LogBook
 	//------------------------
 	/* Code from template association_GetMany */
 	
+	@Transient
 	public Entry getEntry(int index)
 	{
 		Entry aEntry = entries.get(index);
 		return aEntry;
 	}
 
+	@Transient
 	public List<Entry> getEntries()
 	{
 		List<Entry> newEntries = Collections.unmodifiableList(entries);
 		return newEntries;
 	}
 
-	public int numberOfEntries()
-	{
-		int number = entries.size();
-		return number;
-	}
-
-	public boolean hasEntries()
-	{
-		boolean has = entries.size() > 0;
-		return has;
-	}
-
-	public int indexOfEntry(Entry aEntry)
-	{
-		int index = entries.indexOf(aEntry);
-		return index;
-	}
-	/* Code from template association_MinimumNumberOfMethod */
-	public static int minimumNumberOfEntries()
-	{
-		return 0;
-	}
 	/* Code from template association_AddUnidirectionalMany */
+	@Transient
 	public boolean addEntry(Entry aEntry)
 	{
 		boolean wasAdded = false;
@@ -78,6 +65,7 @@ public class LogBook
 		return wasAdded;
 	}
 
+	@Transient
 	public boolean removeEntry(Entry aEntry)
 	{
 		boolean wasRemoved = false;
@@ -88,45 +76,24 @@ public class LogBook
 		}
 		return wasRemoved;
 	}
-	/* Code from template association_AddIndexControlFunctions */
-	public boolean addEntryAt(Entry aEntry, int index)
-	{  
-		boolean wasAdded = false;
-		if(addEntry(aEntry))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
-			entries.remove(aEntry);
-			entries.add(index, aEntry);
-			wasAdded = true;
-		}
-		return wasAdded;
-	}
 
-	public boolean addOrMoveEntryAt(Entry aEntry, int index)
-	{
-		boolean wasAdded = false;
-		if(entries.contains(aEntry))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfEntries()) { index = numberOfEntries() - 1; }
-			entries.remove(aEntry);
-			entries.add(index, aEntry);
-			wasAdded = true;
-		} 
-		else 
-		{
-			wasAdded = addEntryAt(aEntry, index);
-		}
-		return wasAdded;
-	}
-
+	@Id
+	@Column(name="id")
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(optional=true)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

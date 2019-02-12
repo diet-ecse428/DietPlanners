@@ -3,7 +3,15 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
+import javax.persistence.*;
+
 // line 45 "../../../../../dietplanner_model.ump"
+
+@Entity
+@Table(name = "workout")
+@NamedQueries({
+    @NamedQuery(name = "Workout.findAll", query = "SELECT e FROM Workout e")
+})
 public class Workout
 {
 
@@ -12,15 +20,17 @@ public class Workout
 	//------------------------
 
 	//Workout Attributes
-	private int duration;
+	private double duration;
 	private int caloriesLost;
 	private String type;
+	private int id;
+	private Entry entry;
 
 	//------------------------
 	// INTERFACE
 	//------------------------
 
-	public boolean setDuration(int aDuration)
+	public boolean setDuration(double aDuration)
 	{
 		boolean wasSet = false;
 		duration = aDuration;
@@ -44,19 +54,41 @@ public class Workout
 		return wasSet;
 	}
 
-	public int getDuration()
+	@Column
+	public double getDuration()
 	{
 		return duration;
 	}
 
+	@Column
 	public int getCaloriesLost()
 	{
 		return caloriesLost;
 	}
 
+	@Column
 	public String getType()
 	{
 		return type;
+	}
+
+	@Id
+	@Column
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@ManyToOne(optional=true)
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
 	}
 
 }

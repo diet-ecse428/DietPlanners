@@ -3,7 +3,14 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
-// line 39 "../../../../../dietplanner_model.ump"
+import javax.persistence.*;
+
+// line 39 "../../../../../dietplanner_model.ump"@Entity
+@Entity
+@Table(name = "liquid")
+@NamedQueries({
+    @NamedQuery(name = "Liquid.findAll", query = "SELECT e FROM Liquid e")
+})
 public class Liquid
 {
 
@@ -14,6 +21,8 @@ public class Liquid
 	//Liquid Attributes
 	private int calories;
 	private double volume;
+	private int id;
+	private Entry entry;
 
 	//------------------------
 	// INTERFACE
@@ -35,14 +44,35 @@ public class Liquid
 		return wasSet;
 	}
 
+	@Column
 	public int getCalories()
 	{
 		return calories;
 	}
 
+	@Column
 	public double getVolume()
 	{
 		return volume;
+	}
+
+	@Id
+	@Column
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@ManyToOne(optional=true)
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
 	}
 
 }

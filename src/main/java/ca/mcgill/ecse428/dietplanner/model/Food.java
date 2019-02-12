@@ -3,7 +3,14 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 
+import javax.persistence.*;
+
 // line 32 "../../../../../dietplanner_model.ump"
+@Entity
+@Table(name = "food")
+@NamedQueries({
+    @NamedQuery(name = "Food.findAll", query = "SELECT e FROM Food e")
+})
 public class Food
 {
 
@@ -21,6 +28,8 @@ public class Food
 	private MealType mealType;
 	private int calories;
 	private double serving;
+	private int id;
+	private Entry entry;
 
 	//------------------------
 	// INTERFACE
@@ -50,19 +59,42 @@ public class Food
 		return wasSet;
 	}
 
+	@Enumerated(EnumType.STRING)
+	@Column
 	public MealType getMealType()
 	{
 		return mealType;
 	}
 
+	@Column
 	public int getCalories()
 	{
 		return calories;
 	}
 
+	@Column
 	public double getServing()
 	{
 		return serving;
+	}
+
+	@Id
+	@Column
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@ManyToOne(optional=true)
+	public Entry getEntry() {
+		return entry;
+	}
+
+	public void setEntry(Entry entry) {
+		this.entry = entry;
 	}
 
 }

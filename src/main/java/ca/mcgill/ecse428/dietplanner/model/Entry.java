@@ -8,7 +8,11 @@ import java.util.*;
 import javax.persistence.*;
 
 // line 20 "../../../../../dietplanner_model.ump"
-
+@Entity
+@Table(name = "entry")
+@NamedQueries({
+    @NamedQuery(name = "Entry.findAll", query = "SELECT e FROM Entry e")
+})
 public class Entry
 {
 
@@ -33,6 +37,8 @@ public class Entry
 	private List<Workout> workouts;
 	private List<Liquid> liquids;
 	private List<Food> foods;
+	
+	private LogBook logbook;
 
 	//------------------------
 	// INTERFACE
@@ -76,130 +82,74 @@ public class Entry
 		return date;
 	}
 
-	//@Column(name="remaining_calories")
+	@Column(name="remaining_calories")
 	public int getRemaingCal()
 	{
 		return remaingCal;
 	}
 
-	//@Column(name="total_calorie_count")
+	@Column(name="total_calorie_count")
 	public int getTotalCalCount()
 	{
 		return totalCalCount;
 	}
 
-	//@Column(name="note")
+	@Column(name="note")
 	public String getNote()
 	{
 		return note;
 	}
 	/* Code from template association_GetMany */
-	
+	@Transient
 	public Workout getWorkout(int index)
 	{
 		Workout aWorkout = workouts.get(index);
 		return aWorkout;
 	}
-
+	@Transient
 	public List<Workout> getWorkouts()
 	{
 		List<Workout> newWorkouts = Collections.unmodifiableList(workouts);
 		return newWorkouts;
 	}
 
-	//@Column(name="workout_count")
-	public int numberOfWorkouts()
-	{
-		int number = workouts.size();
-		return number;
-	}
-
-	//@Transient
-	public boolean hasWorkouts()
-	{
-		boolean has = workouts.size() > 0;
-		return has;
-	}
-
-	//@Transient
-	public int indexOfWorkout(Workout aWorkout)
-	{
-		int index = workouts.indexOf(aWorkout);
-		return index;
-	}
 	/* Code from template association_GetMany */
-	
+	@Transient
 	public Liquid getLiquid(int index)
 	{
 		Liquid aLiquid = liquids.get(index);
 		return aLiquid;
 	}
 
+	@Transient
 	public List<Liquid> getLiquids()
 	{
 		List<Liquid> newLiquids = Collections.unmodifiableList(liquids);
 		return newLiquids;
 	}
 
-	//@Column(name="liquid_count")
-	public int numberOfLiquids()
-	{
-		int number = liquids.size();
-		return number;
-	}
-
-	//@Transient
-	public boolean hasLiquids()
-	{
-		boolean has = liquids.size() > 0;
-		return has;
-	}
-
-	//@Transient
-	public int indexOfLiquid(Liquid aLiquid)
-	{
-		int index = liquids.indexOf(aLiquid);
-		return index;
-	}
 	/* Code from template association_GetMany */
+	@Transient
 	public Food getFood(int index)
 	{
 		Food aFood = foods.get(index);
 		return aFood;
 	}
 
+	@Transient
 	public List<Food> getFoods()
 	{
 		List<Food> newFoods = Collections.unmodifiableList(foods);
 		return newFoods;
 	}
 
-	//@Column(name="food_count")
+	@Transient
 	public int numberOfFoods()
 	{
 		int number = foods.size();
 		return number;
 	}
 
-	//@Transient
-	public boolean hasFoods()
-	{
-		boolean has = foods.size() > 0;
-		return has;
-	}
-
-	//@Transient
-	public int indexOfFood(Food aFood)
-	{
-		int index = foods.indexOf(aFood);
-		return index;
-	}
-	/* Code from template association_MinimumNumberOfMethod */
-	@Transient
-	public static int minimumNumberOfWorkouts()
-	{
-		return 0;
-	}
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addWorkout(Workout aWorkout)
@@ -222,48 +172,9 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	/* Code from template association_AddIndexControlFunctions */
-	//@Transient
-	public boolean addWorkoutAt(Workout aWorkout, int index)
-	{  
-		boolean wasAdded = false;
-		if(addWorkout(aWorkout))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfWorkouts()) { index = numberOfWorkouts() - 1; }
-			workouts.remove(aWorkout);
-			workouts.add(index, aWorkout);
-			wasAdded = true;
-		}
-		return wasAdded;
-	}
-
-	//@Transient
-	public boolean addOrMoveWorkoutAt(Workout aWorkout, int index)
-	{
-		boolean wasAdded = false;
-		if(workouts.contains(aWorkout))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfWorkouts()) { index = numberOfWorkouts() - 1; }
-			workouts.remove(aWorkout);
-			workouts.add(index, aWorkout);
-			wasAdded = true;
-		} 
-		else 
-		{
-			wasAdded = addWorkoutAt(aWorkout, index);
-		}
-		return wasAdded;
-	}
-	/* Code from template association_MinimumNumberOfMethod */
-	//@Transient
-	public static int minimumNumberOfLiquids()
-	{
-		return 0;
-	}
+	
 	/* Code from template association_AddUnidirectionalMany */
-	//@Transient
+	@Transient
 	public boolean addLiquid(Liquid aLiquid)
 	{
 		boolean wasAdded = false;
@@ -284,48 +195,9 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	/* Code from template association_AddIndexControlFunctions */
-	//@Transient
-	public boolean addLiquidAt(Liquid aLiquid, int index)
-	{  
-		boolean wasAdded = false;
-		if(addLiquid(aLiquid))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfLiquids()) { index = numberOfLiquids() - 1; }
-			liquids.remove(aLiquid);
-			liquids.add(index, aLiquid);
-			wasAdded = true;
-		}
-		return wasAdded;
-	}
-
-	//@Transient
-	public boolean addOrMoveLiquidAt(Liquid aLiquid, int index)
-	{
-		boolean wasAdded = false;
-		if(liquids.contains(aLiquid))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfLiquids()) { index = numberOfLiquids() - 1; }
-			liquids.remove(aLiquid);
-			liquids.add(index, aLiquid);
-			wasAdded = true;
-		} 
-		else 
-		{
-			wasAdded = addLiquidAt(aLiquid, index);
-		}
-		return wasAdded;
-	}
-	/* Code from template association_MinimumNumberOfMethod */
-	//@Transient
-	public static int minimumNumberOfFoods()
-	{
-		return 0;
-	}
+	
 	/* Code from template association_AddUnidirectionalMany */
-	//@Transient
+	@Transient
 	public boolean addFood(Food aFood)
 	{
 		boolean wasAdded = false;
@@ -335,7 +207,7 @@ public class Entry
 		return wasAdded;
 	}
 
-	//@Transient
+	@Transient
 	public boolean removeFood(Food aFood)
 	{
 		boolean wasRemoved = false;
@@ -346,49 +218,24 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	/* Code from template association_AddIndexControlFunctions */
-	//@Transient
-	public boolean addFoodAt(Food aFood, int index)
-	{  
-		boolean wasAdded = false;
-		if(addFood(aFood))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfFoods()) { index = numberOfFoods() - 1; }
-			foods.remove(aFood);
-			foods.add(index, aFood);
-			wasAdded = true;
-		}
-		return wasAdded;
-	}
-
-	//@Transient
-	public boolean addOrMoveFoodAt(Food aFood, int index)
-	{
-		boolean wasAdded = false;
-		if(foods.contains(aFood))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfFoods()) { index = numberOfFoods() - 1; }
-			foods.remove(aFood);
-			foods.add(index, aFood);
-			wasAdded = true;
-		} 
-		else 
-		{
-			wasAdded = addFoodAt(aFood, index);
-		}
-		return wasAdded;
-	}
-
-	//@Id
-	//@Column(name="id")
+	
+	@Id
+	@Column(name="id")
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@ManyToOne(optional=true)
+	public LogBook getLogbook() {
+		return logbook;
+	}
+
+	public void setLogbook(LogBook logbook) {
+		this.logbook = logbook;
 	}
 	
 }
