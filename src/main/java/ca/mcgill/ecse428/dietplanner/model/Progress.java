@@ -24,7 +24,8 @@ public class Progress
 	private int weight;
 	private Date date;
 	private String picture;
-	private User user;
+	//private User user;
+	private int userId;
 
 	//------------------------
 	// INTERFACE
@@ -82,13 +83,22 @@ public class Progress
 		return id;
 	}
 
-	@ManyToOne(optional=true)
-	public User getUser() {
-		return user;
+	@Column(name="user_id")
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
+
+//	@Column(name="user")
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 }

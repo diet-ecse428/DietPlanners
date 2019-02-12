@@ -34,7 +34,7 @@ public class User
 
 	//User Associations
 	private LogBook logBook;
-	private List<Progress> progresses;
+	private Set<Progress> progresses;
 
 
 	//------------------------
@@ -175,11 +175,15 @@ public class User
 	}
 
 
-	@Transient
-	public List<Progress> getProgresses()
+	@OneToMany
+	@JoinColumn(name="user_id", referencedColumnName="username")
+	public Set<Progress> getProgresses()
 	{
-		List<Progress> newProgresses = Collections.unmodifiableList(progresses);
-		return newProgresses;
+		return progresses;
+	}
+	
+	public void setProgresses(Set<Progress> progresses) {
+		this.progresses = progresses;
 	}
 	
 	/* Code from template association_SetUnidirectionalOptionalOne */
@@ -189,29 +193,6 @@ public class User
 		logBook = aNewLogBook;
 		wasSet = true;
 		return wasSet;
-	}
-	
-	/* Code from template association_AddUnidirectionalMany */
-	@Transient
-	public boolean addProgress(Progress aProgress)
-	{
-		boolean wasAdded = false;
-		if (progresses.contains(aProgress)) { return false; }
-		progresses.add(aProgress);
-		wasAdded = true;
-		return wasAdded;
-	}
-
-	@Transient
-	public boolean removeProgress(Progress aProgress)
-	{
-		boolean wasRemoved = false;
-		if (progresses.contains(aProgress))
-		{
-			progresses.remove(aProgress);
-			wasRemoved = true;
-		}
-		return wasRemoved;
 	}
 	
 
