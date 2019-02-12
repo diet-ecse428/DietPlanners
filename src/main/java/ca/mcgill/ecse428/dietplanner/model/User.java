@@ -168,7 +168,8 @@ public class User
 	}
 	
 	/* Code from template association_GetOne */
-	@Transient
+	@OneToOne
+	@JoinColumn(name="logbook_id")
 	public LogBook getLogBook()
 	{
 		return logBook;
