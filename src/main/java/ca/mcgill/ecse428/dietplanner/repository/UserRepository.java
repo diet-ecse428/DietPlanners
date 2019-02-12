@@ -25,5 +25,11 @@ public class UserRepository {
 		em.persist(user);
 		return user;
 	}
+	@Transactional
+	public User getUser(String name) {
+		User user = em.find(User.class, name);
+		return user;
+	}
+
 
 }
