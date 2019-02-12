@@ -25,7 +25,7 @@ public class Progress
 	private Date date;
 	private String picture;
 	//private User user;
-	private int userId;
+	private String userId;
 
 	//------------------------
 	// INTERFACE
@@ -84,11 +84,11 @@ public class Progress
 	}
 
 	@Column(name="user_id")
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

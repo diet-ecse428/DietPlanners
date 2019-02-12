@@ -23,8 +23,9 @@ public class LogBook
 	//LogBook Associations
 	private List<Entry> entries;
 	
-	private int id;
-	private User user;
+	private int logbookId;
+	//private User user;
+	//private String user_id;
 
 	//------------------------
 	// CONSTRUCTOR
@@ -78,22 +79,31 @@ public class LogBook
 	}
 
 	@Id
-	@Column(name="id")
+	@Column(name="logbook_id")
 	public int getId() {
-		return id;
+		return logbookId;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.logbookId = id;
 	}
 
-	@ManyToOne(optional=true)
-	public User getUser() {
-		return user;
-	}
+//	@ManyToOne(optional=true)
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	@Column(name="user_id")
+//	public String getUser_id() {
+//		return user_id;
+//	}
+//
+//	public void setUser_id(String user_id) {
+//		this.user_id = user_id;
+//	}
 
 }
