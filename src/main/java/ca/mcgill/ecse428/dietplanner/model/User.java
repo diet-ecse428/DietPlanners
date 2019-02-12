@@ -166,26 +166,14 @@ public class User
 	{
 		return startWeight;
 	}
+	
 	/* Code from template association_GetOne */
-	@Column(name="logbook", nullable=true)
+	@Transient
 	public LogBook getLogBook()
 	{
 		return logBook;
 	}
 
-	@Transient
-	public boolean hasLogBook()
-	{
-		boolean has = logBook != null;
-		return has;
-	}
-	/* Code from template association_GetMany */
-	@Transient
-	public Progress getProgress(int index)
-	{
-		Progress aProgress = progresses.get(index);
-		return aProgress;
-	}
 
 	@Transient
 	public List<Progress> getProgresses()
@@ -193,29 +181,8 @@ public class User
 		List<Progress> newProgresses = Collections.unmodifiableList(progresses);
 		return newProgresses;
 	}
-
-	@Transient
-	public int numberOfProgresses()
-	{
-		int number = progresses.size();
-		return number;
-	}
-
-	@Transient
-	public boolean hasProgresses()
-	{
-		boolean has = progresses.size() > 0;
-		return has;
-	}
-
-	@Transient
-	public int indexOfProgress(Progress aProgress)
-	{
-		int index = progresses.indexOf(aProgress);
-		return index;
-	}
+	
 	/* Code from template association_SetUnidirectionalOptionalOne */
-	@Transient
 	public boolean setLogBook(LogBook aNewLogBook)
 	{
 		boolean wasSet = false;
@@ -223,12 +190,7 @@ public class User
 		wasSet = true;
 		return wasSet;
 	}
-	/* Code from template association_MinimumNumberOfMethod */
-	@Transient
-	public static int minimumNumberOfProgresses()
-	{
-		return 0;
-	}
+	
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addProgress(Progress aProgress)
@@ -251,39 +213,6 @@ public class User
 		}
 		return wasRemoved;
 	}
-	/* Code from template association_AddIndexControlFunctions */
-	@Transient
-	public boolean addProgressAt(Progress aProgress, int index)
-	{  
-		boolean wasAdded = false;
-		if(addProgress(aProgress))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfProgresses()) { index = numberOfProgresses() - 1; }
-			progresses.remove(aProgress);
-			progresses.add(index, aProgress);
-			wasAdded = true;
-		}
-		return wasAdded;
-	}
-
-	@Transient
-	public boolean addOrMoveProgressAt(Progress aProgress, int index)
-	{
-		boolean wasAdded = false;
-		if(progresses.contains(aProgress))
-		{
-			if(index < 0 ) { index = 0; }
-			if(index > numberOfProgresses()) { index = numberOfProgresses() - 1; }
-			progresses.remove(aProgress);
-			progresses.add(index, aProgress);
-			wasAdded = true;
-		} 
-		else 
-		{
-			wasAdded = addProgressAt(aProgress, index);
-		}
-		return wasAdded;
-	}
+	
 
 }

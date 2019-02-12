@@ -5,7 +5,10 @@ package ca.mcgill.ecse428.dietplanner.model;
 import java.sql.Date;
 import java.util.*;
 
+import javax.persistence.*;
+
 // line 20 "../../../../../dietplanner_model.ump"
+
 public class Entry
 {
 
@@ -24,6 +27,7 @@ public class Entry
 	private int remaingCal;
 	private int totalCalCount;
 	private String note;
+	private int id;
 
 	//Entry Associations
 	private List<Workout> workouts;
@@ -66,26 +70,31 @@ public class Entry
 		return wasSet;
 	}
 
+	@Column(name="date")
 	public Date getDate()
 	{
 		return date;
 	}
 
+	//@Column(name="remaining_calories")
 	public int getRemaingCal()
 	{
 		return remaingCal;
 	}
 
+	//@Column(name="total_calorie_count")
 	public int getTotalCalCount()
 	{
 		return totalCalCount;
 	}
 
+	//@Column(name="note")
 	public String getNote()
 	{
 		return note;
 	}
 	/* Code from template association_GetMany */
+	
 	public Workout getWorkout(int index)
 	{
 		Workout aWorkout = workouts.get(index);
@@ -98,24 +107,28 @@ public class Entry
 		return newWorkouts;
 	}
 
+	//@Column(name="workout_count")
 	public int numberOfWorkouts()
 	{
 		int number = workouts.size();
 		return number;
 	}
 
+	//@Transient
 	public boolean hasWorkouts()
 	{
 		boolean has = workouts.size() > 0;
 		return has;
 	}
 
+	//@Transient
 	public int indexOfWorkout(Workout aWorkout)
 	{
 		int index = workouts.indexOf(aWorkout);
 		return index;
 	}
 	/* Code from template association_GetMany */
+	
 	public Liquid getLiquid(int index)
 	{
 		Liquid aLiquid = liquids.get(index);
@@ -128,18 +141,21 @@ public class Entry
 		return newLiquids;
 	}
 
+	//@Column(name="liquid_count")
 	public int numberOfLiquids()
 	{
 		int number = liquids.size();
 		return number;
 	}
 
+	//@Transient
 	public boolean hasLiquids()
 	{
 		boolean has = liquids.size() > 0;
 		return has;
 	}
 
+	//@Transient
 	public int indexOfLiquid(Liquid aLiquid)
 	{
 		int index = liquids.indexOf(aLiquid);
@@ -158,29 +174,34 @@ public class Entry
 		return newFoods;
 	}
 
+	//@Column(name="food_count")
 	public int numberOfFoods()
 	{
 		int number = foods.size();
 		return number;
 	}
 
+	//@Transient
 	public boolean hasFoods()
 	{
 		boolean has = foods.size() > 0;
 		return has;
 	}
 
+	//@Transient
 	public int indexOfFood(Food aFood)
 	{
 		int index = foods.indexOf(aFood);
 		return index;
 	}
 	/* Code from template association_MinimumNumberOfMethod */
+	@Transient
 	public static int minimumNumberOfWorkouts()
 	{
 		return 0;
 	}
 	/* Code from template association_AddUnidirectionalMany */
+	@Transient
 	public boolean addWorkout(Workout aWorkout)
 	{
 		boolean wasAdded = false;
@@ -190,6 +211,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean removeWorkout(Workout aWorkout)
 	{
 		boolean wasRemoved = false;
@@ -201,6 +223,7 @@ public class Entry
 		return wasRemoved;
 	}
 	/* Code from template association_AddIndexControlFunctions */
+	//@Transient
 	public boolean addWorkoutAt(Workout aWorkout, int index)
 	{  
 		boolean wasAdded = false;
@@ -215,6 +238,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean addOrMoveWorkoutAt(Workout aWorkout, int index)
 	{
 		boolean wasAdded = false;
@@ -233,11 +257,13 @@ public class Entry
 		return wasAdded;
 	}
 	/* Code from template association_MinimumNumberOfMethod */
+	//@Transient
 	public static int minimumNumberOfLiquids()
 	{
 		return 0;
 	}
 	/* Code from template association_AddUnidirectionalMany */
+	//@Transient
 	public boolean addLiquid(Liquid aLiquid)
 	{
 		boolean wasAdded = false;
@@ -247,6 +273,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean removeLiquid(Liquid aLiquid)
 	{
 		boolean wasRemoved = false;
@@ -258,6 +285,7 @@ public class Entry
 		return wasRemoved;
 	}
 	/* Code from template association_AddIndexControlFunctions */
+	//@Transient
 	public boolean addLiquidAt(Liquid aLiquid, int index)
 	{  
 		boolean wasAdded = false;
@@ -272,6 +300,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean addOrMoveLiquidAt(Liquid aLiquid, int index)
 	{
 		boolean wasAdded = false;
@@ -290,11 +319,13 @@ public class Entry
 		return wasAdded;
 	}
 	/* Code from template association_MinimumNumberOfMethod */
+	//@Transient
 	public static int minimumNumberOfFoods()
 	{
 		return 0;
 	}
 	/* Code from template association_AddUnidirectionalMany */
+	//@Transient
 	public boolean addFood(Food aFood)
 	{
 		boolean wasAdded = false;
@@ -304,6 +335,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean removeFood(Food aFood)
 	{
 		boolean wasRemoved = false;
@@ -315,6 +347,7 @@ public class Entry
 		return wasRemoved;
 	}
 	/* Code from template association_AddIndexControlFunctions */
+	//@Transient
 	public boolean addFoodAt(Food aFood, int index)
 	{  
 		boolean wasAdded = false;
@@ -329,6 +362,7 @@ public class Entry
 		return wasAdded;
 	}
 
+	//@Transient
 	public boolean addOrMoveFoodAt(Food aFood, int index)
 	{
 		boolean wasAdded = false;
@@ -345,6 +379,16 @@ public class Entry
 			wasAdded = addFoodAt(aFood, index);
 		}
 		return wasAdded;
+	}
+
+	//@Id
+	//@Column(name="id")
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

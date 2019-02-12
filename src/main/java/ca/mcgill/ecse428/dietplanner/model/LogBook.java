@@ -3,9 +3,11 @@
 
 package ca.mcgill.ecse428.dietplanner.model;
 import java.util.*;
-import java.sql.Date;
+
+import javax.persistence.*;
 
 // line 15 "../../../../../dietplanner_model.ump"
+
 public class LogBook
 {
 
@@ -15,6 +17,8 @@ public class LogBook
 
 	//LogBook Associations
 	private List<Entry> entries;
+	
+	private int id;
 
 	//------------------------
 	// CONSTRUCTOR
@@ -29,6 +33,7 @@ public class LogBook
 	// INTERFACE
 	//------------------------
 	/* Code from template association_GetMany */
+	
 	public Entry getEntry(int index)
 	{
 		Entry aEntry = entries.get(index);
@@ -114,6 +119,14 @@ public class LogBook
 			wasAdded = addEntryAt(aEntry, index);
 		}
 		return wasAdded;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
