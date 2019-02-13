@@ -10,13 +10,16 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>DietPlanners-backend</artifactId>
+<!-- 	<artifactId>junit5-jupiter-starter-maven</artifactId> -->
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DietPlanners</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<junit.jupiter.version>5.3.1</junit.jupiter.version>
 	</properties>
+	
 
 	<dependencies>
 		<dependency>
@@ -38,7 +41,46 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+			<!--ILANA  -->
+
 		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.24.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>2.18.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- in order to run project from eclipse: -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>1.3.1</version>
+			<scope>test</scope>
+		</dependency>
+<!-- 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
@@ -50,6 +92,12 @@
 			<version>5.0.0-M1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>1.0.0-M3</version>
+			<scope>test</scope>
+		</dependency>  -->
 	</dependencies>
 
 	<build>
