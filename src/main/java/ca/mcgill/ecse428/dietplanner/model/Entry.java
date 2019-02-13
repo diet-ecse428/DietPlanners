@@ -121,7 +121,7 @@ public class Entry
 	}
 
 	@Lob
-	@Column(name="note")
+	@Column(name="note", columnDefinition = "text")
 	public String getNote()
 	{
 		return note;
