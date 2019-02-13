@@ -29,7 +29,7 @@ public class Food
 	private int calories;
 	private double serving;
 	private int id;
-	private Entry entry;
+	private int entryId;
 
 	//------------------------
 	// INTERFACE
@@ -87,14 +87,14 @@ public class Food
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@ManyToOne(optional=true)
-	public Entry getEntry() {
-		return entry;
+
+	@Column(name="fk_entry_id")
+	public int getEntryId() {
+		return entryId;
 	}
 
-	public void setEntry(Entry entry) {
-		this.entry = entry;
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
 	}
 
 }

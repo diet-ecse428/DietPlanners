@@ -21,38 +21,28 @@ public class LogBook
 	//------------------------
 
 	//LogBook Associations
-	private List<Entry> entries;
+	private Set<Entry> entries; //TODO: make Set<> and do same annotations for user->progress
 	
 	private int logbookId;
 	//private User user;
 	//private String user_id;
 
-	//------------------------
-	// CONSTRUCTOR
-	//------------------------
-
-	public LogBook()
-	{
-		entries = new ArrayList<Entry>();
-	}
+	
 
 	//------------------------
 	// INTERFACE
 	//------------------------
 	/* Code from template association_GetMany */
 	
-	@Transient
-	public Entry getEntry(int index)
-	{
-		Entry aEntry = entries.get(index);
-		return aEntry;
+	public void setEntries(Set<Entry> entries) {
+		this.entries = entries;
 	}
 
-	@Transient
-	public List<Entry> getEntries()
+	@OneToMany
+	@JoinColumn(name="fk_logbook_id", referencedColumnName="logbook_id")
+	public Set<Entry> getEntries()
 	{
-		List<Entry> newEntries = Collections.unmodifiableList(entries);
-		return newEntries;
+		return entries;
 	}
 
 	/* Code from template association_AddUnidirectionalMany */

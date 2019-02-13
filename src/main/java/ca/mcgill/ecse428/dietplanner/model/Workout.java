@@ -24,7 +24,7 @@ public class Workout
 	private int caloriesLost;
 	private String type;
 	private int id;
-	private Entry entry;
+	private int entryId;
 
 	//------------------------
 	// INTERFACE
@@ -81,14 +81,14 @@ public class Workout
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@ManyToOne(optional=true)
-	public Entry getEntry() {
-		return entry;
+
+	@Column(name="fk_entry_id")
+	public int getEntryId() {
+		return entryId;
 	}
 
-	public void setEntry(Entry entry) {
-		this.entry = entry;
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
 	}
 
 }
