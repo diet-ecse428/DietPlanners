@@ -3,51 +3,49 @@ package ca.mcgill.ecse428.dietplanner.dto;
 import java.sql.Date;
 
 public class ProgressDTO {
-	//Progress Attributes
-	private int weight;
+	private int id;
+	private double weight;
 	private Date date;
-	private String picture;
-
-	//------------------------
-	// INTERFACE
-	//------------------------
-
-	public boolean setWeight(int aWeight)
-	{
-		boolean wasSet = false;
-		weight = aWeight;
-		wasSet = true;
-		return wasSet;
+	private byte[] picture;
+	private String userId;
+	
+	public ProgressDTO(int id, double weight, Date date, byte[] picture, String userId) {
+		this.id = id;
+		this.weight = weight;
+		this.date = date;
+		this.picture = picture;
+		this.userId = userId;
 	}
-
-	public boolean setDate(Date aDate)
-	{
-		boolean wasSet = false;
-		date = aDate;
-		wasSet = true;
-		return wasSet;
+	
+	public int getId() {
+		return id;
 	}
-
-	public boolean setPicture(String aPicture)
-	{
-		boolean wasSet = false;
-		picture = aPicture;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public int getWeight()
-	{
+	public double getWeight() {
 		return weight;
 	}
-
-	public Date getDate()
-	{
+	public Date getDate() {
 		return date;
 	}
-
-	public String getPicture()
-	{
+	public byte[] getPicture() {
 		return picture;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 }

@@ -2,50 +2,49 @@ package ca.mcgill.ecse428.dietplanner.dto;
 
 public class WorkoutDTO {
 	//Workout Attributes
-	private int duration;
+	private double duration;
 	private int caloriesLost;
 	private String type;
-
-	//------------------------
-	// INTERFACE
-	//------------------------
-
-	public boolean setDuration(int aDuration)
-	{
-		boolean wasSet = false;
-		duration = aDuration;
-		wasSet = true;
-		return wasSet;
+	private int id;
+	private int entryId;
+	
+	public WorkoutDTO(double duration, int caloriesLost, String type, int id, int entryId) {
+		this.duration = duration;
+		this.caloriesLost = caloriesLost;
+		this.type = type;
+		this.id = id;
+		this.entryId = entryId;
 	}
-
-	public boolean setCaloriesLost(int aCaloriesLost)
-	{
-		boolean wasSet = false;
-		caloriesLost = aCaloriesLost;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public boolean setType(String aType)
-	{
-		boolean wasSet = false;
-		type = aType;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public int getDuration()
-	{
+	
+	public double getDuration() {
 		return duration;
 	}
-
-	public int getCaloriesLost()
-	{
+	public int getCaloriesLost() {
 		return caloriesLost;
 	}
-
-	public String getType()
-	{
+	public String getType() {
 		return type;
 	}
+	public int getId() {
+		return id;
+	}
+	public int getEntryId() {
+		return entryId;
+	}
+	public void setDuration(double duration) {
+		this.duration = duration;
+	}
+	public void setCaloriesLost(int caloriesLost) {
+		this.caloriesLost = caloriesLost;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
+	
 }

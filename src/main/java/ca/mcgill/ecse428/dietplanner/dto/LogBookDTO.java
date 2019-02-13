@@ -4,14 +4,27 @@ import java.util.List;
 
 public class LogBookDTO {
 	
-	private List<EntryDTO> entries;
+	private int logbookId;
+//	private List<EntryDTO> entries;
 
-	public List<EntryDTO> getEntries() {
-		return entries;
+	public LogBookDTO(int logbookId) {
+		this.logbookId = logbookId;
+	}
+	
+//	public List<EntryDTO> getEntries() {
+//		return entries;
+//	}
+//
+//	public void setEntries(List<EntryDTO> entries) {
+//		this.entries = entries;
+//	}
+
+	public int getLogbookId() {
+		return logbookId;
 	}
 
-	public void setEntries(List<EntryDTO> entries) {
-		this.entries = entries;
+	public void setLogbookId(int logbookId) {
+		this.logbookId = logbookId;
 	}
 	
 }

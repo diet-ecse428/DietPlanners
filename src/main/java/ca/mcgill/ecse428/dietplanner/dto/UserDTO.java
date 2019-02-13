@@ -1,5 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.dto;
 
+import java.sql.Date;
+
 public class UserDTO {
 
 	private String name;
@@ -8,9 +10,9 @@ public class UserDTO {
 	private String username;
 	private String password;
 	private String height;
-	private String targetWeight;
-	private String targetDate;
-	private String startWeight;
+	private double targetWeight;
+	private Date targetDate;
+	private double startWeight;
 	
 	public UserDTO(String name, String lastName, String email, String username, String password) {
 		this.name = name;
@@ -20,8 +22,8 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public UserDTO(String name, String lastName, String email, String username, String password, String height, String targetWeight,
-			String targetDate, String startWeight) {
+	public UserDTO(String name, String lastName, String email, String username, String password, String height, double targetWeight,
+			Date targetDate, double startWeight) {
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
@@ -81,27 +83,27 @@ public class UserDTO {
 		this.height = height;
 	}
 	
-	public String getTargetWeight() {
+	public double getTargetWeight() {
 		return targetWeight;
 	}
 	
-	public void setTargetWeight(String targetWeight) {
+	public void setTargetWeight(double targetWeight) {
 		this.targetWeight = targetWeight;
 	}
 	
-	public String getTargetDate() {
+	public Date getTargetDate() {
 		return targetDate;
 	}
 	
-	public void setTargetDate(String targetDate) {
+	public void setTargetDate(Date targetDate) {
 		this.targetDate = targetDate;
 	}
 	
-	public String getStartWeight() {
+	public double getStartWeight() {
 		return startWeight;
 	}
 	
-	public void setStartWeight(String startWeight) {
+	public void setStartWeight(double startWeight) {
 		this.startWeight = startWeight;
 	}
 	
