@@ -12,7 +12,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
+	@NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
 })
 public class User
 {
@@ -28,13 +28,13 @@ public class User
 	private String username;
 	private String password;
 	private String height;
-	private int targetWeight;
+	private double targetWeight;
 	private Date targetDate;
-	private int startWeight;
+	private double startWeight;
 
 	//User Associations
 	private LogBook logBook;
-	private List<Progress> progresses;
+	private Set<Progress> progresses;
 
 
 	//------------------------
@@ -72,7 +72,7 @@ public class User
 		wasSet = true;
 		return wasSet;
 	}
-	
+
 	public boolean setPassword(String aPassword)
 	{
 		boolean wasSet = false;
@@ -89,7 +89,7 @@ public class User
 		return wasSet;
 	}
 
-	public boolean setTargetWeight(int aTargetWeight)
+	public boolean setTargetWeight(double aTargetWeight)
 	{
 		boolean wasSet = false;
 		targetWeight = aTargetWeight;
@@ -105,10 +105,23 @@ public class User
 		return wasSet;
 	}
 
-	public boolean setStartWeight(int aStartWeight)
+	public boolean setStartWeight(double aStartWeight)
 	{
 		boolean wasSet = false;
 		startWeight = aStartWeight;
+		wasSet = true;
+		return wasSet;
+	}
+	
+	public void setProgresses(Set<Progress> progresses) {
+		this.progresses = progresses;
+	}
+
+	/* Code from template association_SetUnidirectionalOptionalOne */
+	public boolean setLogBook(LogBook aNewLogBook)
+	{
+		boolean wasSet = false;
+		logBook = aNewLogBook;
 		wasSet = true;
 		return wasSet;
 	}
@@ -130,7 +143,7 @@ public class User
 	{
 		return email;
 	}
-	
+
 	@Id
 	@Column(name="username")
 	public String getUsername() {
@@ -150,7 +163,7 @@ public class User
 	}
 
 	@Column(name="target_weight", nullable=true)
-	public int getTargetWeight()
+	public double getTargetWeight()
 	{
 		return targetWeight;
 	}
@@ -162,57 +175,25 @@ public class User
 	}
 
 	@Column(name="start_weight", nullable=true)
-	public int getStartWeight()
+	public double getStartWeight()
 	{
 		return startWeight;
 	}
-	
+
 	/* Code from template association_GetOne */
-	@Transient
+	@OneToOne
+	@JoinColumn(name="logbook_id")
 	public LogBook getLogBook()
 	{
 		return logBook;
 	}
 
 
-	@Transient
-	public List<Progress> getProgresses()
+	@OneToMany
+	@JoinColumn(name="user_id", referencedColumnName="username")
+	public Set<Progress> getProgresses()
 	{
-		List<Progress> newProgresses = Collections.unmodifiableList(progresses);
-		return newProgresses;
+		return progresses;
 	}
-	
-	/* Code from template association_SetUnidirectionalOptionalOne */
-	public boolean setLogBook(LogBook aNewLogBook)
-	{
-		boolean wasSet = false;
-		logBook = aNewLogBook;
-		wasSet = true;
-		return wasSet;
-	}
-	
-	/* Code from template association_AddUnidirectionalMany */
-	@Transient
-	public boolean addProgress(Progress aProgress)
-	{
-		boolean wasAdded = false;
-		if (progresses.contains(aProgress)) { return false; }
-		progresses.add(aProgress);
-		wasAdded = true;
-		return wasAdded;
-	}
-
-	@Transient
-	public boolean removeProgress(Progress aProgress)
-	{
-		boolean wasRemoved = false;
-		if (progresses.contains(aProgress))
-		{
-			progresses.remove(aProgress);
-			wasRemoved = true;
-		}
-		return wasRemoved;
-	}
-	
 
 }

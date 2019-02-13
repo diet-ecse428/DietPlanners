@@ -7,47 +7,47 @@ public class FoodDTO {
 	private MealType mealType;
 	private int calories;
 	private double serving;
-
-	//------------------------
-	// INTERFACE
-	//------------------------
-
-	public boolean setMealType(MealType aMealType)
-	{
-		boolean wasSet = false;
-		mealType = aMealType;
-		wasSet = true;
-		return wasSet;
+	private int id;
+	private int entryId;
+	
+	public FoodDTO(MealType mealType, int calories, double serving, int id, int entryId) {
+		this.mealType = mealType;
+		this.calories = calories;
+		this.serving = serving;
+		this.id = id;
+		this.entryId = entryId;
 	}
-
-	public boolean setCalories(int aCalories)
-	{
-		boolean wasSet = false;
-		calories = aCalories;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public boolean setServing(double aServing)
-	{
-		boolean wasSet = false;
-		serving = aServing;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public MealType getMealType()
-	{
+	
+	public MealType getMealType() {
 		return mealType;
 	}
-
-	public int getCalories()
-	{
+	public int getCalories() {
 		return calories;
 	}
-
-	public double getServing()
-	{
+	public double getServing() {
 		return serving;
 	}
+	public int getId() {
+		return id;
+	}
+	public int getEntryId() {
+		return entryId;
+	}
+	public void setMealType(MealType mealType) {
+		this.mealType = mealType;
+	}
+	public void setCalories(int calories) {
+		this.calories = calories;
+	}
+	public void setServing(double serving) {
+		this.serving = serving;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
+
+	
 }

@@ -21,16 +21,17 @@ public class Progress
 
 	//Progress Attributes
 	private int id;
-	private int weight;
+	private double weight;
 	private Date date;
-	private String picture;
-	private User user;
+	private byte[] picture;
+	//private User user;
+	private String userId;
 
 	//------------------------
 	// INTERFACE
 	//------------------------
 
-	public boolean setWeight(int aWeight)
+	public boolean setWeight(double aWeight)
 	{
 		boolean wasSet = false;
 		weight = aWeight;
@@ -46,7 +47,7 @@ public class Progress
 		return wasSet;
 	}
 
-	public boolean setPicture(String aPicture)
+	public boolean setPicture(byte[] aPicture)
 	{
 		boolean wasSet = false;
 		picture = aPicture;
@@ -57,9 +58,13 @@ public class Progress
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	@Column(name="weight")
-	public int getWeight()
+	public double getWeight()
 	{
 		return weight;
 	}
@@ -70,8 +75,9 @@ public class Progress
 		return date;
 	}
 
-	@Transient
-	public String getPicture()
+	@Lob
+	@Column(name="picture")
+	public byte[] getPicture()
 	{
 		return picture;
 	}
@@ -82,13 +88,9 @@ public class Progress
 		return id;
 	}
 
-	@ManyToOne(optional=true)
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	@Column(name="user_id")
+	public String getUserId() {
+		return userId;
 	}
 
 }

@@ -22,7 +22,7 @@ public class Liquid
 	private int calories;
 	private double volume;
 	private int id;
-	private Entry entry;
+	private int entryId;
 
 	//------------------------
 	// INTERFACE
@@ -43,6 +43,14 @@ public class Liquid
 		wasSet = true;
 		return wasSet;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
 
 	@Column
 	public int getCalories()
@@ -62,17 +70,9 @@ public class Liquid
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@ManyToOne(optional=true)
-	public Entry getEntry() {
-		return entry;
-	}
-
-	public void setEntry(Entry entry) {
-		this.entry = entry;
+	@Column(name="fk_entry_id")
+	public int getEntryId() {
+		return entryId;
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "logbook")
 @NamedQueries({
-    @NamedQuery(name = "LogBook.findAll", query = "SELECT e FROM LogBook e")
+	@NamedQuery(name = "LogBook.findAll", query = "SELECT e FROM LogBook e")
 })
 public class LogBook
 {
@@ -21,37 +21,39 @@ public class LogBook
 	//------------------------
 
 	//LogBook Associations
-	private List<Entry> entries;
-	
-	private int id;
-	private User user;
+	private Set<Entry> entries; //TODO: make Set<> and do same annotations for user->progress
 
-	//------------------------
-	// CONSTRUCTOR
-	//------------------------
+	private int logbookId;
+	//private User user;
+	//private String user_id;
 
-	public LogBook()
-	{
-		entries = new ArrayList<Entry>();
-	}
+
 
 	//------------------------
 	// INTERFACE
 	//------------------------
 	/* Code from template association_GetMany */
+
+	public void setEntries(Set<Entry> entries) {
+		this.entries = entries;
+	}
 	
-	@Transient
-	public Entry getEntry(int index)
-	{
-		Entry aEntry = entries.get(index);
-		return aEntry;
+
+	public void setId(int id) {
+		this.logbookId = id;
 	}
 
-	@Transient
-	public List<Entry> getEntries()
+	@OneToMany
+	@JoinColumn(name="fk_logbook_id", referencedColumnName="logbook_id")
+	public Set<Entry> getEntries()
 	{
-		List<Entry> newEntries = Collections.unmodifiableList(entries);
-		return newEntries;
+		return entries;
+	}
+	
+	@Id
+	@Column(name="logbook_id")
+	public int getId() {
+		return logbookId;
 	}
 
 	/* Code from template association_AddUnidirectionalMany */
@@ -75,25 +77,6 @@ public class LogBook
 			wasRemoved = true;
 		}
 		return wasRemoved;
-	}
-
-	@Id
-	@Column(name="id")
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@ManyToOne(optional=true)
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

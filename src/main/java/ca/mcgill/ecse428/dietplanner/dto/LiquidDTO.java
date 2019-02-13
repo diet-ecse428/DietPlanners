@@ -4,35 +4,39 @@ public class LiquidDTO {
 	//Liquid Attributes
 	private int calories;
 	private double volume;
-
-	//------------------------
-	// INTERFACE
-	//------------------------
-
-	public boolean setCalories(int aCalories)
-	{
-		boolean wasSet = false;
-		calories = aCalories;
-		wasSet = true;
-		return wasSet;
+	private int id;
+	private int entryId;
+	
+	public LiquidDTO(int calories, double volume, int id, int entryId) {
+		this.calories = calories;
+		this.volume = volume;
+		this.id = id;
+		this.entryId = entryId;
 	}
-
-	public boolean setVolume(double aVolume)
-	{
-		boolean wasSet = false;
-		volume = aVolume;
-		wasSet = true;
-		return wasSet;
-	}
-
-	public int getCalories()
-	{
+	
+	public int getCalories() {
 		return calories;
 	}
-
-	public double getVolume()
-	{
+	public double getVolume() {
 		return volume;
+	}
+	public int getId() {
+		return id;
+	}
+	public int getEntryId() {
+		return entryId;
+	}
+	public void setCalories(int calories) {
+		this.calories = calories;
+	}
+	public void setVolume(double volume) {
+		this.volume = volume;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
 	}
 
 }

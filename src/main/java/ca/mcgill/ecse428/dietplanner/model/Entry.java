@@ -7,11 +7,13 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 // line 20 "../../../../../dietplanner_model.ump"
 @Entity
 @Table(name = "entry")
 @NamedQueries({
-    @NamedQuery(name = "Entry.findAll", query = "SELECT e FROM Entry e")
+	@NamedQuery(name = "Entry.findAll", query = "SELECT e FROM Entry e")
 })
 public class Entry
 {
@@ -31,14 +33,14 @@ public class Entry
 	private int remaingCal;
 	private int totalCalCount;
 	private String note;
-	private int id;
+	private int entryId;
 
 	//Entry Associations
-	private List<Workout> workouts;
-	private List<Liquid> liquids;
-	private List<Food> foods;
-	
-	private LogBook logbook;
+	private Set<Workout> workouts;
+	private Set<Liquid> liquids;
+	private Set<Food> foods;
+
+	private int logbookId;
 
 	//------------------------
 	// INTERFACE
@@ -76,6 +78,32 @@ public class Entry
 		return wasSet;
 	}
 
+	public void setFoods(Set<Food> foods) {
+		this.foods = foods;
+	}
+
+	public void setWorkouts(Set<Workout> workouts) {
+		this.workouts = workouts;
+	}
+
+	public void setLiquids(Set<Liquid> liquids) {
+		this.liquids = liquids;
+	}
+	
+	public void setId(int id) {
+		this.entryId = id;
+	}
+
+	public void setLogbookId(int logbookId) {
+		this.logbookId = logbookId;
+	}
+	
+	@Id
+	@Column(name="entry_id")
+	public int getId() {
+		return entryId;
+	}
+
 	@Column(name="date")
 	public Date getDate()
 	{
@@ -93,61 +121,38 @@ public class Entry
 	{
 		return totalCalCount;
 	}
-
+	
+	@Lob
 	@Column(name="note")
 	public String getNote()
 	{
 		return note;
 	}
-	/* Code from template association_GetMany */
-	@Transient
-	public Workout getWorkout(int index)
+
+	@OneToMany
+	@JoinColumn(name="fk_entry_id", referencedColumnName="entry_id")
+	public Set<Workout> getWorkouts()
 	{
-		Workout aWorkout = workouts.get(index);
-		return aWorkout;
-	}
-	@Transient
-	public List<Workout> getWorkouts()
-	{
-		List<Workout> newWorkouts = Collections.unmodifiableList(workouts);
-		return newWorkouts;
+		return this.workouts;
 	}
 
-	/* Code from template association_GetMany */
-	@Transient
-	public Liquid getLiquid(int index)
+	@OneToMany
+	@JoinColumn(name="fk_entry_id", referencedColumnName="entry_id")
+	public Set<Liquid> getLiquids()
 	{
-		Liquid aLiquid = liquids.get(index);
-		return aLiquid;
+		return this.liquids;
 	}
 
-	@Transient
-	public List<Liquid> getLiquids()
+	@OneToMany
+	@JoinColumn(name="fk_entry_id", referencedColumnName="entry_id")
+	public Set<Food> getFoods()
 	{
-		List<Liquid> newLiquids = Collections.unmodifiableList(liquids);
-		return newLiquids;
+		return this.foods;
 	}
-
-	/* Code from template association_GetMany */
-	@Transient
-	public Food getFood(int index)
-	{
-		Food aFood = foods.get(index);
-		return aFood;
-	}
-
-	@Transient
-	public List<Food> getFoods()
-	{
-		List<Food> newFoods = Collections.unmodifiableList(foods);
-		return newFoods;
-	}
-
-	@Transient
-	public int numberOfFoods()
-	{
-		int number = foods.size();
-		return number;
+	
+	@Column(name="fk_logbook_id")
+	public int getLogbookId() {
+		return logbookId;
 	}
 
 	/* Code from template association_AddUnidirectionalMany */
@@ -161,7 +166,7 @@ public class Entry
 		return wasAdded;
 	}
 
-	//@Transient
+	@Transient
 	public boolean removeWorkout(Workout aWorkout)
 	{
 		boolean wasRemoved = false;
@@ -172,7 +177,7 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
+
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addLiquid(Liquid aLiquid)
@@ -184,7 +189,7 @@ public class Entry
 		return wasAdded;
 	}
 
-	//@Transient
+	@Transient
 	public boolean removeLiquid(Liquid aLiquid)
 	{
 		boolean wasRemoved = false;
@@ -195,7 +200,7 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
+
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addFood(Food aFood)
@@ -218,24 +223,5 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
-	@Id
-	@Column(name="id")
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@ManyToOne(optional=true)
-	public LogBook getLogbook() {
-		return logbook;
-	}
-
-	public void setLogbook(LogBook logbook) {
-		this.logbook = logbook;
-	}
-	
 }
