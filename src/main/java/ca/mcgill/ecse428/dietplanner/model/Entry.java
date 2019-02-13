@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "entry")
 @NamedQueries({
-    @NamedQuery(name = "Entry.findAll", query = "SELECT e FROM Entry e")
+	@NamedQuery(name = "Entry.findAll", query = "SELECT e FROM Entry e")
 })
 public class Entry
 {
@@ -37,7 +37,7 @@ public class Entry
 	private Set<Workout> workouts;
 	private Set<Liquid> liquids;
 	private Set<Food> foods;
-	
+
 	private int logbookId;
 
 	//------------------------
@@ -75,17 +75,31 @@ public class Entry
 		wasSet = true;
 		return wasSet;
 	}
-	
+
 	public void setFoods(Set<Food> foods) {
 		this.foods = foods;
 	}
-	
+
 	public void setWorkouts(Set<Workout> workouts) {
 		this.workouts = workouts;
 	}
-	
+
 	public void setLiquids(Set<Liquid> liquids) {
 		this.liquids = liquids;
+	}
+	
+	public void setId(int id) {
+		this.entryId = id;
+	}
+
+	public void setLogbookId(int logbookId) {
+		this.logbookId = logbookId;
+	}
+	
+	@Id
+	@Column(name="entry_id")
+	public int getId() {
+		return entryId;
 	}
 
 	@Column(name="date")
@@ -106,12 +120,13 @@ public class Entry
 		return totalCalCount;
 	}
 
+	@Lob
 	@Column(name="note")
 	public String getNote()
 	{
 		return note;
 	}
-	
+
 	@OneToMany
 	@JoinColumn(name="fk_entry_id", referencedColumnName="entry_id")
 	public Set<Workout> getWorkouts()
@@ -131,6 +146,11 @@ public class Entry
 	public Set<Food> getFoods()
 	{
 		return this.foods;
+	}
+	
+	@Column(name="fk_logbook_id")
+	public int getLogbookId() {
+		return logbookId;
 	}
 
 	/* Code from template association_AddUnidirectionalMany */
@@ -155,7 +175,7 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
+
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addLiquid(Liquid aLiquid)
@@ -178,7 +198,7 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
+
 	/* Code from template association_AddUnidirectionalMany */
 	@Transient
 	public boolean addFood(Food aFood)
@@ -201,24 +221,5 @@ public class Entry
 		}
 		return wasRemoved;
 	}
-	
-	@Id
-	@Column(name="entry_id")
-	public int getId() {
-		return entryId;
-	}
 
-	public void setId(int id) {
-		this.entryId = id;
-	}
-
-	@Column(name="fk_logbook_id")
-	public int getLogbookId() {
-		return logbookId;
-	}
-
-	public void setLogbookId(int logbookId) {
-		this.logbookId = logbookId;
-	}
-	
 }

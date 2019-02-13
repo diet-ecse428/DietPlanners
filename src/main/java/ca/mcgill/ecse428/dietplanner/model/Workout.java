@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "workout")
 @NamedQueries({
-    @NamedQuery(name = "Workout.findAll", query = "SELECT e FROM Workout e")
+	@NamedQuery(name = "Workout.findAll", query = "SELECT e FROM Workout e")
 })
 public class Workout
 {
@@ -54,10 +54,29 @@ public class Workout
 		return wasSet;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
+
+	@Id
+	@Column
+	public int getId() {
+		return id;
+	}
+
 	@Column
 	public double getDuration()
 	{
 		return duration;
+	}
+
+	@Column(name="fk_entry_id")
+	public int getEntryId() {
+		return entryId;
 	}
 
 	@Column
@@ -70,25 +89,6 @@ public class Workout
 	public String getType()
 	{
 		return type;
-	}
-
-	@Id
-	@Column
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Column(name="fk_entry_id")
-	public int getEntryId() {
-		return entryId;
-	}
-
-	public void setEntryId(int entryId) {
-		this.entryId = entryId;
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "logbook")
 @NamedQueries({
-    @NamedQuery(name = "LogBook.findAll", query = "SELECT e FROM LogBook e")
+	@NamedQuery(name = "LogBook.findAll", query = "SELECT e FROM LogBook e")
 })
 public class LogBook
 {
@@ -22,20 +22,25 @@ public class LogBook
 
 	//LogBook Associations
 	private Set<Entry> entries; //TODO: make Set<> and do same annotations for user->progress
-	
+
 	private int logbookId;
 	//private User user;
 	//private String user_id;
 
-	
+
 
 	//------------------------
 	// INTERFACE
 	//------------------------
 	/* Code from template association_GetMany */
-	
+
 	public void setEntries(Set<Entry> entries) {
 		this.entries = entries;
+	}
+	
+
+	public void setId(int id) {
+		this.logbookId = id;
 	}
 
 	@OneToMany
@@ -43,6 +48,12 @@ public class LogBook
 	public Set<Entry> getEntries()
 	{
 		return entries;
+	}
+	
+	@Id
+	@Column(name="logbook_id")
+	public int getId() {
+		return logbookId;
 	}
 
 	/* Code from template association_AddUnidirectionalMany */
@@ -67,33 +78,5 @@ public class LogBook
 		}
 		return wasRemoved;
 	}
-
-	@Id
-	@Column(name="logbook_id")
-	public int getId() {
-		return logbookId;
-	}
-
-	public void setId(int id) {
-		this.logbookId = id;
-	}
-
-//	@ManyToOne(optional=true)
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-
-//	@Column(name="user_id")
-//	public String getUser_id() {
-//		return user_id;
-//	}
-//
-//	public void setUser_id(String user_id) {
-//		this.user_id = user_id;
-//	}
 
 }

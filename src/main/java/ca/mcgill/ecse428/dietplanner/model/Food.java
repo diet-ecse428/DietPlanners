@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "food")
 @NamedQueries({
-    @NamedQuery(name = "Food.findAll", query = "SELECT e FROM Food e")
+	@NamedQuery(name = "Food.findAll", query = "SELECT e FROM Food e")
 })
 public class Food
 {
@@ -59,6 +59,20 @@ public class Food
 		return wasSet;
 	}
 
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Id
+	@Column
+	public int getId() {
+		return id;
+	}
+
 	@Enumerated(EnumType.STRING)
 	@Column
 	public MealType getMealType()
@@ -78,23 +92,9 @@ public class Food
 		return serving;
 	}
 
-	@Id
-	@Column
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@Column(name="fk_entry_id")
 	public int getEntryId() {
 		return entryId;
-	}
-
-	public void setEntryId(int entryId) {
-		this.entryId = entryId;
 	}
 
 }

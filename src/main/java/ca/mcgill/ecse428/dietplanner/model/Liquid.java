@@ -43,6 +43,14 @@ public class Liquid
 		wasSet = true;
 		return wasSet;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setEntryId(int entryId) {
+		this.entryId = entryId;
+	}
 
 	@Column
 	public int getCalories()
@@ -62,17 +70,9 @@ public class Liquid
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@Column(name="fk_entry_id")
 	public int getEntryId() {
 		return entryId;
-	}
-
-	public void setEntryId(int entryId) {
-		this.entryId = entryId;
 	}
 
 }
