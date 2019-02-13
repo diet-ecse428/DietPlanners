@@ -29,14 +29,14 @@ public class UserRepository {
 		user.setEmail(email);
 		
 		//test
-//		LogBook lb = new LogBook();
-//		lb.setId(0);
-//		Entry entry = new Entry();
-//		entry.setNote("hello my name is noam and i am creating the backend of our ecse428 project which is called dietplanners");
-//		Set<Entry> entries = new HashSet<Entry>();
-//		lb.setEntries(entries);
-//		em.persist(lb);
-//		em.persist(entry);
+		LogBook lb = new LogBook();
+		lb.setId(0);
+		Entry entry = new Entry();
+		entry.setNote("hello my name is noam and i am creating the backend of our ecse428 project which is called dietplanners");
+		Set<Entry> entries = new HashSet<Entry>();
+		lb.setEntries(entries);
+		em.persist(lb);
+		em.persist(entry);
 		
 		em.persist(user);
 		return user;

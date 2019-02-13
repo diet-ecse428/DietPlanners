@@ -7,6 +7,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 // line 20 "../../../../../dietplanner_model.ump"
 @Entity
 @Table(name = "entry")
@@ -119,9 +121,9 @@ public class Entry
 	{
 		return totalCalCount;
 	}
-
+	
 	@Lob
-	@Column(name="note", columnDefinition = "text")
+	@Column(name="note")
 	public String getNote()
 	{
 		return note;
