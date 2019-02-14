@@ -31,6 +31,7 @@ public class UserController {
 	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
 			@RequestParam("username") String username, @RequestParam("email") String email, 
 			@RequestParam("password") String password) {
+		// TODO: CHANGE THIS TO CREATE ACCOUNT WITH ALL INPUT INFORMATION WE NEED
 		User result = repository.createUser(name, lastName, username, email, password);
 		if(result != null) {
 			UserDTO user = new UserDTO(name, lastName, email, username, password);
@@ -46,7 +47,7 @@ public class UserController {
 		if(user == null) {
 			return ERROR_USER_NOT_FOUND_MESSAGE;
 		}
-		return user.getName();
+		return user.getEmail();
 	}
 
 }
