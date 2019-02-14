@@ -2,12 +2,15 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,69 +24,91 @@ public class UserRepository {
 
 	@PersistenceContext
 	public EntityManager em;
-	
+
 	// TODO: GET RID OF THIS METHOD AND USE CREATEACCOUNT BELLOW
 	@Transactional
-	public User createUser(String name, String lastName, String username, String email, String password) {
+	public User createAccount(String email, String firstName, String lastName, String username, String password,
+			String height, double targetWeight, Date targetDate, double startWeight) {
+		
 		User user  = new User();
-		user.setName(name);
+		user.setName(firstName);
 		user.setLastName(lastName);
-		user.setUsername(username);
+		boolean userValid = validateUsername(username);
+		if(userValid) {
+			user.setUsername(username);
+		}else {
+			return null;
+		}
 		user.setPassword(password);
-		user.setEmail(email);
+		boolean emailValid = validateEmail(email);
+		if(emailValid) {
+			user.setEmail(email);
+		} else {
+			return null;
+		}
 		
-		//test
-		LogBook lb = new LogBook();
-		lb.setId(0);
-		Entry entry = new Entry();
-		entry.setNote("hello my name is noam and i am creating the backend of our ecse428 project which is called dietplanners");
-		Set<Entry> entries = new HashSet<Entry>();
-		lb.setEntries(entries);
-		user.setLogBook(lb);
-		em.persist(lb);
-		em.persist(entry);
-				
+		user.setHeight(height);
+		user.setTargetWeight(targetWeight);
 		
+		boolean dateValid = validateDate(targetDate);
+		if(dateValid) {
+			user.setTargetDate(targetDate);
+		} else {
+			return null;
+		}
+		
+		user.setStartWeight(startWeight);
+		
+
 		em.persist(user);
 		return user;
 	}
+	private boolean validateDate(Date targetDate) {
+		Calendar calendar = Calendar.getInstance();
+		java.util.Date currentDate = calendar.getTime();
+		java.sql.Date todayDate = new java.sql.Date(currentDate.getTime());
+		if (targetDate.after(todayDate)) {
+			return true;
+		} 
+		return false;	
+	}
+	private boolean validateEmail(String email) {
+		int atPosition=0;
+		int numberValidAt = 0;
+		boolean hasAt=false;
+		boolean hasDot=false;
+		for(int i =0; i < email.length(); i++) {
+			if (email.charAt(i) == '@' && numberValidAt==1){
+				hasAt = true;
+				numberValidAt++;
+				atPosition = i;
+			}
+			if(i>atPosition) {
+				if (email.charAt(i) == '.'){
+					hasDot = true;
+					break;
+				}
+			}
+		}
+		
+		return hasAt && hasDot;
+	}
+	
 	@Transactional
 	public User getUser(String email) {
 		User user = em.find(User.class, email);
 		return user;
 	}
 
-	@Transactional
-	public User createAccount(String email, String firstName, String lastName, String username, String password,
-			String height, double targetWeight, Date targetDate, double startWeight) throws InvalidInputException{
-		/* 	- check if account with that email already exists, if it does return error
-			- do input validation for all input :
-				email must have one '@' and one '.'
-				username must be unique 
-				password must have at least 6 characters + 1 number
-				targetDate must be in the future		
-		*/
-		
-		User user  = new User();
-		user.setName(firstName);
-		user.setLastName(lastName);
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setEmail(email);
-		
-		LogBook lb = new LogBook();
-		lb.setId(0);
-		Entry entry = new Entry();
-		entry.setNote("hello my name is noam and i am creating the backend of our ecse428 project which is called dietplanners");
-		Set<Entry> entries = new HashSet<Entry>();
-		lb.setEntries(entries);
-		user.setLogBook(lb);
-		em.persist(lb);
-		em.persist(entry);
-		
-		em.persist(user);
-		return user;
+	public boolean validateUsername(String username) {
+		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+		List<String> usernames = query.getResultList();
+		for (String thisUsername : usernames) {
+			if(username.equals(thisUsername)) {
+				return false;
+			}
+		}
+		return true;
 	}
-
 
 }

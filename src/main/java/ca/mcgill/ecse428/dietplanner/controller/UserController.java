@@ -1,5 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,11 +32,14 @@ public class UserController {
 	@ResponseBody
 	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
 			@RequestParam("username") String username, @RequestParam("email") String email, 
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, @RequestParam("height") String height, 
+			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") Date targetDate, 
+			@RequestParam("startWeight") double startWeight)  {
 		// TODO: CHANGE THIS TO CREATE ACCOUNT WITH ALL INPUT INFORMATION WE NEED
-		User result = repository.createUser(name, lastName, username, email, password);
+		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		if(result != null) {
-			UserDTO user = new UserDTO(name, lastName, email, username, password);
+			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
+					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
 			return user;
 		}else {
 			return null;
