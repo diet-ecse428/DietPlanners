@@ -64,7 +64,7 @@ public class CreateAccountTests {
 		//userDao.ge
 	}
 //
-//	@BeforeEach
+	@BeforeEach
 	void setMockOutput() {
 	  when(userDao.getUser(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
 	    if(invocation.getArgument(0).equals(USER_KEY)) {

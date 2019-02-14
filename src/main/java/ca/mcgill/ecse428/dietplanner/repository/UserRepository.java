@@ -38,6 +38,7 @@ public class UserRepository {
 		entry.setNote("hello my name is noam and i am creating the backend of our ecse428 project which is called dietplanners");
 		Set<Entry> entries = new HashSet<Entry>();
 		lb.setEntries(entries);
+		user.setLogBook(lb);
 		em.persist(lb);
 		em.persist(entry);
 				
