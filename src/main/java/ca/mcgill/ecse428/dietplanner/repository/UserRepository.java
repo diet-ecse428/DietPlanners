@@ -2,6 +2,8 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +30,7 @@ public class UserRepository {
 	// TODO: GET RID OF THIS METHOD AND USE CREATEACCOUNT BELLOW
 	@Transactional
 	public User createAccount(String email, String firstName, String lastName, String username, String password,
-			String height, double targetWeight, Date targetDate, double startWeight) {
+			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
 		
 		User user  = new User();
 		user.setName(firstName);
@@ -37,6 +39,7 @@ public class UserRepository {
 		if(userValid) {
 			user.setUsername(username);
 		}else {
+			System.out.println("username invalid");
 			return null;
 		}
 		user.setPassword(password);
@@ -44,16 +47,21 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
+			System.out.println("email invalid");
 			return null;
 		}
 		
 		user.setHeight(height);
 		user.setTargetWeight(targetWeight);
 		
-		boolean dateValid = validateDate(targetDate);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		boolean dateValid = validateDate(sqlStartDate);
 		if(dateValid) {
-			user.setTargetDate(targetDate);
+			user.setTargetDate(sqlStartDate);
 		} else {
+			System.out.println("date invalid");
 			return null;
 		}
 		
@@ -74,23 +82,27 @@ public class UserRepository {
 	}
 	private boolean validateEmail(String email) {
 		int atPosition=0;
-		int numberValidAt = 0;
 		boolean hasAt=false;
 		boolean hasDot=false;
 		for(int i =0; i < email.length(); i++) {
-			if (email.charAt(i) == '@' && numberValidAt==1){
+			System.out.println("before char @ there?: "+(email.charAt(i) == '@'));
+			if (email.charAt(i) == '@'){
 				hasAt = true;
-				numberValidAt++;
 				atPosition = i;
+				continue;
 			}
-			if(i>atPosition) {
+			System.out.println("after char @ there?: "+(email.charAt(i) == '@'));
+			System.out.println("before i>atPos?: "+(i>atPosition));
+			if(i>atPosition && hasAt) {
 				if (email.charAt(i) == '.'){
 					hasDot = true;
 					break;
 				}
 			}
+			System.out.println("after i>atPos?: "+(i>atPosition));
 		}
-		
+		System.out.println(hasAt);
+		System.out.println(hasDot);
 		return hasAt && hasDot;
 	}
 	

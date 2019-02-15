@@ -1,6 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,8 +34,8 @@ public class UserController {
 	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
 			@RequestParam("username") String username, @RequestParam("email") String email, 
 			@RequestParam("password") String password, @RequestParam("height") String height, 
-			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") Date targetDate, 
-			@RequestParam("startWeight") double startWeight)  {
+			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
+			@RequestParam("startWeight") double startWeight) throws ParseException  {
 		// TODO: CHANGE THIS TO CREATE ACCOUNT WITH ALL INPUT INFORMATION WE NEED
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		if(result != null) {
