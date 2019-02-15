@@ -29,7 +29,7 @@ public class UserRepository {
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
-			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
+			String height, double targetWeight, String targetDate, double startWeight) throws InvalidInputException, ParseException {
 		
 		User user  = new User();
 		user.setName(firstName);
@@ -45,7 +45,7 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Email is invalid.\n");
 		}
 		
 		user.setHeight(height);
@@ -58,7 +58,7 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
 		user.setStartWeight(startWeight);
@@ -101,7 +101,11 @@ public class UserRepository {
 	
 	@Transactional
 	public User getUser(String email) {
-		User user = em.find(User.class, email);
+		User user = null;
+		
+		if(em.contains(User.class)) {
+			 user = em.find(User.class, email);
+		}
 		return user;
 	}
 

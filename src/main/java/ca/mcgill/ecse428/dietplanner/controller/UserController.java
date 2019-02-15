@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
 import ca.mcgill.ecse428.dietplanner.model.User;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
 
@@ -35,7 +36,7 @@ public class UserController {
 			@RequestParam("username") String username, @RequestParam("email") String email, 
 			@RequestParam("password") String password, @RequestParam("height") String height, 
 			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) throws ParseException  {
+			@RequestParam("startWeight") double startWeight) throws ParseException, InvalidInputException  {
 
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		if(result != null) {
