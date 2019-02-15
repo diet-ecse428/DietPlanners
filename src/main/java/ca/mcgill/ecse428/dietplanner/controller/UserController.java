@@ -36,7 +36,7 @@ public class UserController {
 			@RequestParam("password") String password, @RequestParam("height") String height, 
 			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
 			@RequestParam("startWeight") double startWeight) throws ParseException  {
-		// TODO: CHANGE THIS TO CREATE ACCOUNT WITH ALL INPUT INFORMATION WE NEED
+
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		if(result != null) {
 			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),

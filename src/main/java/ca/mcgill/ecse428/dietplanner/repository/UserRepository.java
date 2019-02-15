@@ -26,10 +26,9 @@ public class UserRepository {
 
 	@PersistenceContext
 	public EntityManager em;
-
-	// TODO: GET RID OF THIS METHOD AND USE CREATEACCOUNT BELLOW
+	
 	@Transactional
-	public User createAccount(String email, String firstName, String lastName, String username, String password,
+	public User createAccount(String firstName, String lastName, String username, String email, String password,
 			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
 		
 		User user  = new User();
@@ -39,7 +38,6 @@ public class UserRepository {
 		if(userValid) {
 			user.setUsername(username);
 		}else {
-			System.out.println("username invalid");
 			return null;
 		}
 		user.setPassword(password);
@@ -47,7 +45,6 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-			System.out.println("email invalid");
 			return null;
 		}
 		
@@ -61,7 +58,6 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			System.out.println("date invalid");
 			return null;
 		}
 		
@@ -80,29 +76,26 @@ public class UserRepository {
 		} 
 		return false;	
 	}
+	
 	private boolean validateEmail(String email) {
 		int atPosition=0;
 		boolean hasAt=false;
+		int atCount=0;
 		boolean hasDot=false;
 		for(int i =0; i < email.length(); i++) {
-			System.out.println("before char @ there?: "+(email.charAt(i) == '@'));
 			if (email.charAt(i) == '@'){
 				hasAt = true;
 				atPosition = i;
+				atCount++;
 				continue;
 			}
-			System.out.println("after char @ there?: "+(email.charAt(i) == '@'));
-			System.out.println("before i>atPos?: "+(i>atPosition));
-			if(i>atPosition && hasAt) {
+			if(i>atPosition && hasAt && atCount == 1) {
 				if (email.charAt(i) == '.'){
 					hasDot = true;
 					break;
 				}
 			}
-			System.out.println("after i>atPos?: "+(i>atPosition));
 		}
-		System.out.println(hasAt);
-		System.out.println(hasDot);
 		return hasAt && hasDot;
 	}
 	
