@@ -137,4 +137,25 @@ public class UserRepository {
 		return false;	
 	}
 
+	@Transactional
+	public UserDTO loginUser(String username, String password) {
+		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+		List<String> usernames = query.getResultList();
+
+		for (String thisUsername : usernames) {
+			if(username.equals(thisUsername)) {
+
+				User user = em.find(User.class, username);
+				String userPassword = user.getPassword();
+
+				if (userPassword.equals(password)) {
+					return user;
+				}
+
+			}
+		}
+
+		return null;	
+	}
+
 }

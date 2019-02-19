@@ -25,16 +25,16 @@ import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 @RequestMapping("api/user")
 public class UserController {
 	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
-			@RequestParam("username") String username, @RequestParam("email") String email, 
-			@RequestParam("password") String password, @RequestParam("height") String height, 
-			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
+			@RequestParam("username") String username, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("height") String height,
+			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate,
 			@RequestParam("startWeight") double startWeight) throws ParseException  {
 
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
@@ -46,7 +46,7 @@ public class UserController {
 			return null;
 		}
 	}
-	
+
 	@GetMapping("/users/{email}")
 	public String queryUser(@PathVariable("email") String email) {
 		User user = repository.getUser(email);
@@ -54,6 +54,20 @@ public class UserController {
 			return ERROR_USER_NOT_FOUND_MESSAGE;
 		}
 		return user.getEmail();
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public UserDTO login(@RequestParam("username") String username,	@RequestParam("password") String password) throws ParseException  {
+
+		User result = repository.loginUser(username,password);
+		if(result != null) {
+			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), null, result.getHeight(),
+					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
+			return user;
+		}else {
+			return null;
+		}
 	}
 
 }
