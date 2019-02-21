@@ -47,6 +47,23 @@ public class UserController {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
+	@ResponseBody
+	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
+			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
+			@RequestParam("startWeight") double startWeight) {
+		UserDTO user = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
+		
+		if (user != null ) {
+			return user;
+		}
+		else {
+			return null;
+		}
+		
+	}
+	
 	@GetMapping("/users/{email}")
 	public String queryUser(@PathVariable("email") String email) {
 		User user = repository.getUser(email);
