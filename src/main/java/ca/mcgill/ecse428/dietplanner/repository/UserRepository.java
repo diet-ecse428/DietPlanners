@@ -136,5 +136,20 @@ public class UserRepository {
 
 		return false;	
 	}
+	@Transactional
+	public Food updateUserMealInfo(String newMealType, int calories, double serving, int mealId, int entryId){
+
+		Entry entry = em.find(Entry.class, entryId);
+		Food meal = em.find(Food.class, mealId);
+
+		meal.setMealType(MealType.valueOf(newMealType));
+		meal.setServing(serving);
+		int currentCalories = meal.getCalories();
+		meal.setCalories(currentCalories - calories);
+
+		em.persist(meal);
+		return meal;
+
+	}
 
 }
