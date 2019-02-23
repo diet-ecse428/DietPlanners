@@ -151,5 +151,30 @@ public class UserRepository {
 		return meal;
 
 	}
+	
+	@Transactional
+	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {
+		User user = em.find(User.class, username);
+		if(user==null) {
+			return null;
+		}
+		user.setTargetWeight(targetWeight);
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		boolean dateValid = validateDate(sqlStartDate);
+		if(dateValid) {
+			user.setTargetDate(sqlStartDate);
+		} else {
+			return null;
+		}
+		
+		user.setStartWeight(startWeight);
+		
+
+		em.persist(user);
+		return user;
+	}
 
 }
