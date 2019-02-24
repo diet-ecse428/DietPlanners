@@ -19,6 +19,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -71,6 +72,11 @@ public class UserTests {
 	    if(invocation.getArgument(0).equals(USER_KEY)) {
 	      User user = new User();
 	      user.setEmail(USER_KEY);
+	      user.setUsername(username);
+	      user.setHeight(height);
+	      user.setStartWeight(startWeight);
+	      user.setStartWeight(targetWeight);
+	      user.setTargetDate(targetDate_valid);
 	      return user;
 	    } 
 	    else {
@@ -79,12 +85,14 @@ public class UserTests {
 	  });
 	}
 	@Test
-	void nullUserInfo() {
+	void invalidUserInfo() {
 		assertNotNull(username);
 		assertNotNull(height);
 		assertNotNull(targetWeight);
 		assertNotNull(startWeight);
 		assertNotNull(targetDate_valid);
+		assertTrue(targetWeight > 0);		
+		assertTrue(startWeight > 0);
 	}
 	
 
