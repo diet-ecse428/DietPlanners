@@ -49,6 +49,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{email}")
+	@ResponseBody
 	public String queryUser(@PathVariable("email") String email) {
 		User user = repository.getUser(email);
 		if(user == null) {

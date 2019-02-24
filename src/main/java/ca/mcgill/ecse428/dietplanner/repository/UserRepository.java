@@ -11,7 +11,9 @@ import java.util.Set;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -26,6 +28,9 @@ public class UserRepository {
 
 	@PersistenceContext
 	public EntityManager em;
+	
+	@PersistenceUnit    
+	private EntityManagerFactory emf;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
@@ -102,8 +107,9 @@ public class UserRepository {
 	@Transactional
 	public User getUser(String email) {
 		User user = null;
+		em = emf.createEntityManager();
 		
-		if(em.contains(User.class)) {
+		if(em!=null) {
 			 user = em.find(User.class, email);
 		}
 		return user;
