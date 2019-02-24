@@ -52,10 +52,12 @@ public class UserController {
 	@ResponseBody
 	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
 			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) {
-		UserDTO user = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
+			@RequestParam("startWeight") double startWeight) throws ParseException {
+		User result = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
 		
-		if (user != null ) {
+		if (result != null ) {
+			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
+					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
 			return user;
 		}
 		else {

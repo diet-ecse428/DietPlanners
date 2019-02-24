@@ -18,6 +18,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.Food;
+import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
