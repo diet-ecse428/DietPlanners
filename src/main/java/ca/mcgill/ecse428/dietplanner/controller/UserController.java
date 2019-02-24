@@ -48,6 +48,25 @@ public class UserController {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
+	@ResponseBody
+	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
+			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
+			@RequestParam("startWeight") double startWeight) throws ParseException {
+		User result = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
+		
+		if (result != null ) {
+			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
+					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
+			return user;
+		}
+		else {
+			return null;
+		}
+		
+	}
+	
 	@GetMapping("/users/{email}")
 	@ResponseBody
 	public String queryUser(@PathVariable("email") String email) {

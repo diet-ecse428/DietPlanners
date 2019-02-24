@@ -20,6 +20,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.Food;
+import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -124,6 +126,67 @@ public class UserRepository {
 			}
 		}
 		return true;
+	}
+	
+	@Transactional
+	public boolean login(String username, String password) {
+		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+		List<String> usernames = query.getResultList();
+
+		for (String thisUsername : usernames) {
+			if(username.equals(thisUsername)) {
+
+				User user = em.find(User.class, username);
+				String userPassword = user.getPassword();
+
+				if (userPassword.equals(password)) {
+					return true;
+				}
+
+			}
+		}
+
+		return false;	
+	}
+	@Transactional
+	public Food updateUserMealInfo(String newMealType, int calories, double serving, int mealId, int entryId){
+
+		Entry entry = em.find(Entry.class, entryId);
+		Food meal = em.find(Food.class, mealId);
+
+		meal.setMealType(MealType.valueOf(newMealType));
+		meal.setServing(serving);
+		int currentCalories = meal.getCalories();
+		meal.setCalories(currentCalories - calories);
+
+		em.persist(meal);
+		return meal;
+
+	}
+	
+	@Transactional
+	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {
+		User user = em.find(User.class, username);
+		if(user==null) {
+			return null;
+		}
+		user.setTargetWeight(targetWeight);
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		boolean dateValid = validateDate(sqlStartDate);
+		if(dateValid) {
+			user.setTargetDate(sqlStartDate);
+		} else {
+			return null;
+		}
+		
+		user.setStartWeight(startWeight);
+		
+
+		em.persist(user);
+		return user;
 	}
 
 }
