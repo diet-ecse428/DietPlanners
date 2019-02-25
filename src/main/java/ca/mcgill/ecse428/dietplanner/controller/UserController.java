@@ -28,7 +28,7 @@ public class UserController {
 	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
 	
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repository = new UserRepository();
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody

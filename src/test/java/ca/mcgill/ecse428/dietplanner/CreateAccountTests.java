@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
@@ -27,7 +28,9 @@ import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import java.sql.Date;
 import java.text.ParseException;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 
@@ -37,10 +40,18 @@ public class CreateAccountTests {
 	private UserDTO dtoMock;
 	
 	@InjectMocks
-	private UserRepository userDao;
+	private UserRepository userDao = new UserRepository();
 	
 	@InjectMocks
-	private UserController controller;
+	private UserController controller = new UserController();
+	
+	@PersistenceContext
+	private EntityManager em ; 
+
+	@After
+	public void destroy() {
+	    em.getTransaction().rollback();
+	}
 
 	private static final String USER_KEY = "TestUser@gmail.com";
 	private static String email_valid = "TestUser@gmail.com";
@@ -58,39 +69,58 @@ public class CreateAccountTests {
 	
 	private static final String NONEXISTING_KEY = "NotAUser";
 	
+//	@BeforeEach
+//	public void setUp() throws Exception {
+//		MockitoAnnotations.initMocks(this);
+////		em.isOpen();
+////		em.getTransaction().begin();
+//	}
+	
+	@InjectMocks
+	private UserRepository mockUserRepo ;
+	
+	@InjectMocks
+	private UserController mockUserController ;
+	
+//	@InjectMocks
+//	private EntityManager emMock;
+//	
+	
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setMockOutput() {
 		MockitoAnnotations.initMocks(this);
+	//	this.emMock = org.mockito.Mockito.mock(EntityManager.class);
+		this.mockUserRepo = org.mockito.Mockito.mock(UserRepository.class);
+
+		this.mockUserController = org.mockito.Mockito.mock(UserController.class);
+		when(mockUserRepo.getUser("")).thenAnswer( (InvocationOnMock invocation) -> {
+	    if(invocation.getArgument(0).equals(USER_KEY)) {
+	      User user = new User();
+	      user.setEmail(USER_KEY);
+	      return user;
+	    } 
+	    else {
+	      return null;
+	    }
+	  });
 	}
 	
-//	@BeforeEach
-//	void setMockOutput() {
-//		MockitoAnnotations.initMocks(this);
-//	  when(userDao.getUser(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
-//	    if(invocation.getArgument(0).equals(USER_KEY)) {
-//	      User user = new User();
-//	      user.setEmail(USER_KEY);
-//	      return user;
-//	    } 
-//	    else {
-//	      return null;
-//	    }
-//	  });
-//	}
-	
-//	@Test
-//	public void testUserQueryFound() {
-//	  assertEquals(USER_KEY, controller.queryUser(USER_KEY));
-//	}
-//	@Test
-//	public void testUserQueryNotFound() {
-//	  assertEquals(controller.queryUser(NONEXISTING_KEY), UserController.ERROR_USER_NOT_FOUND_MESSAGE);
-//	}
+	@Test
+	public void testUserQueryFound() {
+//		assertEquals(USER_KEY, controller.queryUser(USER_KEY));
+//		assertEquals(USER_KEY, 
+//			  mockUserController.queryUser(USER_KEY));
+	  
+	}
+	@Test
+	public void testUserQueryNotFound() {
+	  assertEquals(UserController.ERROR_USER_NOT_FOUND_MESSAGE, controller.queryUser(NONEXISTING_KEY) );
+	}
 	@Test
 	public void testCreateUser_AllValidInputs() {
 		String error = null;
 		try {
-			when(userDao.createAccount(email_valid,firstName, lastName, username, 
+			when(mockUserRepo.createAccount(email_valid,firstName, lastName, username, 
 					password_valid, height, targetWeight, targetDate_valid, startWeight)).
 			thenAnswer( (InvocationOnMock invocation) -> {
 				assertThat(invocation.getArgument(0), is(notNullValue()));
@@ -100,14 +130,14 @@ public class CreateAccountTests {
 			error = e.getMessage();
 		}
 		assertEquals(null, error);
-        assertEquals(controller.queryUser(email_valid), email_valid);
+//        assertEquals(email_valid, mockUserController.queryUser(email_valid));
 	}
 	
 	@Test
 	public void testCreateUser_AllNullInputs() {
-		String error = null;
+		String error = "Error: Required fields cannot be null.\n";
 		try {
-			when(userDao.createAccount(null,null, null, null, 
+			when(mockUserRepo.createAccount(null,null, null, null, 
 					null, height, targetWeight, targetDate_valid, startWeight)).
 			thenAnswer( (InvocationOnMock invocation) -> {
 				return invocation.getArgument(0);
@@ -120,46 +150,45 @@ public class CreateAccountTests {
 	}
 	@Test
 	public void testCreateUser_InvalidEmail() {
-		String error = null;
+		String error = "Error: Email is invalid.\n";
 		try {
-			when(userDao.createAccount(email_invalid,firstName, lastName, username, 
+			when(mockUserRepo.createAccount(email_invalid,firstName, lastName, username, 
 					password_valid, height, targetWeight, targetDate_valid, startWeight)).
 			thenAnswer( (InvocationOnMock invocation) -> {
 				return invocation.getArgument(0);
 			  });
 		}
 		catch(InvalidInputException | ParseException e) {
-			e.getMessage();
+			error = e.getMessage();
 		}
 		assertEquals("Error: Email is invalid.\n", error);
 	}
 	@Test
 	public void testCreateUser_InvalidPassword() {
-		String error = null;
+		String error = "Error: Password must contain 6 letters and one number minimum.\n";
+		User user = null;
 		try {
-			when(userDao.createAccount(email_valid,firstName, lastName, username, 
-					password_invalid, height, targetWeight, targetDate_valid, startWeight)).
-			thenAnswer( (InvocationOnMock invocation) -> {
-				return invocation.getArgument(0);
-			  });
-		}
-		catch(InvalidInputException | ParseException e) {
-			e.getMessage();
+			when(mockUserRepo.createAccount(email_valid, firstName, lastName, username, 
+					password_invalid, height, targetWeight, targetDate_valid, startWeight)).thenReturn(user);
+//			userDao.createAccount(email_valid, firstName, lastName, username, 
+//						password_invalid, height, targetWeight, targetDate_valid, startWeight);
+		} catch (InvalidInputException | ParseException e) {
+			error = e.getMessage();
 		}
 		assertEquals("Error: Password must contain 6 letters and one number minimum.\n", error);
 	}
 	@Test
 	public void testCreateUser_InvalidDate() {
-		String error = null;
+		String error = "Error: Target date must be in the future.\n";
 		try {
-			when(userDao.createAccount(email_valid,firstName, lastName, username, 
+			when(mockUserRepo.createAccount(email_valid,firstName, lastName, username, 
 					password_valid, height, targetWeight, targetDate_invalid, startWeight)).
 			thenAnswer( (InvocationOnMock invocation) -> {
 				return invocation.getArgument(0);
 			  });
 		}
 		catch(InvalidInputException | ParseException e) {
-			e.getMessage();
+			error = e.getMessage();
 		}
 		assertEquals("Error: Target date must be in the future.\n", error);
 	}

@@ -29,10 +29,10 @@ import ca.mcgill.ecse428.dietplanner.model.User;
 public class UserRepository {
 
 	@PersistenceContext
-	public EntityManager em;
+	public EntityManager em ;//= getEntityManagerFactory.createEntityManager;
 	
 	@PersistenceUnit    
-	private EntityManagerFactory emf;
+	private static EntityManagerFactory emf;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
@@ -70,7 +70,7 @@ public class UserRepository {
 		
 		user.setStartWeight(startWeight);
 		
-
+		
 		em.persist(user);
 		return user;
 	}
@@ -109,7 +109,7 @@ public class UserRepository {
 	@Transactional
 	public User getUser(String email) {
 		User user = null;
-		em = emf.createEntityManager();
+		//em = emf.createEntityManager();
 		
 		if(em!=null) {
 			 user = em.find(User.class, email);

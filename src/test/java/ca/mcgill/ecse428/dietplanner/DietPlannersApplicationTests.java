@@ -68,10 +68,10 @@ public class DietPlannersApplicationTests {
 //	  });
 //	}
 	
-	@Test
-	public void testUserQueryFound() {
-		assertEquals(USER_KEY, userDao.getUser(USER_KEY));
-	}
+//	@Test
+//	public void testUserQueryFound() {
+//		assertEquals(USER_KEY, userDao.getUser(USER_KEY));
+//	}
 //	@Test
 //	public void testUserQueryNotFound() {
 //		assertEquals(controller.queryUser(NONEXISTING_KEY), UserController.ERROR_USER_NOT_FOUND_MESSAGE);
