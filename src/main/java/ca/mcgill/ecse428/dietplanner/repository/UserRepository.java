@@ -11,7 +11,9 @@ import java.util.Set;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -27,11 +29,14 @@ import ca.mcgill.ecse428.dietplanner.model.User;
 public class UserRepository {
 
 	@PersistenceContext
-	public EntityManager em;
+	public EntityManager em ;//= getEntityManagerFactory.createEntityManager;
+	
+	@PersistenceUnit    
+	private static EntityManagerFactory emf;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
-			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
+			String height, double targetWeight, String targetDate, double startWeight) throws InvalidInputException, ParseException {
 		
 		User user  = new User();
 		user.setName(firstName);
@@ -47,7 +52,7 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Email is invalid.\n");
 		}
 		
 		user.setHeight(height);
@@ -60,12 +65,12 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
 		user.setStartWeight(startWeight);
 		
-
+		
 		em.persist(user);
 		return user;
 	}
@@ -103,7 +108,12 @@ public class UserRepository {
 	
 	@Transactional
 	public User getUser(String email) {
-		User user = em.find(User.class, email);
+		User user = null;
+		//em = emf.createEntityManager();
+		
+		if(em!=null) {
+			 user = em.find(User.class, email);
+		}
 		return user;
 	}
 
