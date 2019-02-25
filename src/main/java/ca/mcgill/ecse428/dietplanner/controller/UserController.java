@@ -20,6 +20,7 @@ import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
 import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.User;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
 
@@ -31,7 +32,7 @@ public class UserController {
 	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
 	
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repository = new UserRepository();
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
@@ -39,7 +40,7 @@ public class UserController {
 			@RequestParam("username") String username, @RequestParam("email") String email, 
 			@RequestParam("password") String password, @RequestParam("height") String height, 
 			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) throws ParseException  {
+			@RequestParam("startWeight") double startWeight) throws ParseException, InvalidInputException  {
 
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		if(result != null) {
@@ -71,6 +72,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users/{email}")
+	@ResponseBody
 	public String queryUser(@PathVariable("email") String email) {
 		User user = repository.getUser(email);
 		if(user == null) {
