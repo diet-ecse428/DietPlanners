@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
+import ca.mcgill.ecse428.dietplanner.dto.FoodDTO;
 import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
+import ca.mcgill.ecse428.dietplanner.model.Food;
+import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
@@ -74,5 +78,24 @@ public class UserController {
 		}
 		return user.getEmail();
 	}
+	
+	
+//	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+//	@ResponseBody
+//	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
+//			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
+//			@RequestParam("entryId") int entryId) throws ParseException {
+//
+//		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
+//		
+//		if (result != null ) {
+//			FoodDTO food = new FoodDTO(result.getMealType(), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+//			return food;
+//		}
+//		else {
+//			return null;
+//		}
+//		
+//	}
 
 }

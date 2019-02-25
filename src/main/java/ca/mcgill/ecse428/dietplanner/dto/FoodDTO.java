@@ -1,6 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.dto;
 
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO.MealType;
+import ca.mcgill.ecse428.dietplanner.model.Food;
 
 public class FoodDTO {
 	//Food Attributes
