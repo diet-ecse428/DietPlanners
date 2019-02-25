@@ -33,9 +33,6 @@
 //	@Mock 
 //	private UserDTO dtoMock;
 //	
-////	@Mock
-////	private EntityManager em;
-//	
 //	@InjectMocks
 //	private static UserRepository userDao;
 //	
@@ -82,54 +79,78 @@
 //	
 //	@Test void testUserFound() {
 //		String error = null;
-//		when(userDao.login(email_valid, password_valid)).
-//		thenAnswer( (InvocationOnMock invocation) -> {
-//			assertThat(invocation.getArgument(0), is(notNullValue()));
-//			return invocation.getArgument(0);
-//		  });
+//		try {
+//			when(userDao.login(email_valid, password_valid)).
+//			thenAnswer( (InvocationOnMock invocation) -> {
+//				assertThat(invocation.getArgument(0), is(notNullValue()));
+//				return invocation.getArgument(0);
+//			  });
+//		} catch (InvalidInputException e) {
+//			error = e.getMessage();
+//		}
 //		assertEquals(null, error);
 //        assertEquals(controller.queryUser(email_valid), email_valid);
 //	}
 //	
 //	@Test void testWrongEmail() {
 //		String error = null;
-//		when(userDao.login(email_invalid, password_valid)).
-//		thenAnswer( (InvocationOnMock invocation) -> {
-//			assertThat(invocation.getArgument(0), is(notNullValue()));
-//			return invocation.getArgument(0);
-//		  });
+//		try {
+//			when(userDao.login(email_invalid, password_valid)).
+//			thenAnswer( (InvocationOnMock invocation) -> {
+//				assertThat(invocation.getArgument(0), is(notNullValue()));
+//				return invocation.getArgument(0);
+//			  });
+//		} catch (InvalidInputException e) {
+//			error = e.getMessage();
+//		}
 //		assertEquals("Error: Either email and/or password is incorrect.\n", error);
 //	}
 //	
 //	@Test void testWrongPassword() {
 //		String error = null;
-//		when(userDao.login(email_valid, password_invalid)).
-//		thenAnswer( (InvocationOnMock invocation) -> {
-//			assertThat(invocation.getArgument(0), is(notNullValue()));
-//			return invocation.getArgument(0);
-//		  });
+//		try {
+//			when(userDao.login(email_valid, password_invalid)).
+//			thenAnswer( (InvocationOnMock invocation) -> {
+//				assertThat(invocation.getArgument(0), is(notNullValue()));
+//				return invocation.getArgument(0);
+//			  });
+//		} catch (InvalidInputException e) {
+//			error = e.getMessage();
+//		}
 //		assertEquals("Error: Either email and/or password is incorrect.\n", error);
 //	}
 //	
 //	@Test void testBothWrong() {
 //		String error = null;
-//		when(userDao.login(email_invalid, password_invalid)).
-//		thenAnswer( (InvocationOnMock invocation) -> {
-//			assertThat(invocation.getArgument(0), is(notNullValue()));
-//			return invocation.getArgument(0);
-//		  });
+//		try {
+//			when(userDao.login(email_invalid, password_invalid)).
+//			thenAnswer( (InvocationOnMock invocation) -> {
+//				assertThat(invocation.getArgument(0), is(notNullValue()));
+//				return invocation.getArgument(0);
+//			  });
+//		} catch (InvalidInputException e) {
+//			error = e.getMessage();
+//		}
 //		assertEquals("Error: Either email and/or password is incorrect.\n", error);
 //	}
 //	
 //	@Test void testNullInputs() {
 //		String error = null;
-//		when(userDao.login(null, null)).
-//		thenAnswer( (InvocationOnMock invocation) -> {
-//			assertThat(invocation.getArgument(0), is(notNullValue()));
-//			return invocation.getArgument(0);
-//		  });
+//		try {
+//			when(userDao.login(null, null)).
+//			thenAnswer( (InvocationOnMock invocation) -> {
+//				assertThat(invocation.getArgument(0), is(notNullValue()));
+//				return invocation.getArgument(0);
+//			  });
+//		} catch (InvalidInputException e) {
+//			error = e.getMessage();
+//		}
 //		assertEquals("Error: Please enter a username and password\n", error);
 //	}
 //	
+//	@After
+//	public void tearDown() throws Exception {
+//		userDao.em.remove(USER_KEY);
+//	}
 //
 //}
