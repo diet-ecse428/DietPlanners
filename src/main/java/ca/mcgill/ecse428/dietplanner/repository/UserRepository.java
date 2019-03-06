@@ -11,13 +11,17 @@ import java.util.Set;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.Food;
+import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -25,11 +29,14 @@ import ca.mcgill.ecse428.dietplanner.model.User;
 public class UserRepository {
 
 	@PersistenceContext
-	public EntityManager em;
+	public EntityManager em ;//= getEntityManagerFactory.createEntityManager;
+	
+	@PersistenceUnit    
+	private static EntityManagerFactory emf;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
-			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
+			String height, double targetWeight, String targetDate, double startWeight) throws InvalidInputException, ParseException {
 		
 		User user  = new User();
 		user.setName(firstName);
@@ -45,7 +52,7 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Email is invalid.\n");
 		}
 		
 		user.setHeight(height);
@@ -58,12 +65,12 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
 		user.setStartWeight(startWeight);
 		
-
+		
 		em.persist(user);
 		return user;
 	}
@@ -101,7 +108,12 @@ public class UserRepository {
 	
 	@Transactional
 	public User getUser(String email) {
-		User user = em.find(User.class, email);
+		User user = null;
+		//em = emf.createEntityManager();
+		
+		if(em!=null) {
+			 user = em.find(User.class, email);
+		}
 		return user;
 	}
 
@@ -135,6 +147,46 @@ public class UserRepository {
 		}
 
 		return false;	
+	}
+	@Transactional
+	public Food updateUserMealInfo(String newMealType, int calories, double serving, int mealId, int entryId){
+
+		Entry entry = em.find(Entry.class, entryId);
+		Food meal = em.find(Food.class, mealId);
+
+		meal.setMealType(MealType.valueOf(newMealType));
+		meal.setServing(serving);
+		int currentCalories = meal.getCalories();
+		meal.setCalories(currentCalories - calories);
+
+		em.persist(meal);
+		return meal;
+
+	}
+	
+	@Transactional
+	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {
+		User user = em.find(User.class, username);
+		if(user==null) {
+			return null;
+		}
+		user.setTargetWeight(targetWeight);
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		boolean dateValid = validateDate(sqlStartDate);
+		if(dateValid) {
+			user.setTargetDate(sqlStartDate);
+		} else {
+			return null;
+		}
+		
+		user.setStartWeight(startWeight);
+		
+
+		em.persist(user);
+		return user;
 	}
 
 	@Transactional
