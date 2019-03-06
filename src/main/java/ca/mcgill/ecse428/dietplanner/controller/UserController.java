@@ -30,7 +30,7 @@ import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 @RequestMapping("api/user")
 public class UserController {
 	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
-	
+
 	@Autowired
 	private UserRepository repository = new UserRepository();
 	
@@ -51,6 +51,7 @@ public class UserController {
 			return null;
 		}
 	}
+
 	
 	
 	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
@@ -99,5 +100,19 @@ public class UserController {
 //		}
 //		
 //	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public UserDTO login(@RequestParam("username") String username,	@RequestParam("password") String password) throws ParseException  {
+
+		User result = repository.loginUser(username,password);
+		if(result != null) {
+			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), null, result.getHeight(),
+					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
+			return user;
+		}else {
+			return null;
+		}
+	}
 
 }
