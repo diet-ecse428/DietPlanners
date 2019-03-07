@@ -66,6 +66,7 @@ public class Liquid
 
 	@Id
 	@Column
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}

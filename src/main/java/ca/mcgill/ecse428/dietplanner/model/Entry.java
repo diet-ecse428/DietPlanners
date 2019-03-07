@@ -100,6 +100,7 @@ public class Entry
 	
 	@Id
 	@Column(name="entry_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return entryId;
 	}

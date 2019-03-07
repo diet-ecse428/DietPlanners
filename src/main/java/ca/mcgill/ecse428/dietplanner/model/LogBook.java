@@ -52,6 +52,7 @@ public class LogBook
 	
 	@Id
 	@Column(name="logbook_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return logbookId;
 	}

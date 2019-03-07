@@ -69,6 +69,7 @@ public class Food
 
 	@Id
 	@Column
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}

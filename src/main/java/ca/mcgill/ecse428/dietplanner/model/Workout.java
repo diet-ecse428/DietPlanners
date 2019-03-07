@@ -64,6 +64,7 @@ public class Workout
 
 	@Id
 	@Column
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
