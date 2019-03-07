@@ -70,32 +70,33 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/users/{email}")
-	public String queryUser(@PathVariable("email") String email) {
-		User user = repository.getUser(email);
+	@GetMapping("/get/{username}")
+	public String queryUser(@PathVariable("username") String username) {
+		User user = repository.getUser(username);
 		if(user == null) {
 			return ERROR_USER_NOT_FOUND_MESSAGE;
 		}
-		return user.getEmail();
+		return user.getUsername();
 	}
 	
 	
-//	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
-//	@ResponseBody
-//	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
-//			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
-//			@RequestParam("entryId") int entryId) throws ParseException {
-//
-//		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
-//		
-//		if (result != null ) {
-//			FoodDTO food = new FoodDTO(result.getMealType(), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
-//			return food;
-//		}
-//		else {
-//			return null;
-//		}
-//		
-//	}
+	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+	@ResponseBody
+	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
+			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
+			@RequestParam("entryId") int entryId) throws ParseException {
+
+		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
+		
+		if (result != null ) {
+			String correctMealType = result.getMealType().toString();
+			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+			return food;
+		}
+		else {
+			return null;
+		}
+		
+	}
 
 }

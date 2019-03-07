@@ -102,8 +102,8 @@ public class UserRepository {
 	}
 	
 	@Transactional
-	public User getUser(String email) {
-		User user = em.find(User.class, email);
+	public User getUser(String username) {
+		User user = em.find(User.class, username);
 		return user;
 	}
 
