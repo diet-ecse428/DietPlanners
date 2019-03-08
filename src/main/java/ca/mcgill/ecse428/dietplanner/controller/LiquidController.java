@@ -17,7 +17,7 @@ import ca.mcgill.ecse428.dietplanner.repository.LiquidRepository;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/food")
+@RequestMapping("api/liquid")
 public class LiquidController {
 
 	@Autowired
