@@ -37,5 +37,14 @@ public class FoodRepository {
 		Food food = em.find(Food.class, id);
 		return food;
 	}
+	
+	@Transactional
+	public boolean removeFood(int id) {
+		int rowsDeleted = em.createQuery("delete from Food where id = '" + id + "'").executeUpdate();
+		if(rowsDeleted == 1) {
+			return true;
+		}
+		return false;
+	}
 
 }

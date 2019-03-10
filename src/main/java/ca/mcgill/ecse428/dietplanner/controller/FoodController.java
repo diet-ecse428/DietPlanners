@@ -48,4 +48,15 @@ public class FoodController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/remove/{foodId}/")
+	@ResponseBody
+	public boolean removeFood(@PathVariable("foodId") int foodId) {
+		boolean result = repository.removeFood(foodId);
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
