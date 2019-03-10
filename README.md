@@ -66,18 +66,32 @@ TODO
 
 
 Ilana Haddad
+
 Jordan Itzkovitz
+
 Arielle Lasry
+
 Eden Ovadia
+
 Rebecca Weil
+
 Benjamin Szwimer
+
 Ethan Itovitch
+
 Kamy Moussavi
+
 Lucas Bellido
+
 Matthew Zoltak
+
 Noam Suissa
+
 Oliver Clark
+
 Paul Attara
+
 Spencer Handfield
+
 
 
