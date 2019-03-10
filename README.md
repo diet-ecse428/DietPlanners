@@ -1,8 +1,7 @@
 # DietPlanners
 
-# Project Title
+Diet Planners is a tool that helps users to track and plan their weight loss journey. Users can enter their current informtation- weight, height, age- and then set a target goal for themselves. DietPlanner will help them keep track of their progress with daily check ins and a calorie counter based on the foods they ate and the amount of exercise they did. 
 
-TODO
 
 ## Getting Started
 
