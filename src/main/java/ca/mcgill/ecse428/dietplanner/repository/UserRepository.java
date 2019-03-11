@@ -184,7 +184,7 @@ public class UserRepository {
 
 
 	@Transactional
-	public User updateUserWeight(String username, int id, double newWeight){
+	public User updateUserWeight(String username, int id, double newWeight) throws ParseException{
 		User user = em.find(User.class, username);
 		if (user==null){
 			return null;
@@ -193,7 +193,7 @@ public class UserRepository {
 		Set<Progress> progs = user.getProgresses();
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
-	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.util.Date date = sdf1.parse(new java.util.Date().toString()); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 	    boolean dateValid = validateDate(sqlStartDate);
 		if(dateValid) {
@@ -202,7 +202,11 @@ public class UserRepository {
 			return null;
 		}
 
-		Progress tmp = new Progress().setWeight(newWeight).setDate(sqlStartDate).setId(id).setUserId(username);
+		Progress tmp = new Progress();
+		tmp.setWeight(newWeight);
+		tmp.setDate(sqlStartDate);
+		tmp.setId(id);
+		tmp.setUserId(username);
 		progs.add(tmp);
 		user.setProgresses(progs);
 		em.persist(user);
