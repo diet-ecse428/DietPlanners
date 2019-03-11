@@ -22,6 +22,8 @@ import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
+import ca.mcgill.ecse428.dietplanner.model.Progress;
+
 
 @Repository
 public class UserRepository {
@@ -175,6 +177,34 @@ public class UserRepository {
 		user.setStartWeight(startWeight);
 		
 
+		em.persist(user);
+		return user;
+	}
+
+
+
+	@Transactional
+	public User updateUserWeight(String username, int id, double newWeight){
+		User user = em.find(User.class, username);
+		if (user==null){
+			return null;
+		}
+
+		Set<Progress> progs = user.getProgresses();
+
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+	    boolean dateValid = validateDate(sqlStartDate);
+		if(dateValid) {
+			user.setTargetDate(sqlStartDate);
+		} else {
+			return null;
+		}
+
+		Progress tmp = new Progress().setWeight(newWeight).setDate(sqlStartDate).setId(id).setUserId(username);
+		progs.add(tmp);
+		user.setProgresses(progs);
 		em.persist(user);
 		return user;
 	}
