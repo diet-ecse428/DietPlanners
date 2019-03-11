@@ -103,7 +103,7 @@ public class UserController {
 	@ResponseBody
 	public UserDTO updateUserWeight(@RequestParam("username") String username, @RequestParam("userId") int userId, @RequestParam("weight") double newWeight) throws ParseException {
 
-		User result = repository.updateUserWeight(username, id, newWeight);
+		User result = repository.updateUserWeight(username, userId, newWeight);
 		
 		if (result != null ) {
 			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
