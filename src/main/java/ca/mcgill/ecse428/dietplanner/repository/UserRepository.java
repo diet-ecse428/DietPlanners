@@ -184,7 +184,7 @@ public class UserRepository {
 
 
 	@Transactional
-	public User updateUserWeight(String username, int id, double newWeight) throws ParseException{
+	public User updateUserWeight(String username, double newWeight) throws ParseException{
 		User user = em.find(User.class, username);
 		if (user==null){
 			return null;
@@ -205,7 +205,6 @@ public class UserRepository {
 		Progress tmp = new Progress();
 		tmp.setWeight(newWeight);
 		tmp.setDate(sqlStartDate);
-		tmp.setId(id);
 		tmp.setUserId(username);
 		progs.add(tmp);
 		user.setProgresses(progs);
