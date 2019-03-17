@@ -24,9 +24,8 @@ import ca.mcgill.ecse428.dietplanner.model.*;
 
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 import java.sql.Date;
@@ -72,22 +71,19 @@ public class UpdateWeightTest {
 	private double startWeight = 180.0;
 	
 
-	//private EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
-	@Mock
-	UserRepository repository;
+	EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	//private static UserRepository userDao= mock(UserRepository.class, CALLS_REAL_METHODS);;
 
 	
 	//private EntityManager em;
 
 	@InjectMocks
-	UserController controller;
+	UserRepository userDao;
 
 	//private static final String USER_KEY = "TestUser@gmail.com";
-	private final double validWeight = 100.0;
-	private final double invalidWeightOne = -3.0;
-	private final double invalidWeightTwo = 0.0;
+
 	private final double newTestWeight = 115.0;
+	private final double badTestWeight = -100.0;
 	@BeforeAll
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -115,7 +111,7 @@ public class UpdateWeightTest {
 	@BeforeEach
 	void setMockOutput() throws Exception {
 		try {
-			when(repository.updateUserWeight(eq(email), anyDouble())).thenReturn(testuser);
+			when(em.find(eq(User.class),eq(email))).thenReturn(testuser);
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -127,9 +123,10 @@ public class UpdateWeightTest {
 	@Test
 	public void test_one() {
 		try{
-			UserDTO userData = controller.updateUserWeight(email,newTestWeight);
-			assertNotNull(userData);
-			assertEquals(userData.getEmail(),email);
+			assertEquals(progresses.size(),1);
+			User userRes = userDao.updateUserWeight(email,newTestWeight);
+			assertEquals(userRes,testuser);
+			assertEquals(userRes.getProgresses().size(),2);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -141,8 +138,25 @@ public class UpdateWeightTest {
 	@Test
 	public void test_two() {
 		try {
-			UserDTO userData = controller.updateUserWeight("bademail",newTestWeight);
-			assertNull(userData);
+			User userRes = userDao.updateUserWeight("fakeemail",newTestWeight);
+			assertNull(userRes);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+
+
+	}
+
+
+	@Test
+	public void test_three() {
+		try {
+			assertEquals(progresses.size(),2);
+			User userRes = userDao.updateUserWeight(email,badTestWeight);
+			assertEquals(userRes,testuser);
+			assertEquals(userRes.getProgresses().size(),2);
 		}
 		catch(Exception e){
 			e.printStackTrace();
