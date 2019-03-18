@@ -2,6 +2,7 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +38,12 @@ public class EntryRepository {
 		entry.setNote(note);
 		entry.setRemaingCal(remainingCal);
 		entry.setTotalCalCount(totCalCount);
+		
+		Set<Entry> entries = logbook.getEntries();
+		entries.add(entry);
+		logbook.setEntries(entries);
+		
+		em.persist(logbook);
 		
 		em.persist(entry);
 		

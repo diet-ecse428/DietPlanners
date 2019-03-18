@@ -1,5 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,6 +29,12 @@ public class FoodRepository {
 		food.setEntryId(entry_id);
 		food.setMealType(Food.MealType.valueOf(meal_type));
 		food.setServing(serving);
+		
+		Set<Food> foods = entry.getFoods();
+		foods.add(food);
+		entry.setFoods(foods);
+		
+		em.persist(entry);
 		
 		em.persist(food);
 		return food;

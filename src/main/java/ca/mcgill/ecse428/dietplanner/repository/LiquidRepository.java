@@ -1,5 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -25,6 +27,12 @@ public class LiquidRepository {
 		liquid.setCalories(calories);
 		liquid.setEntryId(entry_id);
 		liquid.setVolume(volume);
+		
+		Set<Liquid> liquids = entry.getLiquids();
+		liquids.add(liquid);
+		entry.setLiquids(liquids);
+		
+		em.persist(entry);
 		
 		em.persist(liquid);
 		return liquid;

@@ -21,10 +21,10 @@ public class LogBookController {
 	@Autowired
 	private LogBookRepository repository;
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/create/{username}", method = RequestMethod.POST)
 	@ResponseBody
-	public LogBookDTO createLogBook() {
-		LogBook result = repository.createLogBook();
+	public LogBookDTO createLogBook(@PathVariable("username") String username) {
+		LogBook result = repository.createLogBook(username);
 		if(result!=null) {
 			LogBookDTO logbook = new LogBookDTO(result.getId());
 			return logbook;

@@ -1,5 +1,7 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,6 +29,12 @@ public class WorkoutRepository {
 		workout.setDuration(duration);
 		workout.setEntryId(entry_id);
 		workout.setType(type);
+		
+		Set<Workout> workouts = entry.getWorkouts();
+		workouts.add(workout);
+		entry.setWorkouts(workouts);
+		
+		em.persist(workouts);
 		
 		em.persist(workout);
 		return workout;

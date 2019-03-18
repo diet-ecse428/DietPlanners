@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
+import ca.mcgill.ecse428.dietplanner.model.User;
 
 @Repository
 public class LogBookRepository {
@@ -15,8 +16,12 @@ public class LogBookRepository {
 	public EntityManager em;
 
 	@Transactional
-	public LogBook createLogBook() {
+	public LogBook createLogBook(String username) {
+		User user = em.find(User.class, username);
 		LogBook lb = new LogBook();
+		user.setLogBook(lb);
+		
+		em.persist(user);
 		em.persist(lb);
 		return lb;
 	}
