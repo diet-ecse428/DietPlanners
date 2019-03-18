@@ -47,8 +47,6 @@ public class EntryRepository {
 		
 		em.persist(entry);
 		
-		//TODO: get result list from liquid, food and workouts that have this entry id has to be after persist and set them in setters
-		
 		return entry;
 	}
 
