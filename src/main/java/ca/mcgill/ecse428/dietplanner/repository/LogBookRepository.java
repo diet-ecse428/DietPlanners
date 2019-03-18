@@ -18,6 +18,9 @@ public class LogBookRepository {
 	@Transactional
 	public LogBook createLogBook(String username) {
 		User user = em.find(User.class, username);
+		if(user==null) {
+			return null;
+		}
 		LogBook lb = new LogBook();
 		user.setLogBook(lb);
 		
