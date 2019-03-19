@@ -35,7 +35,7 @@ public class EntryController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{entryId}")
 	public EntryDTO getEntry(@PathVariable("entryId") int entryId) {
@@ -46,5 +46,5 @@ public class EntryController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 }

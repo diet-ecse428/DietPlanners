@@ -33,7 +33,7 @@ public class LiquidController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{liquidId}")
 	public LiquidDTO getLiquid(@PathVariable("liquidId") int liquidId) {
@@ -44,6 +44,6 @@ public class LiquidController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 }
