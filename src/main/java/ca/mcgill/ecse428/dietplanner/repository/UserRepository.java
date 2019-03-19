@@ -186,21 +186,14 @@ public class UserRepository {
 	@Transactional
 	public User updateUserWeight(String username, double newWeight) throws ParseException{
 		User user = em.find(User.class, username);
-		if (user==null){
-			return null;
-		}
+		if (user==null) return null;
+		if (newWeight <= 0.0) return user;
 
 		Set<Progress> progs = user.getProgresses();
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
-	    java.util.Date date = sdf1.parse(new java.util.Date().toString()); // Returns a Date format object with the pattern
+	    java.util.Date date = new java.util.Date(); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-	    boolean dateValid = validateDate(sqlStartDate);
-		if(dateValid) {
-			user.setTargetDate(sqlStartDate);
-		} else {
-			return null;
-		}
 
 		Progress tmp = new Progress();
 		tmp.setWeight(newWeight);
