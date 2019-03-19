@@ -27,8 +27,8 @@ public class EntryController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public EntryDTO createEntry(@RequestParam("logbookId") int logbookId, @RequestParam("totCalCount") int totCalCount, @RequestParam("note") String note,
-								@RequestParam("remainingCal") int remainingCal, @RequestParam("date") String date) throws ParseException {
-		Entry result = repository.createEntry(logbookId, totCalCount, note, remainingCal, date);
+												@RequestParam("date") String date) throws ParseException {
+		Entry result = repository.createEntry(logbookId, totCalCount, note, date);
 		if(result!=null) {
 			EntryDTO entry = new EntryDTO(result.getDate(), result.getRemaingCal(), result.getTotalCalCount(), result.getNote(), result.getId(), result.getLogbookId());
 			return entry;

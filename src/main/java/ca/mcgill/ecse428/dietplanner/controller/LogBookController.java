@@ -31,7 +31,7 @@ public class LogBookController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{logbookId}")
 	public LogBookDTO getLogBook(@PathVariable("logbookId") int logbookId) {
@@ -42,5 +42,5 @@ public class LogBookController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 }

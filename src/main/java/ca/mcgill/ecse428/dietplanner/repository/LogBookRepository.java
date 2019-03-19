@@ -31,8 +31,9 @@ public class LogBookRepository {
 
 	@Transactional
 	public LogBook getLogBook(int logbookId) {
-		em.find(LogBook.class, logbookId);
-		return null;
+		
+		LogBook lb = em.find(LogBook.class, logbookId);
+		return lb;
 	}
 
 }

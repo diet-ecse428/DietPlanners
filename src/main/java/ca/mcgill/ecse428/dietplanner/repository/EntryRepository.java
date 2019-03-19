@@ -20,7 +20,7 @@ public class EntryRepository {
 	public EntityManager em;
 	
 	@Transactional
-	public Entry createEntry(int logbookId, int totCalCount, String note, int remainingCal, String date) throws ParseException {
+	public Entry createEntry(int logbookId, int totCalCount, String note, String date) throws ParseException {
 		LogBook logbook = em.find(LogBook.class, logbookId);
 		
 		//date can be in past
@@ -36,8 +36,8 @@ public class EntryRepository {
 		entry.setDate(sqlEntryDate);
 		entry.setLogbookId(logbookId);
 		entry.setNote(note);
-		entry.setRemaingCal(remainingCal);
 		entry.setTotalCalCount(totCalCount);
+		entry.setRemaingCal(totCalCount);
 		
 		Set<Entry> entries = logbook.getEntries();
 		entries.add(entry);

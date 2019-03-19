@@ -28,6 +28,8 @@ public class LiquidRepository {
 		liquid.setEntryId(entry_id);
 		liquid.setVolume(volume);
 		
+		entry.setRemaingCal(entry.getRemaingCal() - calories);
+		
 		Set<Liquid> liquids = entry.getLiquids();
 		liquids.add(liquid);
 		entry.setLiquids(liquids);

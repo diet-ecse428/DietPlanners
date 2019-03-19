@@ -30,6 +30,8 @@ public class FoodRepository {
 		food.setMealType(Food.MealType.valueOf(meal_type));
 		food.setServing(serving);
 		
+		entry.setRemaingCal(entry.getRemaingCal() - (int)(serving*calories));
+		
 		Set<Food> foods = entry.getFoods();
 		foods.add(food);
 		entry.setFoods(foods);

@@ -30,6 +30,8 @@ public class WorkoutRepository {
 		workout.setEntryId(entry_id);
 		workout.setType(type);
 		
+		entry.setRemaingCal(entry.getRemaingCal() + caloriesLost);
+		
 		Set<Workout> workouts = entry.getWorkouts();
 		workouts.add(workout);
 		entry.setWorkouts(workouts);

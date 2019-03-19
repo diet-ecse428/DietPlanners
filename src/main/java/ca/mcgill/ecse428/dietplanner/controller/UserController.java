@@ -85,7 +85,7 @@ public class UserController {
 	public boolean login(@RequestParam("username") String username, @RequestParam("password") String password) {
 		boolean success = repository.login(username, password);
 		return success;
-	}
+	}//works
 	
 	//BELOW METHOD SHOULD NOT BE HERE
 	
