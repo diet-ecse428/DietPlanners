@@ -3,14 +3,14 @@
 Diet Planners is a tool that helps users to track and plan their weight loss journey. Users can enter their current informtation- weight, height, age- and then set a target goal for themselves. DietPlanner will help them keep track of their progress with daily check ins and a calorie counter based on the foods they ate and the amount of exercise they did. 
 
 
-## Getting Started
+## Source Control and review
 
-TODO 
+Given the nature of large scale, multi-person projects, to best manage the various contributions of each member we will be using a combination of Git and GitHub, as well as their VCS integration into the common place IDEs used such as Eclipse and IntelliJ. This allows individuals to work on the project concurrently, each completing their own tasks and then pushing the changes to the master branch when complete. 
 
 
-### Prerequisites
+### Tools
 
-TODO - What things you need to install the software and how to install them
+
 
 ```
 Give examples
