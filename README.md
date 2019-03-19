@@ -11,10 +11,11 @@ Given the nature of large scale, multi-person projects, to best manage the vario
 
 The tool used for code review for this project is called Codacy and is offered on the GitHub Marketplace. This web-app’s dashboard offer a thorough breakdown of the project’s existing issues such as code complexity, duplication, performance, code style, and much more. The dashboard also gives us important statistics based on the code’s quality over time. Furthermore, each commit is analyzed and can notify the reviewer if there are any problems with the code. Another feature that Codacy offers is anti-pattern detection. The admin can select known anti-patterns from a list for the automated code reviewer to detect.
 
-*[CODACY](https://www.codacy.com)- code review tool
-*[INTELLIJ](https://www.jetbrains.com/idea/)- IDE 
-*[GITHUB](https://github.com)- version control tool
+* [CODACY](https://www.codacy.com)- Code Review Tool
 
+* [INTELLIJ](https://www.jetbrains.com/idea/)- IDE 
+
+* [GITHUB](https://github.com)- Version Control Tool
 
 
 
@@ -29,9 +30,9 @@ The Slack application will help us communicate efficiently within various channe
 
 
 
-*[TRAVIS CI] (https://travis-ci.org)- build tool
-*[GOOGLE DOCS] (https://www.google.com/docs/about/)- documentation tool
-*[SLACK] (https://slack.com/lp/three?cvosrc=ppc.google.d_ppc_google_ca_en_brand-hv&cvo_creative=257480048359&utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_ca_en_brand-hv&utm_term=slack&ds_rl=1249094&cvosrc=ppc.google.slack&cvo_campaign=&cvo_crid=257480048359&Matchtype=e&utm_source=google&utm_medium=ppc&c3api=5523,257480048359,slack&gclid=EAIaIQobChMI2szs_LuO4QIVCWSGCh0w0gfwEAAYASAAEgIu0fD_BwE&gclsrc=aw.ds)- communication tool
+* [TRAVIS CI] (https://travis-ci.org)- build tool
+* [GOOGLE DOCS] (https://www.google.com/docs/about/)- documentation tool
+* [SLACK] (https://slack.com/lp/three?cvosrc=ppc.google.d_ppc_google_ca_en_brand-hv&cvo_creative=257480048359&utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_ca_en_brand-hv&utm_term=slack&ds_rl=1249094&cvosrc=ppc.google.slack&cvo_campaign=&cvo_crid=257480048359&Matchtype=e&utm_source=google&utm_medium=ppc&c3api=5523,257480048359,slack&gclid=EAIaIQobChMI2szs_LuO4QIVCWSGCh0w0gfwEAAYASAAEgIu0fD_BwE&gclsrc=aw.ds)- communication tool
 
 ```
 Give examples
