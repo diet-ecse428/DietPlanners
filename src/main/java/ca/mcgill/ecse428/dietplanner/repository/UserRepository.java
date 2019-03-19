@@ -35,6 +35,7 @@ public class UserRepository {
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
 			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
 		
+
 		User user  = new User();
 		user.setName(firstName);
 		user.setLastName(lastName);
@@ -42,6 +43,7 @@ public class UserRepository {
 		if(userValid) {
 			user.setUsername(username);
 		}else {
+
 			return null;
 		}
 		user.setPassword(password);
@@ -49,6 +51,7 @@ public class UserRepository {
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
+	
 			return null;
 		}
 		
@@ -62,12 +65,13 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
+		
 			return null;
 		}
 		
 		user.setStartWeight(startWeight);
 		
-
+		
 		em.persist(user);
 		return user;
 	}
