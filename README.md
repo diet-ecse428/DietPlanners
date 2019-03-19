@@ -30,13 +30,10 @@ The Slack application will help us communicate efficiently within various channe
 
 
 
-* [TRAVIS CI] (https://travis-ci.org)- build tool
-* [GOOGLE DOCS] (https://www.google.com/docs/about/)- documentation tool
-* [SLACK] (https://slack.com/lp/three?cvosrc=ppc.google.d_ppc_google_ca_en_brand-hv&cvo_creative=257480048359&utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_ca_en_brand-hv&utm_term=slack&ds_rl=1249094&cvosrc=ppc.google.slack&cvo_campaign=&cvo_crid=257480048359&Matchtype=e&utm_source=google&utm_medium=ppc&c3api=5523,257480048359,slack&gclid=EAIaIQobChMI2szs_LuO4QIVCWSGCh0w0gfwEAAYASAAEgIu0fD_BwE&gclsrc=aw.ds)- communication tool
+* [TRAVIS CI](https://travis-ci.org)- Build Tool
+* [GOOGLE DOCS](https://www.google.com/docs/about/)- Documentation Tool
+* [SLACK](https://slack.com/lp/three?cvosrc=ppc.google.d_ppc_google_ca_en_brand-hv&cvo_creative=257480048359&utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_ca_en_brand-hv&utm_term=slack&ds_rl=1249094&cvosrc=ppc.google.slack&cvo_campaign=&cvo_crid=257480048359&Matchtype=e&utm_source=google&utm_medium=ppc&c3api=5523,257480048359,slack&gclid=EAIaIQobChMI2szs_LuO4QIVCWSGCh0w0gfwEAAYASAAEgIu0fD_BwE&gclsrc=aw.ds)- Communication Tool
 
-```
-Give examples
-```
 
 ### Installing
 
