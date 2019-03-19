@@ -36,7 +36,7 @@ public class WorkoutRepository {
 		workouts.add(workout);
 		entry.setWorkouts(workouts);
 		
-		em.persist(workouts);
+		em.persist(entry);
 		
 		em.persist(workout);
 		return workout;

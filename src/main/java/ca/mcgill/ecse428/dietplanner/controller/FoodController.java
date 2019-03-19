@@ -35,7 +35,7 @@ public class FoodController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{foodId}")
 	public FoodDTO getFood(@PathVariable("foodId") int foodId) {
@@ -47,7 +47,7 @@ public class FoodController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@RequestMapping(value = "/remove/{foodId}/")
 	@ResponseBody
@@ -58,5 +58,5 @@ public class FoodController {
 		}else {
 			return false;
 		}
-	}
+	}//works
 }

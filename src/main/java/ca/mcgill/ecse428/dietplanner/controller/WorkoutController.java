@@ -33,7 +33,7 @@ public class WorkoutController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{workoutId}")
 	public WorkoutDTO getWorkout(@PathVariable("workoutId") int workoutId) {
@@ -44,5 +44,5 @@ public class WorkoutController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 }
