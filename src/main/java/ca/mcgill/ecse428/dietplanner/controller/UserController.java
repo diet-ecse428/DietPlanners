@@ -49,7 +49,7 @@ public class UserController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	
 	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
@@ -68,7 +68,7 @@ public class UserController {
 			return null;
 		}
 		
-	}
+	}//works
 	
 	@GetMapping("/get/{username}")
 	public String queryUser(@PathVariable("username") String username) {
@@ -77,27 +77,36 @@ public class UserController {
 			return ERROR_USER_NOT_FOUND_MESSAGE;
 		}
 		return user.getUsername();
-	}
+	}//works
 	
 	
-	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+	@RequestMapping(value = "/login")
 	@ResponseBody
-	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
-			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
-			@RequestParam("entryId") int entryId) throws ParseException {
-
-		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
-		
-		if (result != null ) {
-			String correctMealType = result.getMealType().toString();
-			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
-			return food;
-		}
-		else {
-			return null;
-		}
-		
+	public boolean login(@RequestParam("username") String username, @RequestParam("password") String password) {
+		boolean success = repository.login(username, password);
+		return success;
 	}
+	
+	//BELOW METHOD SHOULD NOT BE HERE
+	
+//	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+//	@ResponseBody
+//	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
+//			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
+//			@RequestParam("entryId") int entryId) throws ParseException {
+//
+//		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
+//		
+//		if (result != null ) {
+//			String correctMealType = result.getMealType().toString();
+//			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+//			return food;
+//		}
+//		else {
+//			return null;
+//		}
+//		
+//	}
 
 	@RequestMapping(value = "/updateweight", method=RequestMethod.POST)
 	@ResponseBody
