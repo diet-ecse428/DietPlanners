@@ -23,33 +23,39 @@ import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 
 @Repository
 public class UserRepository {
+	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
+	
 
 	@PersistenceContext
 	public EntityManager em;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
-			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
+			String height, double targetWeight, String targetDate, double startWeight) throws ParseException, InvalidInputException {
 		
 		User user  = new User();
+		if(firstName == null || lastName == null || username == null || email == null || password == null) {
+			throw new InvalidInputException("Error: Required fields cannot be null.\n");
+		}
 		user.setName(firstName);
 		user.setLastName(lastName);
 		boolean userValid = validateUsername(username);
 		if(userValid) {
 			user.setUsername(username);
 		}else {
-			return null;
+			throw new InvalidInputException("Error: an account with this username already exists.\n");
 		}
 		user.setPassword(password);
 		boolean emailValid = validateEmail(email);
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Email is invalid.\n");	
 		}
 		
 		user.setHeight(height);
@@ -62,7 +68,7 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
 		user.setStartWeight(startWeight);
@@ -71,6 +77,7 @@ public class UserRepository {
 		em.persist(user);
 		return user;
 	}
+
 	private boolean validateDate(Date targetDate) {
 		Calendar calendar = Calendar.getInstance();
 		java.util.Date currentDate = calendar.getTime();
@@ -110,14 +117,31 @@ public class UserRepository {
 	}
 
 	public boolean validateUsername(String username) {
-		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
-		List<String> usernames = query.getResultList();
+	//	TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+	//	List<String> usernames = query.getResultList();
+		List<String> usernames = findByUsername(username);
 		for (String thisUsername : usernames) {
 			if(username.equals(thisUsername)) {
 				return false;
 			}
 		}
 		return true;
+	}
+	public boolean validateUsername2(String username) {
+		List<User> users = findByUsername2(username);
+		if(users.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	public List<String> findByUsername(String username){
+		return em.createQuery("select e.username from User e" , String.class)
+				.getResultList();
+	}
+	public List<User> findByUsername2(String username){
+		return em.createQuery("select e from User e where e.username=username" , User.class)
+				.setParameter("username", username)
+				.getResultList();
 	}
 	
 	@Transactional
