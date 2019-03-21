@@ -57,7 +57,7 @@ public class EntryController {
 		List<Entry> allEntries = repository.getAllEntries();
 		List<EntryDTO> entryDTOs = new ArrayList<EntryDTO>();
 		for(Entry entry : allEntries) {
-			if(entry.getLogbookId == this.logbookId){
+			if(entry.getLogbookId() == this.logbookId){
 				entryDTOs.add(new EntryDTO(entry.getDate(), entry.getRemaingCal(), entry.getTotalCalCount(), entry.getNote(), entry.getId(), entry.getLogbookId()));
 			}	
 		}
