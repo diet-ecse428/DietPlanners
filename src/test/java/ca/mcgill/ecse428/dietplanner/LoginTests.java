@@ -1,36 +1,27 @@
 package ca.mcgill.ecse428.dietplanner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-import org.junit.After;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
 
 import ca.mcgill.ecse428.dietplanner.controller.UserController;
-import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
-import java.sql.Date;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,15 +43,6 @@ public class LoginTests {
 	private static String username_incorrect = "NotAUser";
 	private static String password_correct = "testpass123"; 
 	private static String password_incorrect = "testpass12"; 
-	
-	private static String email_valid = "TestUser@gmail.com";
-	private static String firstName = "First";
-	private static String lastName = "Last";
-	private static String height = "5\"2"; 
-	private static double targetWeight = 100; 
-	private static double startWeight = 130;
-	private static String targetDate_valid = "20-06-2019";//new Date(2019,05,20);
-	
 	
 	User userMock;
 	User user = new User();

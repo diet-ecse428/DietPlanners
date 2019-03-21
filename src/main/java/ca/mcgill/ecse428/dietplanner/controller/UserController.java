@@ -85,9 +85,9 @@ public class UserController {
 	@ResponseBody
 	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
 			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
-			@RequestParam("entryId") int entryId) throws ParseException {
+			@RequestParam("entryId") int entryId, @RequestParam("username") String username) throws ParseException, InvalidInputException {
 
-		Food result = repository.updateUserMealInfo(mealType,calories,serving,mealId,entryId);
+		Food result = repository.updateUserMealInfo(username, mealType,calories,serving,mealId,entryId);
 		
 		if (result != null ) {
 			String correctMealType = result.getMealType().toString();
