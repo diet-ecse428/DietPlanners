@@ -28,6 +28,7 @@ import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import ca.mcgill.ecse428.dietplanner.repository.FoodRepository;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 import java.sql.Date;
@@ -42,7 +43,7 @@ public class UpdateUserMealInfoTests {
 	EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	
 	@InjectMocks
-	UserRepository userDao;
+	FoodRepository foodDao;
 
 	@InjectMocks
 	UserController controller;
@@ -116,7 +117,7 @@ public class UpdateUserMealInfoTests {
 	public void testSuccessfulUpdate_validInputs() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId, entryId);
+			food = foodDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId, entryId);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -139,7 +140,7 @@ public class UpdateUserMealInfoTests {
 	public void unsuccessful_invalidCalories() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username, newMealType_valid, calories_invalid, serving, mealId, entryId);
+			food = foodDao.updateUserMealInfo(username, newMealType_valid, calories_invalid, serving, mealId, entryId);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -162,7 +163,7 @@ public class UpdateUserMealInfoTests {
 	public void unsuccessful_invalidServing() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username, newMealType_valid, calories, serving_invalid, mealId, entryId);
+			food = foodDao.updateUserMealInfo(username, newMealType_valid, calories, serving_invalid, mealId, entryId);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -184,7 +185,7 @@ public class UpdateUserMealInfoTests {
 	public void unsuccessful_invalidUser() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username_invalid, newMealType_valid, calories, serving, mealId, entryId);
+			food = foodDao.updateUserMealInfo(username_invalid, newMealType_valid, calories, serving, mealId, entryId);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -206,7 +207,7 @@ public class UpdateUserMealInfoTests {
 	public void unsuccessful_invalidEntryId() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId, entryId_invalid);
+			food = foodDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId, entryId_invalid);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -228,7 +229,7 @@ public class UpdateUserMealInfoTests {
 	public void unsuccessful_invalidMealId() {
 		String error = null;
 		try {
-			food = userDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId_invalid, entryId);
+			food = foodDao.updateUserMealInfo(username, newMealType_valid, calories, serving, mealId_invalid, entryId);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}

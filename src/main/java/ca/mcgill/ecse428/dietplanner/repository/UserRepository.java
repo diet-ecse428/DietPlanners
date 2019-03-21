@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,10 +16,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse428.dietplanner.model.Entry;
-import ca.mcgill.ecse428.dietplanner.model.Food;
-import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
-import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
@@ -39,6 +33,7 @@ public class UserRepository {
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
 			String height, double targetWeight, String targetDate, double startWeight) throws ParseException, InvalidInputException {
 		
+
 		User user  = new User();
 		if(firstName == null || lastName == null || username == null || email == null || password == null) {
 			throw new InvalidInputException("Error: Required fields cannot be null.\n");
@@ -50,6 +45,7 @@ public class UserRepository {
 			user.setUsername(username);
 		}else {
 			throw new InvalidInputException("Error: an account with this username already exists.\n");
+
 		}
 		user.setPassword(password);
 		boolean emailValid = validateEmail(email);
@@ -74,7 +70,7 @@ public class UserRepository {
 		
 		user.setStartWeight(startWeight);
 		
-
+		
 		em.persist(user);
 		return user;
 	}
@@ -159,55 +155,8 @@ public class UserRepository {
 		}
 		return false;	
 	}
-	@Transactional
-	public Food updateUserMealInfo(String username, String newMealType, int calories, double serving, int mealId, int entryId) throws InvalidInputException{
-		if(calories < 0) {
-			throw new InvalidInputException("Error: Invalid value for calories. \n");
-		}
-		if(serving < 0) {
-			throw new InvalidInputException("Error: Invalid value for serving. \n");
-		}
-		User user = em.find(User.class, username);
-		if(user==null) {
-			throw new InvalidInputException("Error: User not found.\n");
-		}
-		Entry entry = em.find(Entry.class, entryId);
-		if(entry == null) {
-			throw new InvalidInputException("Error: Entry with this id was not found.\n");
-		}
-		Food meal = em.find(Food.class, mealId);
-		if(meal == null) {
-			throw new InvalidInputException("Error: Food with this id was not found.\n");
-		}
 
-		meal.setMealType(MealType.valueOf(newMealType));
-		meal.setServing(serving);
 
-		Set<Entry> userEntries = user.getLogBook().getEntries();
-		Iterator<Entry> it_entries = userEntries.iterator();
-		int oldCalories = 0;
-		while(it_entries.hasNext()) {
-			Entry userEntry = it_entries.next();
-			if(userEntry.getId()==entryId) { //found the user's entry where this meal is set
-				Set<Food> foodsForUserInCurrentEntry = userEntry.getFoods();
-				Iterator<Food> it_foods = foodsForUserInCurrentEntry.iterator();
-				while(it_foods.hasNext()) { 
-					Food curFood = it_foods.next();
-					if(curFood.getId()==mealId) { //found this user's food entry to change
-						oldCalories = curFood.getCalories();
-					}
-				//	curFood.setMealType(MealType.valueOf(newMealType)); //CHANGE MEAL TYPE
-				//	curFood.setServing(serving); //CHANGE SERVING
-					em.persist(curFood);
-				}
-				//UPDATE USER'S REMAINING CALORIES:
-				userEntry.setRemaingCal(userEntry.getRemaingCal() + oldCalories - calories);
-				em.persist(userEntry);
-			}
-		}
-		return meal;
-
-	}
 	
 	@Transactional
 	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {

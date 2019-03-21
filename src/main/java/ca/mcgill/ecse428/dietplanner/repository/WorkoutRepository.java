@@ -1,9 +1,11 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +32,13 @@ public class WorkoutRepository {
 		workout.setEntryId(entry_id);
 		workout.setType(type);
 		
+		entry.setRemaingCal(entry.getRemaingCal() + caloriesLost);
+		
 		Set<Workout> workouts = entry.getWorkouts();
 		workouts.add(workout);
 		entry.setWorkouts(workouts);
 		
-		em.persist(workouts);
+		em.persist(entry);
 		
 		em.persist(workout);
 		return workout;
@@ -44,6 +48,13 @@ public class WorkoutRepository {
 	public Workout getWorkout(int workoutId) {
 		Workout workout = em.find(Workout.class, workoutId);
 		return workout;
+	}
+
+	@Transactional
+	public List<Workout> getAllWorkouts() {
+		TypedQuery<Workout> query = em.createQuery("select e from Workout e", Workout.class);
+		List<Workout> workouts = query.getResultList();
+		return workouts;
 	}
 
 }

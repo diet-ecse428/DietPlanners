@@ -2,16 +2,19 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
+import ca.mcgill.ecse428.dietplanner.model.Workout;
 
 @Repository
 public class EntryRepository {
@@ -20,7 +23,7 @@ public class EntryRepository {
 	public EntityManager em;
 	
 	@Transactional
-	public Entry createEntry(int logbookId, int totCalCount, String note, int remainingCal, String date) throws ParseException {
+	public Entry createEntry(int logbookId, int totCalCount, String note, String date) throws ParseException {
 		LogBook logbook = em.find(LogBook.class, logbookId);
 		
 		//date can be in past
@@ -36,8 +39,8 @@ public class EntryRepository {
 		entry.setDate(sqlEntryDate);
 		entry.setLogbookId(logbookId);
 		entry.setNote(note);
-		entry.setRemaingCal(remainingCal);
 		entry.setTotalCalCount(totCalCount);
+		entry.setRemaingCal(totCalCount);
 		
 		Set<Entry> entries = logbook.getEntries();
 		entries.add(entry);
@@ -54,6 +57,13 @@ public class EntryRepository {
 	public Entry getEntry(int entryId) {
 		Entry entry = em.find(Entry.class, entryId);
 		return entry;
+	}
+	
+	@Transactional
+	public List<Entry> getAllEntries() {
+		TypedQuery<Entry> query = em.createQuery("select e from Entry e", Entry.class);
+		List<Entry> entries = query.getResultList();
+		return entries;
 	}
 
 }

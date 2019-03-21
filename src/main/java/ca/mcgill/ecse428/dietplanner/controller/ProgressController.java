@@ -35,7 +35,7 @@ public class ProgressController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
@@ -48,7 +48,7 @@ public class ProgressController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 
 	@GetMapping("/get/{progressId}")
 	public ProgressDTO getProgress(@PathVariable("progressId") int progressId) {
@@ -59,5 +59,5 @@ public class ProgressController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 }

@@ -1,6 +1,5 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
-import ca.mcgill.ecse428.dietplanner.dto.FoodDTO;
 import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
-import ca.mcgill.ecse428.dietplanner.model.Food;
-import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
@@ -43,14 +38,16 @@ public class UserController {
 			@RequestParam("startWeight") double startWeight) throws ParseException, InvalidInputException  {
 
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
+		
 		if(result != null) {
 			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
 					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
 			return user;
 		}else {
+			
 			return null;
 		}
-	}
+	}//works
 	
 	
 	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
@@ -69,7 +66,7 @@ public class UserController {
 			return null;
 		}
 		
-	}
+	}//works
 	
 	@GetMapping("/get/{username}")
 	public String queryUser(@PathVariable("username") String username) {
@@ -78,27 +75,17 @@ public class UserController {
 			return ERROR_USER_NOT_FOUND_MESSAGE;
 		}
 		return user.getUsername();
-	}
+	}//works
 	
 	
-	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+	@RequestMapping(value = "/login")
 	@ResponseBody
-	public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
-			@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
-			@RequestParam("entryId") int entryId, @RequestParam("username") String username) throws ParseException, InvalidInputException {
+	public boolean login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
+		boolean success = repository.login(username, password);
+		return success;
+	}//works
+	
 
-		Food result = repository.updateUserMealInfo(username, mealType,calories,serving,mealId,entryId);
-		
-		if (result != null ) {
-			String correctMealType = result.getMealType().toString();
-			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
-			return food;
-		}
-		else {
-			return null;
-		}
-		
-	}
 
 	@RequestMapping(value = "/updateweight", method=RequestMethod.POST)
 	@ResponseBody

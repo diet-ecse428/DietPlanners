@@ -1,5 +1,8 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +36,7 @@ public class WorkoutController {
 		}else {
 			return null;
 		}
-	}
+	}//works
 	
 	@GetMapping("/get/{workoutId}")
 	public WorkoutDTO getWorkout(@PathVariable("workoutId") int workoutId) {
@@ -45,4 +48,19 @@ public class WorkoutController {
 			return null;
 		}
 	}
+
+	@RequestMapping(value = "/getAllWorkouts/{entryId}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<WorkoutDTO> getAllWorkouts(@PathVariable("entryId") int entryId){
+		List<Workout> allWorkouts = repository.getAllWorkouts();
+		List<WorkoutDTO> workoutDTOs = new ArrayList<WorkoutDTO>();
+		for(Workout workout : allWorkouts) {
+			if(workout.getEntryId()==entryId)
+			{
+				workoutDTOs.add(new WorkoutDTO(workout.getDuration(), workout.getCaloriesLost(), workout.getType(), workout.getId(), workout.getEntryId()));
+			}
+		}
+		return workoutDTOs;
+	}
+
 }
