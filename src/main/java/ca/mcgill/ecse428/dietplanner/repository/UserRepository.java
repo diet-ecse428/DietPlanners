@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,42 +16,43 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse428.dietplanner.model.Entry;
-import ca.mcgill.ecse428.dietplanner.model.Food;
-import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
-import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 
 @Repository
 public class UserRepository {
+	public static String ERROR_USER_NOT_FOUND_MESSAGE = "USER NOT FOUND";
+	
 
 	@PersistenceContext
 	public EntityManager em;
 	
 	@Transactional
 	public User createAccount(String firstName, String lastName, String username, String email, String password,
-			String height, double targetWeight, String targetDate, double startWeight) throws ParseException {
+			String height, double targetWeight, String targetDate, double startWeight) throws ParseException, InvalidInputException {
 		
 
 		User user  = new User();
+		if(firstName == null || lastName == null || username == null || email == null || password == null) {
+			throw new InvalidInputException("Error: Required fields cannot be null.\n");
+		}
 		user.setName(firstName);
 		user.setLastName(lastName);
 		boolean userValid = validateUsername(username);
 		if(userValid) {
 			user.setUsername(username);
 		}else {
+			throw new InvalidInputException("Error: an account with this username already exists.\n");
 
-			return null;
 		}
 		user.setPassword(password);
 		boolean emailValid = validateEmail(email);
 		if(emailValid) {
 			user.setEmail(email);
 		} else {
-	
-			return null;
+			throw new InvalidInputException("Error: Email is invalid.\n");	
 		}
 		
 		user.setHeight(height);
@@ -65,8 +65,7 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-		
-			return null;
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
 		user.setStartWeight(startWeight);
@@ -75,6 +74,7 @@ public class UserRepository {
 		em.persist(user);
 		return user;
 	}
+
 	private boolean validateDate(Date targetDate) {
 		Calendar calendar = Calendar.getInstance();
 		java.util.Date currentDate = calendar.getTime();
@@ -114,8 +114,9 @@ public class UserRepository {
 	}
 
 	public boolean validateUsername(String username) {
-		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
-		List<String> usernames = query.getResultList();
+	//	TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+	//	List<String> usernames = query.getResultList();
+		List<String> usernames = findByUsername(username);
 		for (String thisUsername : usernames) {
 			if(username.equals(thisUsername)) {
 				return false;
@@ -123,9 +124,17 @@ public class UserRepository {
 		}
 		return true;
 	}
+	public List<String> findByUsername(String username){
+		return em.createQuery("select e.username from User e" , String.class)
+				.getResultList();
+	}
+
 	
 	@Transactional
-	public boolean login(String username, String password) {
+	public boolean login(String username, String password) throws InvalidInputException {
+		if(username == null | password == null) {
+			throw new InvalidInputException("Error: Required fields can't be null. \n");
+		}
 		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
 		List<String> usernames = query.getResultList();
 
@@ -138,29 +147,16 @@ public class UserRepository {
 				if (userPassword.equals(password)) {
 					return true;
 				}
+				else {
+					throw new InvalidInputException("Error: wrong password.\n");
+				}
 
 			}
 		}
-
 		return false;	
 	}
-	
-	//BELOW METHOD SHOULD NOT BE HERE
-//	@Transactional
-//	public Food updateUserMealInfo(String newMealType, int calories, double serving, int mealId, int entryId){
-//
-//		Entry entry = em.find(Entry.class, entryId);
-//		Food meal = em.find(Food.class, mealId);
-//
-//		meal.setMealType(MealType.valueOf(newMealType));
-//		meal.setServing(serving);
-//		int currentCalories = meal.getCalories();
-//		meal.setCalories(currentCalories - calories);
-//
-//		em.persist(meal);
-//		return meal;
-//
-//	}
+
+
 	
 	@Transactional
 	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {

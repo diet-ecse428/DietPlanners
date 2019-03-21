@@ -1,5 +1,6 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import ca.mcgill.ecse428.dietplanner.dto.FoodDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.repository.FoodRepository;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 @CrossOrigin
 @RestController
@@ -77,4 +79,24 @@ public class FoodController {
 		}
 		return foodDTOs;
 	}
+	
+	
+	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
+	@ResponseBody
+		public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
+				@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
+				@RequestParam("entryId") int entryId, @RequestParam("username") String username) throws ParseException, InvalidInputException {
+
+			Food result = repository.updateUserMealInfo(username, mealType,calories,serving,mealId,entryId);
+			
+			if (result != null ) {
+				String correctMealType = result.getMealType().toString();
+				FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+				return food;
+			}
+			else {
+				return null;
+			}
+			
+		}
 }

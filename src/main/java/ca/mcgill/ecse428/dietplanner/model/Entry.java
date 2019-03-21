@@ -207,7 +207,12 @@ public class Entry
 	public boolean addFood(Food aFood)
 	{
 		boolean wasAdded = false;
-		if (foods.contains(aFood)) { return false; }
+//		if(!foods.isEmpty()) {
+			if (foods.contains(aFood)) { 
+				return false; 
+			}
+//		}
+		
 		foods.add(aFood);
 		wasAdded = true;
 		return wasAdded;
