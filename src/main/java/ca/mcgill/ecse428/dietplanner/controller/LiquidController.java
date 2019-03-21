@@ -1,5 +1,8 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
 import ca.mcgill.ecse428.dietplanner.dto.LiquidDTO;
+import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Liquid;
 import ca.mcgill.ecse428.dietplanner.repository.LiquidRepository;
 
@@ -45,5 +49,16 @@ public class LiquidController {
 			return null;
 		}
 	}//works
+	
+	@RequestMapping(value = "/getAllEntries/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<LiquidDTO> getAllLiquids(){
+		List<Liquid> allLiquids = repository.getAllLiquids();
+		List<LiquidDTO> liquidDTOs = new ArrayList<LiquidDTO>();
+		for(Liquid liquid : allLiquids) {
+			liquidDTOs.add(new LiquidDTO(liquid.getCalories(), liquid.getVolume(), liquid.getId(), liquid.getEntryId()));
+		}
+		return liquidDTOs;
+	}
 	
 }

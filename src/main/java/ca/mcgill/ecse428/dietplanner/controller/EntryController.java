@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
-import ca.mcgill.ecse428.dietplanner.dto.WorkoutDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
-import ca.mcgill.ecse428.dietplanner.model.Workout;
 import ca.mcgill.ecse428.dietplanner.repository.EntryRepository;
 
 @CrossOrigin

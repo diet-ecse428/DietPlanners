@@ -1,5 +1,8 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
 import ca.mcgill.ecse428.dietplanner.dto.FoodDTO;
+import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.repository.FoodRepository;
 
@@ -59,4 +63,16 @@ public class FoodController {
 			return false;
 		}
 	}//works
+	
+	@RequestMapping(value = "/getAllFoods/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<FoodDTO> getAllFoods(){
+		List<Food> allFoods = repository.getAllFoods();
+		List<FoodDTO> foodDTOs = new ArrayList<FoodDTO>();
+		for(Food food : allFoods) {
+			String correctMealType = food.getMealType().toString();
+			foodDTOs.add(new FoodDTO(EntryDTO.MealType.valueOf(correctMealType), food.getCalories(), food.getServing(), food.getId(), food.getEntryId()));
+		}
+		return foodDTOs;
+	}
 }
