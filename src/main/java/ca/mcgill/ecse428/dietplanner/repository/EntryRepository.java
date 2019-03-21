@@ -2,16 +2,19 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
+import ca.mcgill.ecse428.dietplanner.model.Workout;
 
 @Repository
 public class EntryRepository {
@@ -54,6 +57,12 @@ public class EntryRepository {
 	public Entry getEntry(int entryId) {
 		Entry entry = em.find(Entry.class, entryId);
 		return entry;
+	}
+	
+	public List<Entry> getAllEntries() {
+		TypedQuery<Entry> query = em.createQuery("select e from Entry e", Entry.class);
+		List<Entry> entries = query.getResultList();
+		return entries;
 	}
 
 }

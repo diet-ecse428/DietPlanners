@@ -1,6 +1,8 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
+import ca.mcgill.ecse428.dietplanner.dto.WorkoutDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.Workout;
 import ca.mcgill.ecse428.dietplanner.repository.EntryRepository;
 
 @CrossOrigin
@@ -47,4 +51,16 @@ public class EntryController {
 			return null;
 		}
 	}//works
+	
+	
+	@RequestMapping(value = "/getAllEntries/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<EntryDTO> getAllEntries(){
+		List<Entry> allEntries = repository.getAllEntries();
+		List<EntryDTO> entryDTOs = new ArrayList<EntryDTO>();
+		for(Entry entry : allEntries) {
+			entryDTOs.add(new EntryDTO(entry.getDate(), entry.getRemaingCal(), entry.getTotalCalCount(), entry.getNote(), entry.getId(), entry.getLogbookId()));
+		}
+		return entryDTOs;
+	}
 }

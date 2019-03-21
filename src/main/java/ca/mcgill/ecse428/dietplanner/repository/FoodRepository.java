@@ -1,9 +1,11 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +57,12 @@ public class FoodRepository {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<Food> getAllFoods() {
+		TypedQuery<Food> query = em.createQuery("select e from Food e", Food.class);
+		List<Food> foods = query.getResultList();
+		return foods;
 	}
 
 }
