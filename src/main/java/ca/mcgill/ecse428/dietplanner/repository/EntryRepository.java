@@ -59,6 +59,7 @@ public class EntryRepository {
 		return entry;
 	}
 	
+	@Transactional
 	public List<Entry> getAllEntries() {
 		TypedQuery<Entry> query = em.createQuery("select e from Entry e", Entry.class);
 		List<Entry> entries = query.getResultList();
