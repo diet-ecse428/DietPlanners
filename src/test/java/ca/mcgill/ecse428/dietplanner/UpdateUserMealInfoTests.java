@@ -38,7 +38,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class MealInfoTests {
+public class UpdateUserMealInfoTests {
 	EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	
 	@InjectMocks
