@@ -64,14 +64,16 @@ public class FoodController {
 		}
 	}//works
 	
-	@RequestMapping(value = "/getAllFoods", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllFoods/{entryId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<FoodDTO> getAllFoods(){
+	public List<FoodDTO> getAllFoods(@PathVariable("entryId") int entryId){
 		List<Food> allFoods = repository.getAllFoods();
 		List<FoodDTO> foodDTOs = new ArrayList<FoodDTO>();
 		for(Food food : allFoods) {
-			String correctMealType = food.getMealType().toString();
-			foodDTOs.add(new FoodDTO(EntryDTO.MealType.valueOf(correctMealType), food.getCalories(), food.getServing(), food.getId(), food.getEntryId()));
+			if(food.getEntryId()==entryId){
+				String correctMealType = food.getMealType().toString();
+				foodDTOs.add(new FoodDTO(EntryDTO.MealType.valueOf(correctMealType), food.getCalories(), food.getServing(), food.getId(), food.getEntryId()));
+			}
 		}
 		return foodDTOs;
 	}

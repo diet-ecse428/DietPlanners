@@ -49,13 +49,16 @@ public class WorkoutController {
 		}
 	}
 
-	@RequestMapping(value = "/getAllWorkouts", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllWorkouts/{entryId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<WorkoutDTO> getAllWorkouts(){
+	public List<WorkoutDTO> getAllWorkouts(@PathVariable("entryId") int entryId){
 		List<Workout> allWorkouts = repository.getAllWorkouts();
 		List<WorkoutDTO> workoutDTOs = new ArrayList<WorkoutDTO>();
 		for(Workout workout : allWorkouts) {
-			workoutDTOs.add(new WorkoutDTO(workout.getDuration(), workout.getCaloriesLost(), workout.getType(), workout.getId(), workout.getEntryId()));
+			if(workout.getEntryId()==entryId)
+			{
+				workoutDTOs.add(new WorkoutDTO(workout.getDuration(), workout.getCaloriesLost(), workout.getType(), workout.getId(), workout.getEntryId()));
+			}
 		}
 		return workoutDTOs;
 	}

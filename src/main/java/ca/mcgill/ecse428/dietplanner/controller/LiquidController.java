@@ -50,14 +50,16 @@ public class LiquidController {
 		}
 	}//works
 	
-	@RequestMapping(value = "/getAllLiquids", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllLiquids/{entryId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<LiquidDTO> getAllLiquids(){
+	public List<LiquidDTO> getAllLiquids(@PathVariable("entryId") int entryId){
 		List<Liquid> allLiquids = repository.getAllLiquids();
 		List<LiquidDTO> liquidDTOs = new ArrayList<LiquidDTO>();
 		for(Liquid liquid : allLiquids) {
+			if(liquid.getEntryId()==entryId){
 			liquidDTOs.add(new LiquidDTO(liquid.getCalories(), liquid.getVolume(), liquid.getId(), liquid.getEntryId()));
-		}
+			}
+	}
 		return liquidDTOs;
 	}
 	
