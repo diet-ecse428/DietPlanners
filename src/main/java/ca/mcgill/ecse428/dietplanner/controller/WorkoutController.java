@@ -49,7 +49,7 @@ public class WorkoutController {
 		}
 	}
 
-	@RequestMapping(value = "/getAllWorkouts/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllWorkouts", method = RequestMethod.GET)
 	@ResponseBody
 	public List<WorkoutDTO> getAllWorkouts(){
 		List<Workout> allWorkouts = repository.getAllWorkouts();

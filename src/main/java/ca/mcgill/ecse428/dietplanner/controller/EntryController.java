@@ -51,7 +51,7 @@ public class EntryController {
 	}//works
 	
 	
-	@RequestMapping(value = "/getAllEntries/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllEntries", method = RequestMethod.GET)
 	@ResponseBody
 	public List<EntryDTO> getAllEntries(){
 		List<Entry> allEntries = repository.getAllEntries();

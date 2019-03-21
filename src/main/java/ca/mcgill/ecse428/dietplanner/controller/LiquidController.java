@@ -50,7 +50,7 @@ public class LiquidController {
 		}
 	}//works
 	
-	@RequestMapping(value = "/getAllEntries/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllLiquids", method = RequestMethod.GET)
 	@ResponseBody
 	public List<LiquidDTO> getAllLiquids(){
 		List<Liquid> allLiquids = repository.getAllLiquids();

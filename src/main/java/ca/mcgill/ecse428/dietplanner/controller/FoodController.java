@@ -64,7 +64,7 @@ public class FoodController {
 		}
 	}//works
 	
-	@RequestMapping(value = "/getAllFoods/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllFoods", method = RequestMethod.GET)
 	@ResponseBody
 	public List<FoodDTO> getAllFoods(){
 		List<Food> allFoods = repository.getAllFoods();
