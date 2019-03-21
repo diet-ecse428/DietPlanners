@@ -50,7 +50,7 @@ public class WorkoutRepository {
 		return workout;
 	}
 
-	
+	@Transactional
 	public List<Workout> getAllWorkouts() {
 		TypedQuery<Workout> query = em.createQuery("select e from Workout e", Workout.class);
 		List<Workout> workouts = query.getResultList();

@@ -58,7 +58,7 @@ public class FoodRepository {
 		}
 		return false;
 	}
-	
+	@Transactional
 	public List<Food> getAllFoods() {
 		TypedQuery<Food> query = em.createQuery("select e from Food e", Food.class);
 		List<Food> foods = query.getResultList();

@@ -51,13 +51,15 @@ public class EntryController {
 	}//works
 	
 	
-	@RequestMapping(value = "/getAllEntries", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllEntries/{logbookId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<EntryDTO> getAllEntries(){
+	public List<EntryDTO> getAllEntries(@PathVariable("logbookId" int logbookId)){
 		List<Entry> allEntries = repository.getAllEntries();
 		List<EntryDTO> entryDTOs = new ArrayList<EntryDTO>();
 		for(Entry entry : allEntries) {
-			entryDTOs.add(new EntryDTO(entry.getDate(), entry.getRemaingCal(), entry.getTotalCalCount(), entry.getNote(), entry.getId(), entry.getLogbookId()));
+			if(entry.getLogbookId == this.logbookId){
+				entryDTOs.add(new EntryDTO(entry.getDate(), entry.getRemaingCal(), entry.getTotalCalCount(), entry.getNote(), entry.getId(), entry.getLogbookId()));
+			}	
 		}
 		return entryDTOs;
 	}

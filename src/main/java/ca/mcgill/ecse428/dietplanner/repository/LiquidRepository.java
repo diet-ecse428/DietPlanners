@@ -48,6 +48,7 @@ public class LiquidRepository {
 		return liquid;
 	}
 	
+	@Transactional
 	public List<Liquid> getAllLiquids() {
 		TypedQuery<Liquid> query = em.createQuery("select e from Liquid e", Liquid.class);
 		List<Liquid> liquids = query.getResultList();
