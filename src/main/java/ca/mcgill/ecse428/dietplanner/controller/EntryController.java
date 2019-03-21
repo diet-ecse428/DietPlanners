@@ -53,11 +53,11 @@ public class EntryController {
 	
 	@RequestMapping(value = "/getAllEntries/{logbookId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<EntryDTO> getAllEntries(@PathVariable("logbookId" int logbookId)){
+	public List<EntryDTO> getAllEntries(@PathVariable("logbookId") int logbookId){
 		List<Entry> allEntries = repository.getAllEntries();
 		List<EntryDTO> entryDTOs = new ArrayList<EntryDTO>();
 		for(Entry entry : allEntries) {
-			if(entry.getLogbookId() == this.logbookId){
+			if(entry.getLogbookId() == logbookId){
 				entryDTOs.add(new EntryDTO(entry.getDate(), entry.getRemaingCal(), entry.getTotalCalCount(), entry.getNote(), entry.getId(), entry.getLogbookId()));
 			}	
 		}
