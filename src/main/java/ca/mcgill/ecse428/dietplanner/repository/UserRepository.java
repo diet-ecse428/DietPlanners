@@ -127,25 +127,17 @@ public class UserRepository {
 		}
 		return true;
 	}
-	public boolean validateUsername2(String username) {
-		List<User> users = findByUsername2(username);
-		if(users.isEmpty()) {
-			return true;
-		}
-		return false;
-	}
 	public List<String> findByUsername(String username){
 		return em.createQuery("select e.username from User e" , String.class)
 				.getResultList();
 	}
-	public List<User> findByUsername2(String username){
-		return em.createQuery("select e from User e where e.username=username" , User.class)
-				.setParameter("username", username)
-				.getResultList();
-	}
+
 	
 	@Transactional
-	public boolean login(String username, String password) {
+	public boolean login(String username, String password) throws InvalidInputException {
+		if(username == null | password == null) {
+			throw new InvalidInputException("Error: Required fields can't be null. \n");
+		}
 		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
 		List<String> usernames = query.getResultList();
 
@@ -158,10 +150,13 @@ public class UserRepository {
 				if (userPassword.equals(password)) {
 					return true;
 				}
+				else {
+					throw new InvalidInputException("Error: wrong password.\n");
+				}
 
 			}
 		}
-
+//		throw new InvalidInputException("Error: wrong username.\n");
 		return false;	
 	}
 	@Transactional
