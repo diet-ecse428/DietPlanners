@@ -23,7 +23,7 @@ public class EntryRepository {
 	public EntityManager em;
 	
 	@Transactional
-	public Entry createEntry(int logbookId, int totCalCount, String note, String date) throws ParseException {
+	public Entry createEntry(int logbookId, int totCalCount, String note, String date) throws ParseException, InvalidInputException {
 		LogBook logbook = em.find(LogBook.class, logbookId);
 		
 		//date can be in past
@@ -31,9 +31,13 @@ public class EntryRepository {
 	    java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
 	    java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 		
-	    if(logbook==null || totCalCount<0) {
-			return null;
+	    if(logbook==null) {
+			throw new InvalidInputException("Error: Logbook with this id was not found.\n");
 		}
+	    if(totCalCount < 0) {
+	    		throw new InvalidInputException("Error: Total calorie count cannot be negative.\n");
+			
+	    }
 	    
 		Entry entry = new Entry();
 		entry.setDate(sqlEntryDate);

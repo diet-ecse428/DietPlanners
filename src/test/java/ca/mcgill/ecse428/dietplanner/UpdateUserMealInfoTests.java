@@ -1,8 +1,5 @@
 package ca.mcgill.ecse428.dietplanner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -12,18 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
 
 import ca.mcgill.ecse428.dietplanner.controller.UserController;
-import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
-import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -31,7 +24,6 @@ import static org.junit.Assert.assertNull;
 import ca.mcgill.ecse428.dietplanner.repository.FoodRepository;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;

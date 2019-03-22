@@ -52,6 +52,7 @@ public class AddWorkoutTest{
 	private int testId = 1;
 
 	public Entry entr = new Entry();
+	Set<Workout> workouts = new HashSet<Workout>();
 
 
 
@@ -72,10 +73,11 @@ public class AddWorkoutTest{
 
 	@BeforeAll
 	void init(){
-			entr.setDate(targetDate);
-			entr.setRemaingCal(remCal);
-			entr.setTotalCalCount(totCal);
-			entr.setLogbookId(testId);
+		entr.setDate(targetDate);
+		entr.setRemaingCal(remCal);
+		entr.setTotalCalCount(totCal);
+		entr.setLogbookId(testId);
+		entr.setWorkouts(workouts);
 	}
 	
 	@BeforeEach

@@ -3,6 +3,7 @@ package ca.mcgill.ecse428.dietplanner;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import org.junit.After;
@@ -64,6 +65,8 @@ public class AddFoodTest{
 
 	//private final double newTestWeight = 115.0;
 	//private final double badTestWeight = -100.0;
+	
+	Set<Food> foods = new HashSet<Food>();
 
 	@BeforeAll
 	public void setUp() throws Exception {
@@ -76,6 +79,7 @@ public class AddFoodTest{
 			entr.setRemaingCal(remCal);
 			entr.setTotalCalCount(totCal);
 			entr.setLogbookId(testId);
+			entr.setFoods(foods);
 	}
 	
 	@BeforeEach
@@ -86,6 +90,7 @@ public class AddFoodTest{
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		
 	}
 
 
