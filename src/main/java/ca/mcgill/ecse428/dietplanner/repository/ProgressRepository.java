@@ -2,14 +2,18 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -58,6 +62,17 @@ public class ProgressRepository {
 		Progress progress = em.find(Progress.class, progressId);
 		return progress;
 	}
+	
+	@Transactional
+	public Set<Progress> getAllProgresses(String username) throws InvalidInputException {
+		User user = em.find(User.class, username);
+		if (user == null) {
+			throw new InvalidInputException("Error: User not found.\n");
+		}
+		return user.getProgresses();
+	}
+	
+	
 
 	@Transactional
 	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException, InvalidInputException {
