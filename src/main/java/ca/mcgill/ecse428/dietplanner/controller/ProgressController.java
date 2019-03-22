@@ -1,6 +1,9 @@
 package ca.mcgill.ecse428.dietplanner.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
 import ca.mcgill.ecse428.dietplanner.dto.ProgressDTO;
+import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.ProgressRepository;
@@ -61,4 +66,18 @@ public class ProgressController {
 			return null;
 		}
 	}//works
+	
+	@RequestMapping(value = "/getAllProgresses/{username}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ProgressDTO> getAllEntries(@PathVariable("username") String username) throws InvalidInputException{
+		Set<Progress> allProgresses = repository.getAllProgresses(username);
+		List<ProgressDTO> progressDTOs = new ArrayList<ProgressDTO>();
+		for(Progress p: allProgresses) {
+			if(p.getUserId() == username) {
+				ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), p.getPicture(), username);
+				progressDTOs.add(pDTO);
+			}
+		}
+		return progressDTOs;
+	}
 }
