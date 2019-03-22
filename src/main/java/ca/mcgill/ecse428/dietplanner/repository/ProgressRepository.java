@@ -20,11 +20,18 @@ public class ProgressRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Progress createProgress(double weight, String date, String username, String image) throws ParseException {
+	public Progress createProgress(double weight, String date, String username, String image) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
-		if(user == null || weight<0) {
-			return null;
+		if(date == null || username == null) {
+			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
 		}
+		if(user == null) {
+			throw new InvalidInputException("Error: User not found.\n");
+		}
+		if(weight < 0) {
+			throw new InvalidInputException("Error: weight must be positive.\n");
+		}
+		
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
 		java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
@@ -53,11 +60,20 @@ public class ProgressRepository {
 	}
 
 	@Transactional
-	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException {
+	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException, InvalidInputException {
 		Progress progress = em.find(Progress.class, progressId);
 		User user = em.find(User.class, username);
-		if(user ==null || progress==null || weight<0) {
-			return null;
+		if(username==null || date == null) {
+			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
+		}
+		if(user == null) {
+			throw new InvalidInputException("Error: User not found.\n");
+		}
+		if(weight < 0) {
+			throw new InvalidInputException("Error: weight must be positive.\n");
+		}
+		if(progress == null) {
+			throw new InvalidInputException("Error: Progress with this id was not found.\n");
 		}
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern

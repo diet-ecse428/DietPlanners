@@ -52,6 +52,7 @@ public class AddLiquidTest{
 	private int testId = 1;
 
 	public Entry entr = new Entry();
+	Set<Liquid> liquids = new HashSet<Liquid>();
 
 
 
@@ -76,6 +77,7 @@ public class AddLiquidTest{
 			entr.setRemaingCal(remCal);
 			entr.setTotalCalCount(totCal);
 			entr.setLogbookId(testId);
+			entr.setLiquids(liquids);
 	}
 	
 	@BeforeEach

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.ProgressDTO;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.ProgressRepository;
 
 @CrossOrigin
@@ -27,7 +28,7 @@ public class ProgressController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public ProgressDTO createProgress(@RequestParam("weight") double weight, @RequestParam("date") String date,
-			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException {
+			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
 		Progress result = repository.createProgress(weight, date, username, image);
 		if(result != null) {
 			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
@@ -40,7 +41,7 @@ public class ProgressController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ProgressDTO updateProgress(@RequestParam("progressId") int progressId, @RequestParam("weight") double weight, @RequestParam("date") String date,
-			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException {
+			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
 		Progress result = repository.updateProgress(progressId, weight, date, username, image);
 		if(result != null) {
 			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
