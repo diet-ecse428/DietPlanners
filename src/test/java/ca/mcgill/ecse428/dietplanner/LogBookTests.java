@@ -5,29 +5,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import ca.mcgill.ecse428.dietplanner.controller.LogBookController;
-import ca.mcgill.ecse428.dietplanner.controller.UserController;
-import ca.mcgill.ecse428.dietplanner.dto.LogBookDTO;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.repository.LogBookRepository;
-import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
@@ -45,9 +33,6 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	
 	@InjectMocks
 	LogBookRepository logBookDao;
-
-	@InjectMocks
-	LogBookController controller;
 	
 	private static final int VALID_LOGBOOK_ID=1;
 	private static final int INVALID_LOGBOOK_ID=1000;
@@ -103,7 +88,6 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	@Test
 	public void testLogBookQueryNotFound() {
 		assertNull(logBookDao.getLogBook(INVALID_LOGBOOK_ID));
-		//assertEquals(controller.getLogBook(INVALID_LOGBOOK_ID), null);
 	}
 	
 }

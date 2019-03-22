@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse428.dietplanner.dto.EntryDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.repository.EntryRepository;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 @CrossOrigin
 @RestController
@@ -29,7 +30,7 @@ public class EntryController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public EntryDTO createEntry(@RequestParam("logbookId") int logbookId, @RequestParam("totCalCount") int totCalCount, @RequestParam("note") String note,
-												@RequestParam("date") String date) throws ParseException {
+												@RequestParam("date") String date) throws ParseException, InvalidInputException {
 		Entry result = repository.createEntry(logbookId, totCalCount, note, date);
 		if(result!=null) {
 			EntryDTO entry = new EntryDTO(result.getDate(), result.getRemaingCal(), result.getTotalCalCount(), result.getNote(), result.getId(), result.getLogbookId());
