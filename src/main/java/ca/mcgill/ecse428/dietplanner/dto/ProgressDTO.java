@@ -6,10 +6,10 @@ public class ProgressDTO {
 	private int id;
 	private double weight;
 	private Date date;
-	private byte[] picture;
+	private String picture;
 	private String userId;
 	
-	public ProgressDTO(int id, double weight, Date date, byte[] picture, String userId) {
+	public ProgressDTO(int id, double weight, Date date, String picture, String userId) {
 		this.id = id;
 		this.weight = weight;
 		this.date = date;
@@ -26,7 +26,7 @@ public class ProgressDTO {
 	public Date getDate() {
 		return date;
 	}
-	public byte[] getPicture() {
+	public String getPicture() {
 		return picture;
 	}
 	public String getUserId() {
