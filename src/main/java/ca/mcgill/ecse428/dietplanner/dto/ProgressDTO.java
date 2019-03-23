@@ -41,7 +41,7 @@ public class ProgressDTO {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public void setPicture(byte[] picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 	public void setUserId(String userId) {
