@@ -69,12 +69,12 @@ public class UserController {
 	}//works
 	
 	@GetMapping("/get/{username}")
-	public String queryUser(@PathVariable("username") String username) {
+	public User queryUser(@PathVariable("username") String username) {
 		User user = repository.getUser(username);
 		if(user == null) {
-			return ERROR_USER_NOT_FOUND_MESSAGE;
+			return null;
 		}
-		return user.getUsername();
+		return user;
 	}//works
 	
 	
