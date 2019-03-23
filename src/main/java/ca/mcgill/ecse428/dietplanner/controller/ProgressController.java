@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.ProgressRepository;
 
+@Controller
 @CrossOrigin
 @RestController
 @RequestMapping("api/progress")
@@ -33,9 +36,9 @@ public class ProgressController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public ProgressDTO createProgress(@RequestBody ProgressDTO progress) throws ParseException, InvalidInputException {
-		Progress result = repository.createProgress(progress.weight, progress.date, progress.userId, progress.picture);
+		Progress result = repository.createProgress(progress.getWeight(), progress.getDate(), progress.getUserId(), progress.getPicture());
 		if(result != null) {
-			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
+			ProgressDTO progressdto = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
 			return progress;
 		}else {
 			return null;

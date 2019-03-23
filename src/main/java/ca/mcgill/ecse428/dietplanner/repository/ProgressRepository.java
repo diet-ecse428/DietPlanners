@@ -1,5 +1,6 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ProgressRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Progress createProgress(double weight, String date, String username, String image) throws ParseException, InvalidInputException {
+	public Progress createProgress(double weight, Date date, String username, byte[] bs) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
 		if(date == null || username == null) {
 			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
@@ -38,14 +39,14 @@ public class ProgressRepository {
 		
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
-		java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
+		java.util.Date entryDate = date; // Returns a Date format object with the pattern
 		java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 
 		Progress progress = new Progress();
 		progress.setDate(sqlEntryDate);
 		progress.setUserId(username);
 		progress.setWeight(weight);
-		progress.setPicture(image.getBytes());
+		progress.setPicture(bs);
 
 		Set<Progress> progresses = user.getProgresses();
 		progresses.add(progress);
