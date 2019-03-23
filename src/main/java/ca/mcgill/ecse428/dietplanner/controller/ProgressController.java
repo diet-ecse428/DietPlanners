@@ -32,9 +32,8 @@ public class ProgressController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public ProgressDTO createProgress(@RequestParam("weight") double weight, @RequestParam("date") String date,
-			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
-		Progress result = repository.createProgress(weight, date, username, image);
+	public ProgressDTO createProgress(@RequestBody ProgressDTO progress) throws ParseException, InvalidInputException {
+		Progress result = repository.createProgress(progress.weight, progress.date, progress.userId, progress.picture);
 		if(result != null) {
 			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
 			return progress;
