@@ -39,7 +39,7 @@ public class ProgressController {
     			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
     		Progress result = repository.createProgress(weight, date, username, image);
     		if(result != null) {
-    			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), (new String(result.getPicture())), result.getUserId());
+    			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), /*(new String(result.getPicture())), */result.getUserId());
     			return progress;
     		}else {
     			return null;
@@ -52,7 +52,7 @@ public class ProgressController {
 			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
 		Progress result = repository.updateProgress(progressId, weight, date, username, image);
 		if(result != null) {
-			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), (new String(result.getPicture())), result.getUserId());
+			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), /*(new String(result.getPicture())),*/ result.getUserId());
 			return progress;
 		}else {
 			return null;
@@ -63,7 +63,7 @@ public class ProgressController {
 	public ProgressDTO getProgress(@PathVariable("progressId") int progressId) {
 		Progress result = repository.getProgress(progressId);
 		if(result != null) {
-			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), (new String(result.getPicture())), result.getUserId());
+			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), /*(new String(result.getPicture())),*/ result.getUserId());
 			return progress;
 		}else {
 			return null;
@@ -77,7 +77,7 @@ public class ProgressController {
 		List<ProgressDTO> progressDTOs = new ArrayList<ProgressDTO>();
 		for(Progress p: allProgresses) {
 			if(p.getUserId() == username) {
-				ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), (new String(p.getPicture())), username);
+				ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), /*(new String(p.getPicture())),*/ username);
 				progressDTOs.add(pDTO);
 			}
 		}

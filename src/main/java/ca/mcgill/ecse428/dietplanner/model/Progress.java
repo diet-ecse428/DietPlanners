@@ -23,7 +23,7 @@ public class Progress
 	private int id;
 	private double weight;
 	private Date date;
-	private byte[] picture;
+	//private byte[] picture;
 	//private User user;
 	private String userId;
 
@@ -47,13 +47,13 @@ public class Progress
 		return wasSet;
 	}
 
-	public boolean setPicture(byte[] aPicture)
-	{
-		boolean wasSet = false;
-		picture = aPicture;
-		wasSet = true;
-		return wasSet;
-	}
+//	public boolean setPicture(byte[] aPicture)
+//	{
+//		boolean wasSet = false;
+//		picture = aPicture;
+//		wasSet = true;
+//		return wasSet;
+//	}
 	
 	public void setId(int id) {
 		this.id = id;
@@ -75,12 +75,12 @@ public class Progress
 		return date;
 	}
 
-	@Lob
-	@Column(name="picture")
-	public byte[] getPicture()
-	{
-		return picture;
-	}
+//	@Lob
+//	@Column(name="picture")
+//	public byte[] getPicture()
+//	{
+//		return picture;
+//	}
 
 	@Id
 	@Column(name="id")
