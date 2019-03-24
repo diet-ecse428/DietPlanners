@@ -49,8 +49,8 @@ public class ProgressController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ProgressDTO updateProgress(@RequestParam("progressId") int progressId, @RequestParam("weight") double weight, @RequestParam("date") String date,
-			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
-		Progress result = repository.updateProgress(progressId, weight, date, username, image);
+			@RequestParam("username") String username/*, @RequestParam("image") String image*/) throws ParseException, InvalidInputException {
+		Progress result = repository.updateProgress(progressId, weight, date, username/*, image*/);
 		if(result != null) {
 			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), /*(new String(result.getPicture())),*/ result.getUserId());
 			return progress;
@@ -72,14 +72,12 @@ public class ProgressController {
 	
 	@RequestMapping(value = "/getAllProgresses/{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ProgressDTO> getAllEntries(@PathVariable("username") String username) throws InvalidInputException{
-		Set<Progress> allProgresses = repository.getAllProgresses(username);
+	public List<ProgressDTO> getAllProgresses(@PathVariable("username") String username) throws InvalidInputException{
+		List<Progress> allProgresses = repository.getAllProgresses(username);
 		List<ProgressDTO> progressDTOs = new ArrayList<ProgressDTO>();
 		for(Progress p: allProgresses) {
-			if(p.getUserId() == username) {
-				ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), /*(new String(p.getPicture())),*/ username);
-				progressDTOs.add(pDTO);
-			}
+			ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), /*(new String(p.getPicture())),*/ username);
+			progressDTOs.add(pDTO);
 		}
 		return progressDTOs;
 	}

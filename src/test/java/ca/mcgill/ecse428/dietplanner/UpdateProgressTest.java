@@ -93,7 +93,7 @@ class UpdateProgressTest {
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
 		try {
-			progress = progressDao.updateProgress(progressId, new_weight_valid, new_date, username, new_image);
+			progress = progressDao.updateProgress(progressId, new_weight_valid, new_date, username);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -119,7 +119,7 @@ class UpdateProgressTest {
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
 		try {
-			progress = progressDao.updateProgress(progressId, new_weight_valid, new_date, username_invalid, new_image);
+			progress = progressDao.updateProgress(progressId, new_weight_valid, new_date, username_invalid);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -137,7 +137,7 @@ class UpdateProgressTest {
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
 		try {
-			progress = progressDao.updateProgress(progressId, new_weight_invalid, new_date, username, new_image);
+			progress = progressDao.updateProgress(progressId, new_weight_invalid, new_date, username);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -154,7 +154,7 @@ class UpdateProgressTest {
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
 		try {
-			progress = progressDao.updateProgress(progressId_invalid, new_weight_valid, new_date, username, new_image);
+			progress = progressDao.updateProgress(progressId_invalid, new_weight_valid, new_date, username);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -171,7 +171,7 @@ class UpdateProgressTest {
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
 		try {
-			progress = progressDao.updateProgress(progressId, new_weight_valid, null, null, new_image);
+			progress = progressDao.updateProgress(progressId, new_weight_valid, null, null);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}

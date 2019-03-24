@@ -2,14 +2,18 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -61,7 +65,7 @@ public class ProgressRepository {
 	}
 
 	@Transactional
-	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException, InvalidInputException {
+	public Progress updateProgress(int progressId, double weight, String date, String username/*, String image*/) throws ParseException, InvalidInputException {
 		Progress progress = em.find(Progress.class, progressId);
 		User user = em.find(User.class, username);
 		if(username==null || date == null) {
@@ -104,12 +108,15 @@ public class ProgressRepository {
 	}
 
 	@Transactional
-    public Set<Progress> getAllProgresses(String username) throws InvalidInputException {
-        User user = em.find(User.class, username);
-        if (user == null) {
-            throw new InvalidInputException("Error: User not found.\n");
-        }
-        return user.getProgresses();
+    public List<Progress> getAllProgresses(String username) throws InvalidInputException {
+		List<Progress> allProgresses  = em.createQuery("select e from Progress e", Progress.class).getResultList();
+		List<Progress> userProgresses = new ArrayList<>();
+		for(Progress p: allProgresses) {
+			if(p.getUserId().equals(username)) {
+				userProgresses.add(p);
+			}
+		}
+        return userProgresses;
     }
 
 }

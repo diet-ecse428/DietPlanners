@@ -63,4 +63,15 @@ public class LiquidController {
 		return liquidDTOs;
 	}
 	
+	@RequestMapping(value = "/remove/{liquidId}/")
+	@ResponseBody
+	public boolean removeLiquid(@PathVariable("liquidId") int liquidId) {
+		boolean result = repository.removeLiquid(liquidId);
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 }

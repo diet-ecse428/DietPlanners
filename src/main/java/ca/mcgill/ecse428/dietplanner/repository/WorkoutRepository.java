@@ -56,5 +56,14 @@ public class WorkoutRepository {
 		List<Workout> workouts = query.getResultList();
 		return workouts;
 	}
+	
+	@Transactional
+	public boolean removeWorkout(int id) {
+		int rowsDeleted = em.createQuery("delete from Workout where id = '" + id + "'").executeUpdate();
+		if(rowsDeleted == 1) {
+			return true;
+		}
+		return false;
+	}
 
 }
