@@ -76,10 +76,8 @@ public class ProgressController {
 		List<Progress> allProgresses = repository.getAllProgresses(username);
 		List<ProgressDTO> progressDTOs = new ArrayList<ProgressDTO>();
 		for(Progress p: allProgresses) {
-			if(p.getUserId() == username) {
-				ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), /*(new String(p.getPicture())),*/ username);
-				progressDTOs.add(pDTO);
-			}
+			ProgressDTO pDTO = new ProgressDTO(p.getId(), p.getWeight(), p.getDate(), /*(new String(p.getPicture())),*/ username);
+			progressDTOs.add(pDTO);
 		}
 		return progressDTOs;
 	}

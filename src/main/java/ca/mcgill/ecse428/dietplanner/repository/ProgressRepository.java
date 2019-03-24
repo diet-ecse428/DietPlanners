@@ -112,15 +112,10 @@ public class ProgressRepository {
 		List<Progress> allProgresses  = em.createQuery("select e from Progress e", Progress.class).getResultList();
 		List<Progress> userProgresses = new ArrayList<>();
 		for(Progress p: allProgresses) {
-			if(p.getUserId()==username) {
+			if(p.getUserId().equals(username)) {
 				userProgresses.add(p);
 			}
 		}
-		//List<String> progresses = em.createQuery("SELECT e FROM Progress e" , String.class).getResultList();
-//        User user = em.find(User.class, username);
-//        if (user == null) {
-//            throw new InvalidInputException("Error: User not found.\n");
-//        }
         return userProgresses;
     }
 
