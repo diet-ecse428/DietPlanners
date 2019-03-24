@@ -61,7 +61,7 @@ public class ProgressRepository {
 	}
 
 	@Transactional
-	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException, InvalidInputException {
+	public Progress updateProgress(int progressId, double weight, String date, String username/*, String image*/) throws ParseException, InvalidInputException {
 		Progress progress = em.find(Progress.class, progressId);
 		User user = em.find(User.class, username);
 		if(username==null || date == null) {
