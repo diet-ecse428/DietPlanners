@@ -48,18 +48,6 @@ public class UpdateWeightTest {
 	private Set<Progress> progresses = new HashSet<Progress>();
 	
 
-
-	/*private int remaingCal = 20;
-	private int totalCalCount = 1980;
-	private String note = "Hello";
-	entry.setDate(date);
-	entry.setRemaingCal(remaingCal);
-	entry.setTotalCalCount(totalCalCount);
-	entry.setNote(note);
-	entry.setLogbookId(logbookId);
-	private Set<Entry> entries;
-	entries.add(entry);*/
-
 	public User testuser = new User();
 	private String name = "John";
 	private String lastName = "Smith";
@@ -72,18 +60,15 @@ public class UpdateWeightTest {
 	
 
 	EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
-	//private static UserRepository userDao= mock(UserRepository.class, CALLS_REAL_METHODS);;
 
-	
-	//private EntityManager em;
 
 	@InjectMocks
 	UserRepository userDao;
 
-	//private static final String USER_KEY = "TestUser@gmail.com";
 
 	private final double newTestWeight = 115.0;
 	private final double badTestWeight = -100.0;
+
 	@BeforeAll
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -95,9 +80,7 @@ public class UpdateWeightTest {
 			progress.setWeight(weight);
 			progress.setDate(date);
 			progress.setUserId(userId);
-
 			progresses.add(progress);
-
 			testuser.setName(name);
 			testuser.setLastName(lastName);
 			testuser.setEmail(email);
@@ -108,6 +91,7 @@ public class UpdateWeightTest {
 			testuser.setStartWeight(startWeight);
 			testuser.setProgresses(progresses);
 	}
+	
 	@BeforeEach
 	void setMockOutput() throws Exception {
 		try {
