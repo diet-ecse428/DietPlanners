@@ -131,7 +131,7 @@ public class UserRepository {
 
 	
 	@Transactional
-	public boolean login(String username, String password) throws InvalidInputException {
+	public User login(String username, String password) throws InvalidInputException {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
@@ -145,7 +145,7 @@ public class UserRepository {
 				String userPassword = user.getPassword();
 
 				if (userPassword.equals(password)) {
-					return true;
+					return user;
 				}
 				else {
 					throw new InvalidInputException("Error: wrong password.\n");
@@ -153,7 +153,7 @@ public class UserRepository {
 
 			}
 		}
-		return false;	
+		return null;
 	}
 
 

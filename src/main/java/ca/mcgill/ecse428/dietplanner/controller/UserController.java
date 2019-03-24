@@ -80,9 +80,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public boolean login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
-		boolean success = repository.login(username, password);
-		return success;
+	public User login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
+		User user = repository.login(username, password);
+		return user;
 	}//works
 	
 
