@@ -73,7 +73,7 @@ public class LoginTests {
 	}
 	
 	@Test void testSuccessfulLogin() {
-		User result = false;
+		User result = null;
 		String error = null;
 		try {
 			result = userDao.login(username, password_correct);
@@ -96,7 +96,7 @@ public class LoginTests {
 	}
 	
 	@Test void testBothWrong() {
-		User result = false;
+		User result = null;
 		String error = null;
 		try {
 			result = userDao.login(username_incorrect, password_incorrect);
@@ -104,7 +104,7 @@ public class LoginTests {
 			error = e.getMessage();
 		}
 		assertNull(error);
-		assertEquals(false, result != null);
+		assertEquals(true, result == null);
 	}
 	
 	@Test void testNullInputs() {
