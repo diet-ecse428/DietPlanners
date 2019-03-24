@@ -9,9 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.math.BigInteger;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +30,7 @@ import ca.mcgill.ecse428.dietplanner.repository.ProgressRepository;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CreateProgressTest {
 	EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
-	
+
 	@InjectMocks
 	ProgressRepository progressDao;
 
@@ -45,28 +42,28 @@ class CreateProgressTest {
 	private static double weight_valid = 200;
 	private static double weight_invalid = -200;
 	private static String date = "20-06-2019";
-	private static byte[] image = BigInteger.valueOf(25).toByteArray();
+	private static String image = "image.png";
 	private static int progressId = 1;
 	private static int progressId_invalid = 2;
-	
+
 	User user = new User();
 	Progress progressMock;
 	Set<Progress> progresses;
-	
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@BeforeEach
 	void setMockOutput() {
 		user.setUsername(username);
-		
+
 		progresses = new HashSet<Progress>();
 		user.setProgresses(progresses);
-		
+
 		progressMock = mock(Progress.class);
-		
+
 		when(em.find(eq(User.class),eq(username))).thenReturn(user);
 		when(em.find(eq(Progress.class),eq(progressId))).thenReturn(progressMock);
 	}
@@ -85,8 +82,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			progressMock = progressDao.createProgress(weight_valid, sdf.parse(date), username, image);
+			progressMock = progressDao.createProgress(weight_valid, date, username, image);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -94,7 +90,7 @@ class CreateProgressTest {
 		assertNotNull(progressMock);
 		assertEquals(weight_valid, progressMock.getWeight(),0);
 		assertEquals(username, progressMock.getUserId());
-		assertEquals(image, progressMock.getPicture().length);
+		assertEquals(image.getBytes().length,progressMock.getPicture().length);
 		assertEquals(1, user.getProgresses().size());
 	}
 	@Test
@@ -102,8 +98,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			progressMock = progressDao.createProgress(weight_valid, sdf.parse(date), username_invalid, image);
+			progressMock = progressDao.createProgress(weight_valid, date, username_invalid, image);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -113,14 +108,13 @@ class CreateProgressTest {
 		assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
 	}
-	
+
 	@Test
 	void unsuccessful_invalidWeight() {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			progressMock = progressDao.createProgress(weight_invalid, sdf.parse(date), username, image);
+			progressMock = progressDao.createProgress(weight_invalid, date, username, image);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -129,7 +123,7 @@ class CreateProgressTest {
 		assertNull(progressMock.getUserId());
 		assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
-		
+
 	}
 	@Test
 	void unsuccessful_nullInputs() {
@@ -145,7 +139,7 @@ class CreateProgressTest {
 		assertNull(progressMock.getUserId());
 		assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
-		
+
 	}
 	@AfterEach
 	void tearDown() throws Exception {

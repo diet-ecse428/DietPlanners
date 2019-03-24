@@ -1,20 +1,15 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse428.dietplanner.model.Entry;
-import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -25,7 +20,7 @@ public class ProgressRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Progress createProgress(double weight, java.util.Date date, String username, byte[] bs) throws ParseException, InvalidInputException {
+	public Progress createProgress(double weight, String date, String username, String image) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
 		if(date == null || username == null) {
 			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
@@ -36,17 +31,17 @@ public class ProgressRepository {
 		if(weight < 0) {
 			throw new InvalidInputException("Error: weight must be positive.\n");
 		}
-		
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
-		java.util.Date entryDate = date; // Returns a Date format object with the pattern
+
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
 		java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 
 		Progress progress = new Progress();
 		progress.setDate(sqlEntryDate);
 		progress.setUserId(username);
 		progress.setWeight(weight);
-		progress.setPicture(bs);
+		progress.setPicture(image.getBytes());
 
 		Set<Progress> progresses = user.getProgresses();
 		progresses.add(progress);
@@ -63,17 +58,6 @@ public class ProgressRepository {
 		Progress progress = em.find(Progress.class, progressId);
 		return progress;
 	}
-	
-	@Transactional
-	public Set<Progress> getAllProgresses(String username) throws InvalidInputException {
-		User user = em.find(User.class, username);
-		if (user == null) {
-			throw new InvalidInputException("Error: User not found.\n");
-		}
-		return user.getProgresses();
-	}
-	
-	
 
 	@Transactional
 	public Progress updateProgress(int progressId, double weight, String date, String username, String image) throws ParseException, InvalidInputException {
@@ -99,9 +83,9 @@ public class ProgressRepository {
 		progress.setUserId(username);
 		progress.setWeight(weight);
 		progress.setPicture(image.getBytes());
-		
+
 		Set<Progress> progresses = user.getProgresses();
-		
+
 		for(Progress p : progresses) {
 			if(p.getId() == progressId) {
 				progresses.remove(p);
@@ -110,10 +94,10 @@ public class ProgressRepository {
 		}
 		progresses.add(progress);
 		user.setProgresses(progresses);
-		
+
 		em.persist(user);
 		em.persist(progress);
-		
+
 		return progress;
 	}
 
