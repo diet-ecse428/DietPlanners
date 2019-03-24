@@ -41,7 +41,8 @@ public class ProgressRepository {
 		progress.setDate(sqlEntryDate);
 		progress.setUserId(username);
 		progress.setWeight(weight);
-		progress.setPicture(image.getBytes());
+	//	progress.setPicture(image.getBytes());
+		progress.setPicture(new byte[0]);
 
 		Set<Progress> progresses = user.getProgresses();
 		progresses.add(progress);
@@ -82,7 +83,8 @@ public class ProgressRepository {
 		progress.setDate(sqlEntryDate);
 		progress.setUserId(username);
 		progress.setWeight(weight);
-		progress.setPicture(image.getBytes());
+	//	progress.setPicture(image.getBytes());
+		progress.setPicture(new byte[0]);
 
 		Set<Progress> progresses = user.getProgresses();
 
