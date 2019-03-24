@@ -72,8 +72,8 @@ public class ProgressController {
 	
 	@RequestMapping(value = "/getAllProgresses/{username}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ProgressDTO> getAllEntries(@PathVariable("username") String username) throws InvalidInputException{
-		Set<Progress> allProgresses = repository.getAllProgresses(username);
+	public List<ProgressDTO> getAllProgresses(@PathVariable("username") String username) throws InvalidInputException{
+		List<Progress> allProgresses = repository.getAllProgresses(username);
 		List<ProgressDTO> progressDTOs = new ArrayList<ProgressDTO>();
 		for(Progress p: allProgresses) {
 			if(p.getUserId() == username) {

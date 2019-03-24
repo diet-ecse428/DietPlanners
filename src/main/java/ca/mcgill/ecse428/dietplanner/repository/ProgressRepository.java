@@ -2,14 +2,18 @@ package ca.mcgill.ecse428.dietplanner.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Progress;
 import ca.mcgill.ecse428.dietplanner.model.User;
 
@@ -104,12 +108,20 @@ public class ProgressRepository {
 	}
 
 	@Transactional
-    public Set<Progress> getAllProgresses(String username) throws InvalidInputException {
-        User user = em.find(User.class, username);
-        if (user == null) {
-            throw new InvalidInputException("Error: User not found.\n");
-        }
-        return user.getProgresses();
+    public List<Progress> getAllProgresses(String username) throws InvalidInputException {
+		List<Progress> allProgresses  = em.createQuery("select e from Progress e", Progress.class).getResultList();
+		List<Progress> userProgresses = new ArrayList<>();
+		for(Progress p: allProgresses) {
+			if(p.getUserId()==username) {
+				userProgresses.add(p);
+			}
+		}
+		//List<String> progresses = em.createQuery("SELECT e FROM Progress e" , String.class).getResultList();
+//        User user = em.find(User.class, username);
+//        if (user == null) {
+//            throw new InvalidInputException("Error: User not found.\n");
+//        }
+        return userProgresses;
     }
 
 }
