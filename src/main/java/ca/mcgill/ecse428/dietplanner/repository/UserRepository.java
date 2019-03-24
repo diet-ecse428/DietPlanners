@@ -177,7 +177,7 @@ public class UserRepository {
 		}
 		
 		user.setStartWeight(startWeight);
-		
+		user.setHeight(height);
 
 		em.persist(user);
 		return user;
