@@ -80,9 +80,14 @@ public class UserController {
 	
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public User login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
-		User user = repository.login(username, password);
-		return user;
+	public UserDTO login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
+		User result = repository.login(username, password);
+		if(user != null){
+		    return new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
+                       					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());;
+		} else {
+		    return null;
+		}
 	}//works
 	
 
