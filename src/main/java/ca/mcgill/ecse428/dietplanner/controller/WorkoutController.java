@@ -62,5 +62,16 @@ public class WorkoutController {
 		}
 		return workoutDTOs;
 	}
+	
+	@RequestMapping(value = "/remove/{workoutId}/")
+	@ResponseBody
+	public boolean removeWorkout(@PathVariable("workoutId") int workoutId) {
+		boolean result = repository.removeWorkout(workoutId);
+		if(result) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

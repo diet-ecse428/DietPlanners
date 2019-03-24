@@ -54,4 +54,13 @@ public class LiquidRepository {
 		List<Liquid> liquids = query.getResultList();
 		return liquids;
 	}
+	
+	@Transactional
+	public boolean removeLiquid(int id) {
+		int rowsDeleted = em.createQuery("delete from Liquid where id = '" + id + "'").executeUpdate();
+		if(rowsDeleted == 1) {
+			return true;
+		}
+		return false;
+	}
 }
