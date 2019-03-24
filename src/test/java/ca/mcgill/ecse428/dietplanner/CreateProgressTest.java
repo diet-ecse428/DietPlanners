@@ -82,7 +82,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_valid, date, username, image);
+			progressMock = progressDao.createProgress(weight_valid, date, username/*, image*/);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -98,7 +98,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_valid, date, username_invalid, image);
+			progressMock = progressDao.createProgress(weight_valid, date, username_invalid/*, image*/);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -114,7 +114,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_invalid, date, username, image);
+			progressMock = progressDao.createProgress(weight_invalid, date, username/*, image*/);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -130,7 +130,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_invalid, null, null, image);
+			progressMock = progressDao.createProgress(weight_invalid, null, null/*, image*/);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}

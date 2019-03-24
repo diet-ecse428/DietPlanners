@@ -20,7 +20,7 @@ public class ProgressRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Progress createProgress(double weight, String date, String username, String image) throws ParseException, InvalidInputException {
+	public Progress createProgress(double weight, String date, String username/*, String image*/) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
 		if(date == null || username == null) {
 			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
