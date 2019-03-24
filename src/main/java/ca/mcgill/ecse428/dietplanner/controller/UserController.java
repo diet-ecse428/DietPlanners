@@ -82,7 +82,7 @@ public class UserController {
 	@ResponseBody
 	public UserDTO login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
 		User result = repository.login(username, password);
-		if(user != null){
+		if(result != null){
 		    return new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
                        					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());;
 		} else {
