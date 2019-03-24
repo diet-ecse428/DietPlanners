@@ -39,7 +39,7 @@ public class ProgressController {
     			@RequestParam("username") String username, @RequestParam("image") String image) throws ParseException, InvalidInputException {
     		Progress result = repository.createProgress(weight, date, username, image);
     		if(result != null) {
-    			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), result.getPicture(), result.getUserId());
+    			ProgressDTO progress = new ProgressDTO(result.getId(), result.getWeight(), result.getDate(), (new String(result.getPicture())), result.getUserId());
     			return progress;
     		}else {
     			return null;

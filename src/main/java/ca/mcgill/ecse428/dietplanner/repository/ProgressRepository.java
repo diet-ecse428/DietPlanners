@@ -33,7 +33,7 @@ public class ProgressRepository {
 		}
 
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 		java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
 		java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 
@@ -100,5 +100,14 @@ public class ProgressRepository {
 
 		return progress;
 	}
+
+	@Transactional
+    public Set<Progress> getAllProgresses(String username) throws InvalidInputException {
+        User user = em.find(User.class, username);
+        if (user == null) {
+            throw new InvalidInputException("Error: User not found.\n");
+        }
+        return user.getProgresses();
+    }
 
 }
