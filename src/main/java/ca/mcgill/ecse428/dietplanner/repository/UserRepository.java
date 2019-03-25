@@ -114,7 +114,7 @@ public class UserRepository {
 	}
 
 	public boolean validateUsername(String username) {
-	//	TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
+	//	TypedQuery<String> query = em.createQuery("select e.username from Users e", String.class);
 	//	List<String> usernames = query.getResultList();
 		List<String> usernames = findByUsername(username);
 		for (String thisUsername : usernames) {
@@ -125,7 +125,7 @@ public class UserRepository {
 		return true;
 	}
 	public List<String> findByUsername(String username){
-		return em.createQuery("select e.username from User e" , String.class)
+		return em.createQuery("select e.username from Users e" , String.class)
 				.getResultList();
 	}
 
@@ -135,7 +135,7 @@ public class UserRepository {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
-		TypedQuery<User> query = em.createQuery("select * from User u where u.username="+username+" and u.password="+password, User.class);
+		TypedQuery<User> query = em.createQuery("select * from Users u where u.username="+username+" and u.password="+password, User.class);
 		List<User> users = query.getResultList();
         if(users.size() != 0)
             return users.get(0);
