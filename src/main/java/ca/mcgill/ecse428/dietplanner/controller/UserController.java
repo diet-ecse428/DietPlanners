@@ -89,8 +89,8 @@ public class UserController {
 		User user = repository.getUser(username);
 		if(user != null){
 		    if(user.getPassword().equals(password)){
-		        UserDTO userDto =  new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
-                   					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
+		        UserDTO userDto =  new UserDTO(user.getName(), user.getLastName(), user.getEmail(), user.getUsername(), user.getPassword(), user.getHeight(),
+                   					user.getTargetWeight(), user.getTargetDate(), user.getStartWeight());
                 return userDto;
 		    }
 		}
