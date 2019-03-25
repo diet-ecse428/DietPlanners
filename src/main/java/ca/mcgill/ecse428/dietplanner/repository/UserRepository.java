@@ -135,13 +135,14 @@ public class UserRepository {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
-		TypedQuery<String> query = em.createQuery("select e.username from User e", String.class);
-		List<String> usernames = query.getResultList();
-
-		for (String thisUsername : usernames) {
-			if(username.equals(thisUsername)) {
-
-				User user = em.find(User.class, username);
+		TypedQuery<String> query = em.createQuery("select * from User u where u.username="+username+" and u.password="+password, User.class);
+		List<User> users = query.getResultList();
+        if(users.size() != 0)
+            return users.get(0);
+        else
+            return null;
+		/*for (User user : users) {
+			if(user.getUsername().equals(username)) {
 				String userPassword = user.getPassword();
 
 				if (userPassword.equals(password)) {
@@ -152,8 +153,7 @@ public class UserRepository {
 				}
 
 			}
-		}
-		return null;
+		}*/
 	}
 
 

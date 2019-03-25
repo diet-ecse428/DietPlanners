@@ -87,11 +87,9 @@ public class UserController {
 		if(result != null){
 			UserDTO userDto =  new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
    					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
-			System.out.println("LOGIN IN CONTROLLER");
-			System.out.println(userDto.getName());
 		    return userDto;
 		} else {
-		    return null;
+		    throw new InvalidInputException("The User could not be found!");
 		}
 	}//works
 	
