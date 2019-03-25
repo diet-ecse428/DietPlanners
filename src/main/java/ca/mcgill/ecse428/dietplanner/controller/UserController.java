@@ -71,12 +71,15 @@ public class UserController {
 	}//works
 	
 	@GetMapping("/get/{username}")
-	public User queryUser(@PathVariable("username") String username) {
+	@ResponseBody
+	public UserDTO queryUser(@PathVariable("username") String username) {
 		User user = repository.getUser(username);
 		if(user == null) {
 			return null;
 		}
-		return user;
+		UserDTO userDto = new UserDTO(user.getName(), user.getLastName(), user.getEmail(), user.getUsername(), user.getPassword(), user.getHeight(),
+				user.getTargetWeight(), user.getTargetDate(), user.getStartWeight());
+		return userDto;
 	}//works
 	
 	
