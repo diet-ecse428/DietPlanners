@@ -82,14 +82,16 @@ public class UserController {
 	
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<UserDTO> login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
+	public UserDTO login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
 		User result = repository.login(username, password);
 		if(result != null){
 			UserDTO userDto =  new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
    					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
-		    return new ResponseEntity<UserDTO>(userDto,HttpStatus.OK);
+			System.out.println("LOGIN IN CONTROLLER");
+			System.out.println(userDto.getName());
+		    return userDto;
 		} else {
-		    return new ResponseEntity(HttpStatus.NOT_FOUND);
+		    return null;
 		}
 	}//works
 	
