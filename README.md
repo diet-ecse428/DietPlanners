@@ -1,6 +1,6 @@
 # DietPlanners
 
-Diet Planners is a tool that helps users to track and plan their weight loss journey. Users can enter their current informtation- weight, height, age- and then set a target goal for themselves. DietPlanner will help them keep track of their progress with daily check ins and a calorie counter based on the foods they ate and the amount of exercise they did. 
+DietPlanners is a web based tool that helps users track and plan their weight loss journey. Users can create accounts and personalize their information by entering their current weight, height, age and then set a target goal for themselves. DietPlanners will help them keep track of their progress with daily check ins and a calorie counter based on the foods they eat throughout the course of the day and the amount of exercise they do. Users must input their information in the form of entries either for food or exercise. These entries are saved in their logbook where they can look back on various entries they have created over time. The logbook is essential because users can track their progression by looking through previous days within the logbook. In addition, users can track their progress by going to the progress page and entering their current weight and date and the page will keep track of these values for users to look back on in the future. 
 
 
 ## Strategy and Tools
