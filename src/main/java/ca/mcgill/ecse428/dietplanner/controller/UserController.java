@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,9 +57,9 @@ public class UserController {
 	
 	@PostMapping(value = "/userInfo/{username}/{height}/{targetWeight}/{targetDate}/{startWeight}")
 	@ResponseBody
-	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
-			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) throws ParseException {
+	public UserDTO userDetails(@PathVariable("username") String username, @PathVariable("height") String height, 
+			@PathVariable("targetWeight") double targetWeight, @PathVariable("targetDate") String targetDate, 
+			@PathVariable("startWeight") double startWeight) throws ParseException {
 		User result = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
 		
 		if (result != null ) {
