@@ -52,7 +52,7 @@ public class UserController {
 	}//works
 	
 	
-	@RequestMapping(value = "/userInfo", method=RequestMethod.POST)
+	@PostMapping(value = "/userInfo/{username}/{height}/{targetWeight}/{targetDate}/{startWeight}")
 	@ResponseBody
 	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
 			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 

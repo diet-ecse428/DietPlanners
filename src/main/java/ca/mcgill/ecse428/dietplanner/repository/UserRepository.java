@@ -157,7 +157,7 @@ public class UserRepository {
 		}
 		user.setTargetWeight(targetWeight);
 		
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 		boolean dateValid = validateDate(sqlStartDate);
