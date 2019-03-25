@@ -55,9 +55,9 @@ public class UserController {
 	
 	@PostMapping(value = "/userInfo/{username}/{height}/{targetWeight}/{targetDate}/{startWeight}")
 	@ResponseBody
-	public UserDTO userDetails(@RequestParam("username") String username, @RequestParam("height") String height, 
-			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) throws ParseException {
+	public UserDTO userDetails(@PathVariable("username") String username, @PathVariable("height") String height, 
+			@PathVariable("targetWeight") double targetWeight, @PathVariable("targetDate") String targetDate, 
+			@PathVariable("startWeight") double startWeight) throws ParseException {
 		User result = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
 		
 		if (result != null ) {
