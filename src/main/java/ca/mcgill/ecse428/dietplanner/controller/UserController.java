@@ -83,20 +83,18 @@ public class UserController {
 	}//works
 	
 	
-	@GetMapping("/login")
+	@GetMapping("/login/{username}/{password}")
 	@ResponseBody
-	public UserDTO login(@RequestParam("username") String username, @RequestParam("password") String password) throws InvalidInputException {
+	public UserDTO login(@PathVariable("username") String username, @PathVariable("password") String password) throws InvalidInputException {
 		User user = repository.getUser(username);
 		if(user != null){
-		    if(user.getPassword().equals(password)){
-		        UserDTO userDto =  new UserDTO(user.getName(), user.getLastName(), user.getEmail(), user.getUsername(), user.getPassword(), user.getHeight(),
-                   					user.getTargetWeight(), user.getTargetDate(), user.getStartWeight());
-                return userDto;
-		    }
+			if(user.getPassword().equals(password)){
+				UserDTO userDto =  new UserDTO(user.getName(), user.getLastName(), user.getEmail(), user.getUsername(), user.getPassword(), user.getHeight(),
+						user.getTargetWeight(), user.getTargetDate(), user.getStartWeight());
+			    return userDto;
+			}
 		}
-
 		return null;
-
 	}//works
 	
 
