@@ -91,7 +91,7 @@ Arielle Lasry
 
 Eden Ovadia
 
-Rebecca Weil
+Rebecca Weill
 
 Benjamin Szwimer
 
