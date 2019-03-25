@@ -2,7 +2,7 @@ package ca.mcgill.ecse428.dietplanner.controller;
 
 import java.text.ParseException;
 
-import org.seleniumhq.jetty9.http.HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -87,9 +87,9 @@ public class UserController {
 		if(result != null){
 			UserDTO userDto =  new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
    					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
-		    return new ResponseEntity<UserDTO>(userDto,HttpStatus.OK_200);
+		    return new ResponseEntity<UserDTO>(userDto,HttpStatus.OK);
 		} else {
-		    return new ResponseEntity(HttpStatus.NOT_FOUND_404);
+		    return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 	}//works
 	
