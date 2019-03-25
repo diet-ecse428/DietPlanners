@@ -84,7 +84,7 @@ public class UserController {
 		User result = repository.login(username, password);
 		if(result != null){
 		    return new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
-                       					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());;
+                       					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
 		} else {
 		    return null;
 		}
