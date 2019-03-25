@@ -99,4 +99,25 @@ public class FoodController {
 			}
 			
 		}
+/*	@RequestMapping(value = "/createWithAPI", method = RequestMethod.POST)
+	@ResponseBody
+	public FoodDTO createFoodWithAPI(@RequestParam("entryid") int entry_id, @RequestParam("foodname") String foodName, @RequestParam("serving") double serving,
+								@RequestParam("mealtype") String meal_type) {
+		
+		String ndbno = repository.getFoodFromAPI(foodName);
+		
+		int calories = Integer.parseInt(repository.getCaloriesFromAPI(ndbno));
+		
+		int caloriesForServingSize = (int)(calories*serving)/100;
+				
+		Food result = repository.createFood(entry_id, calories, serving, meal_type);
+		if(result!=null) {
+			String correctMealType = result.getMealType().toString();
+			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+			return food;
+		}else {
+			return null;
+		}
+	}//works
+	*/
 }

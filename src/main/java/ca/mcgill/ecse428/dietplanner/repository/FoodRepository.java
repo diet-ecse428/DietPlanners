@@ -1,5 +1,12 @@
 package ca.mcgill.ecse428.dietplanner.repository;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -14,10 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Food;
 import ca.mcgill.ecse428.dietplanner.model.User;
+import net.minidev.json.JSONObject;
 import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
 
 @Repository
 public class FoodRepository {
+	
+	final String API_KEY = "8aseaTUOaMaZWdp7Ze56f1iz24afiyhbRysNY2Vc";
 
 	@PersistenceContext
 	public EntityManager em;
@@ -117,5 +127,102 @@ public class FoodRepository {
 		return meal;
 
 	}
+/*	
+	@Transactional
+	public String getFoodFromAPI(String FoodName) {
+		
+		try {
+		URL url = new URL("http://api.nal.usda.gov/ndb/search/?format=json&q="+FoodName+",UPC&sort=r&max=1&offset=0&api_key="+API_KEY);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("GET");
+		
+		OutputStream os = conn.getOutputStream();
+	
 
+		if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output ="";
+		
+		while ((br.readLine()) != null) {
+			output += br.readLine();
+		}
+
+		conn.disconnect();
+
+		String ndbno = "ndbno";
+		
+		String ndbnoNumber = GetJSONValue(output,ndbno);
+		return ndbnoNumber;
+		
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+		return e.toString();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+		return e.toString();
+
+	 }
+		
+}
+public String getCaloriesFromAPI(String ndbnoNumber) {
+		
+		try {
+		URL url = new URL("https://api.nal.usda.gov/ndb/V2/reports?ndbno="+ndbnoNumber+"&type=b&format=json&api_key="+API_KEY);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("GET");
+		
+		OutputStream os = conn.getOutputStream();
+	
+
+		if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output ="";
+		
+		while ((br.readLine()) != null) {
+			output += br.readLine();
+		}
+
+		conn.disconnect();
+
+		String value = "value";
+		
+		String calories = GetJSONValue(output,value);
+		return calories;
+		
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+		return e.toString();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+		return e.toString();
+
+	 }
+		
+}
+	
+	public static String GetJSONValue(String JSONString, String Field)
+	{
+	       return JSONString.substring(JSONString.indexOf(Field), JSONString.indexOf("\n", JSONString.indexOf(Field))).replace(Field+"\": \"", "").replace("\"", "").replace(",","");   
+	}
+*/	
 }

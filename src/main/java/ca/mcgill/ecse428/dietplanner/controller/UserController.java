@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 
+import ca.mcgill.ecse428.dietplanner.dto.LogBookDTO;
 import ca.mcgill.ecse428.dietplanner.dto.UserDTO;
+import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.UserRepository;
@@ -80,6 +82,18 @@ public class UserController {
 		UserDTO userDto = new UserDTO(user.getName(), user.getLastName(), user.getEmail(), user.getUsername(), user.getPassword(), user.getHeight(),
 				user.getTargetWeight(), user.getTargetDate(), user.getStartWeight());
 		return userDto;
+	}//works
+	
+	@GetMapping("/getLogbook/{username}")
+	@ResponseBody
+	public LogBookDTO getLogbookFromUser(@PathVariable("username") String username) {
+		User user = repository.getUser(username);
+		if(user == null) {
+			return null;
+		}
+		LogBook logbook = user.getLogBook();
+		LogBookDTO logbookDTO = new LogBookDTO(logbook.getId());
+		return logbookDTO;
 	}//works
 	
 	
