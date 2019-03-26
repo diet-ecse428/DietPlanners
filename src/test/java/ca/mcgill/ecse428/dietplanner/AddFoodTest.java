@@ -98,7 +98,7 @@ public class AddFoodTest{
 
 
 	@Test
-	public void test_one() {
+	public void testOne() {
 		try{
 			Food foodRes = frep.createFood(testId,fCalories,fServings,fType);
 			assertEquals(foodRes.getEntryId(),testId);
@@ -109,10 +109,11 @@ public class AddFoodTest{
 		
 	}
 	@Test
-	public void unsuccessful_entryNotFound() {
+	public void unsuccessfulEntryNotFound() {
 		String error = null;
 		try{
 			Food foodRes = frep.createFood(-1,fCalories,fServings,fType);
+			assertNull(foodRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -121,10 +122,11 @@ public class AddFoodTest{
 		
 	}
 	@Test
-	void unsuccessful_invalidCals() {
+	void unsuccessfulInvalidCals() {
 		String error = null;
 		try{
 			Food foodRes = frep.createFood(testId,badCals,fServings,fType);
+			assertNull(foodRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -132,11 +134,12 @@ public class AddFoodTest{
 		assertEquals("Error: calories must be positive.\n",error);
 	}
 	@Test
-	void unsuccessful_invalidServings() {
+	void unsuccessfulInvalidServings() {
 
 		String error = null;
 		try{
 			Food foodRes = frep.createFood(testId,fCalories,badServings,fType);
+			assertNull(foodRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();

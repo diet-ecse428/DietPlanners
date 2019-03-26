@@ -95,7 +95,7 @@ public class AddWorkoutTest{
 
 
 	@Test
-	public void test_one() {
+	public void testOne() {
 		try{
 			Workout workoutRes = wrep.createWorkout(testId,calLost,woType,woDuration);
 			assertEquals(workoutRes.getEntryId(),testId);
@@ -106,11 +106,11 @@ public class AddWorkoutTest{
 		
 	}
 	@Test
-	public void unsuccessful_entryNotFound() {
+	public void unsuccessfulEntryNotFound() {
 		String error = null;
 		try{
 			Workout workoutRes = wrep.createWorkout(-1,calLost,woType,woDuration);
-			//assertNull(workoutRes);
+			assertNull(workoutRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -119,11 +119,11 @@ public class AddWorkoutTest{
 		
 	}
 	@Test
-	void unsuccessful_invalidCalLost() {
+	void unsuccessfulInvalidCalLost() {
 		String error = null;
 		try{
 			Workout workoutRes = wrep.createWorkout(testId,badCalLost,woType,woDuration);
-			//assertNull(workoutRes);
+			assertNull(workoutRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -131,12 +131,12 @@ public class AddWorkoutTest{
 		assertEquals("Error: calories lost must be positive.\n",error);
 	}
 	@Test
-	void unsuccessful_invalidWoDuration() {
+	void unsuccessfulInvalidWoDuration() {
 
 		String error = null;
 		try{
 			Workout workoutRes = wrep.createWorkout(testId,badCalLost,woType,badWoDuration);
-			//assertNull(workoutRes);
+			assertNull(workoutRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();

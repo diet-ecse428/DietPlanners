@@ -95,7 +95,7 @@ public class AddLiquidTest{
 
 
 	@Test
-	public void test_one() {
+	public void testOne() {
 		try{
 			Liquid liquidRes = lrep.createLiquid(testId,lCalories,lVolume);
 			assertEquals(liquidRes.getEntryId(),testId);
@@ -106,10 +106,11 @@ public class AddLiquidTest{
 		
 	}
 	@Test
-	public void unsuccessful_entryNotFound() {
+	public void unsuccessfulEntryNotFound() {
 		String error = null;
 		try{
 			Liquid liquidRes = lrep.createLiquid(-1,lCalories,lVolume);
+			assertNull(liquidRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -118,10 +119,11 @@ public class AddLiquidTest{
 		
 	}
 	@Test
-	void unsuccessful_invalidCals() {
+	void unsuccessfulInvalidCals() {
 		String error = null;
 		try{
 			Liquid liquidRes = lrep.createLiquid(testId,badCalories,lVolume);
+			assertNull(liquidRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
@@ -129,11 +131,12 @@ public class AddLiquidTest{
 		assertEquals("Error: calories must be positive.\n",error);
 	}
 	@Test
-	void unsuccessful_invalidVolume() {
+	void unsuccessfulInvalidVolume() {
 
 		String error = null;
 		try{
 			Liquid liquidRes = lrep.createLiquid(testId,lCalories,badVolume);
+			assertNull(liquidRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
