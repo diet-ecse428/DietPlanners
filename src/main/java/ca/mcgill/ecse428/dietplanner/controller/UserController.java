@@ -95,7 +95,7 @@ public class UserController {
 	
 	@GetMapping("/get/{username}")
 	@ResponseBody
-	public UserDTO queryUser(@PathVariable("username") String username) {
+	public UserDTO queryUser(@PathVariable("username") String username) throws InvalidInputException {
 		User user = repository.getUser(username);
 		if(user == null) {
 			return null;

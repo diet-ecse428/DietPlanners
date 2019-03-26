@@ -33,10 +33,19 @@ public class FoodRepository {
 	
 	@Transactional
 	public Food createFood(String name, int entry_id, int calories, double serving, String meal_type) throws InvalidInputException{
+		if(name==null || meal_type == null) {
+			throw new InvalidInputException("Error: Required fields cannot be null.\n");
+		}
 		Entry entry = em.find(Entry.class, entry_id);
-		if(entry==null) throw new InvalidInputException("Error: Entry not found.\n");
-		if (serving < 0.0) throw new InvalidInputException("Error: servings must be positive.\n");
-		if (calories < 0) throw new InvalidInputException("Error: calories must be positive.\n");
+		if(entry==null) {
+			throw new InvalidInputException("Error: Entry not found.\n");
+		}
+		if (serving < 0.0) {
+			throw new InvalidInputException("Error: servings must be positive.\n");
+		}
+		if (calories < 0) {
+			throw new InvalidInputException("Error: calories must be positive.\n");
+		}
 		
 		Food food = new Food();
 		food.setCalories(calories);
@@ -58,8 +67,11 @@ public class FoodRepository {
 	}
 	
 	@Transactional
-	public Food getFood(int id) {
+	public Food getFood(int id) throws InvalidInputException {
 		Food food = em.find(Food.class, id);
+		if(food==null) {
+			throw new InvalidInputException("Error: Food not found. \n");
+		}
 		return food;
 	}
 	
@@ -71,6 +83,7 @@ public class FoodRepository {
 		}
 		return false;
 	}
+	
 	@Transactional
 	public List<Food> getAllFoods() {
 		TypedQuery<Food> query = em.createQuery("select e from Food e", Food.class);

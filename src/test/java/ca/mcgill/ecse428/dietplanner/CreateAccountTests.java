@@ -82,11 +82,27 @@ public class CreateAccountTests {
 	@Test
 	public void testUserQueryFound() {
 		userMock.setUsername(USER_KEY);	
-		assertEquals(userMock, userDao.getUser(USER_KEY));//controller.queryUser(USER_KEY));
+		User user = null;
+		String error = null;
+		try {
+			user = userDao.getUser(USER_KEY);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertEquals(userMock, user);
+		assertNull(error);
 	}
 	@Test
 	public void testUserQueryNotFound() {
-		assertNull(userDao.getUser(NONEXISTING_KEY));
+		User user = null;
+		String error = null;
+		try {
+			user = userDao.getUser(NONEXISTING_KEY);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(user);
+		assertEquals("Error: User not found. \n",error);
 	}
 	
 	@Test

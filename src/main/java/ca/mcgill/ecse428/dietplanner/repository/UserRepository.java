@@ -105,8 +105,11 @@ public class UserRepository {
 	}
 	
 	@Transactional
-	public User getUser(String username) {
+	public User getUser(String username) throws InvalidInputException {
 		User user = em.find(User.class, username);
+		if(user == null) {
+			throw new InvalidInputException("Error: User not found. \n");
+		}
 		return user;
 	}
 

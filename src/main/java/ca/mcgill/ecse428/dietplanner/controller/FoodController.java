@@ -31,7 +31,10 @@ public class FoodController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public FoodDTO createFood(@RequestParam("name") String name, @RequestParam("entryid") int entry_id, @RequestParam("calories") int calories, @RequestParam("serving") double serving,
+	public FoodDTO createFood(@RequestParam("name") String name, 
+			@RequestParam("entryid") int entry_id, 
+			@RequestParam("calories") int calories, 
+			@RequestParam("serving") double serving,
 								@RequestParam("mealtype") String meal_type) throws InvalidInputException {
 		Food result = repository.createFood(name, entry_id, calories, serving, meal_type);
 		if(result!=null) {
@@ -44,7 +47,7 @@ public class FoodController {
 	}//works
 	
 	@GetMapping("/get/{foodId}")
-	public FoodDTO getFood(@PathVariable("foodId") int foodId) {
+	public FoodDTO getFood(@PathVariable("foodId") int foodId) throws InvalidInputException {
 		Food result = repository.getFood(foodId);
 		if(result!=null) {
 			String correctMealType = result.getMealType().toString();

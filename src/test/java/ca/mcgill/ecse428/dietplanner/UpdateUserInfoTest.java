@@ -53,7 +53,7 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	}
 	
 	@BeforeEach
-	void setMockOutput() {
+	void init() {
 		user.setUsername(username);
 		user.setHeight(height_old);
 		user.setStartWeight(startWeight_old);
@@ -71,10 +71,12 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 		assertNotNull(date);
 	    java.sql.Date sqltargetDate = new java.sql.Date(date.getTime());
 		
-		
 		user.setTargetDate(sqltargetDate);
-		
+	}
+	@BeforeEach
+	void setMockOutput() {
 		when(em.find(eq(User.class),eq(username))).thenReturn(user);
+		
 	}
 
 	@Test
@@ -240,7 +242,7 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	void testUnSuccessful_invalidHeightNotNumber() {
 		String error = null;
 		try {
-			user = userDao.userInfo(username, height_new_invalid, startWeight_new_valid,
+			user = userDao.userInfo(username, height_new_invalid2, startWeight_new_valid,
 					targetWeight_new_valid, targetDate_new_valid);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
