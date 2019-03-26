@@ -80,7 +80,7 @@ public class LoginTests {
 			result = userDao.login(username, password_correct);
 		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
-		} catch (ParseException p){}
+		}
 		assertNull(error);
 		assertEquals(true, result != null);
 	}
@@ -92,7 +92,7 @@ public class LoginTests {
 			userDao.login(username, password_incorrect);
 		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
-		} catch (ParseException p){}
+		}
 		assertEquals("Error: wrong password. \n", error);
 	}
 	
@@ -103,7 +103,7 @@ public class LoginTests {
 			result = userDao.login(username_incorrect, password_incorrect);
 		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
-		} catch (ParseException p){}
+		}
 		assertEquals("Error: User not found. \n", error);
 	}
 	
@@ -113,7 +113,7 @@ public class LoginTests {
 			userDao.login(null, null);
 		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
-		} catch (ParseException p){}
+		}
 		assertEquals("Error: Required fields can't be null. \n", error);
 	}
 	
