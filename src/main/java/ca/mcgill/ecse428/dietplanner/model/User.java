@@ -10,7 +10,7 @@ import java.sql.Date;
 
 // line 3 "../../../../../dietplanner_model.ump"
 @Entity(name="User")
-@Table(name = "users")
+@Table
 @NamedQueries({
 	@NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
 })
