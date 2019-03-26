@@ -35,7 +35,6 @@ class CreateEntryTest {
 	EntryRepository entryDao;
 
 	private static String username = "testUsername";
-	private static String username_invalid = "notAUser";
 	private static String date = "20-06-2019";
 	private static final int VALID_LOGBOOK_ID=1;
 	private static final int INVALID_LOGBOOK_ID=1000;

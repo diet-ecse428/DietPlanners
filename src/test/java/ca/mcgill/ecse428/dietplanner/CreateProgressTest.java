@@ -42,7 +42,6 @@ class CreateProgressTest {
 	private static double weight_valid = 200;
 	private static double weight_invalid = -200;
 	private static String date = "20-06-2019";
-	private static String image = "image.png";
 	private static int progressId = 1;
 	private static int progressId_invalid = 2;
 
@@ -82,7 +81,7 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_valid, date, username/*, image*/);
+			progressMock = progressDao.createProgress(weight_valid, date, username);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -90,7 +89,6 @@ class CreateProgressTest {
 		assertNotNull(progressMock);
 		assertEquals(weight_valid, progressMock.getWeight(),0);
 		assertEquals(username, progressMock.getUserId());
-	//	assertEquals(image.getBytes().length,progressMock.getPicture().length);
 		assertEquals(1, user.getProgresses().size());
 	}
 	@Test
@@ -98,14 +96,13 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_valid, date, username_invalid/*, image*/);
+			progressMock = progressDao.createProgress(weight_valid, date, username_invalid);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: User not found.\n",error);
 		assertEquals(0, progressMock.getWeight(),0);
 		assertNull(progressMock.getUserId());
-		//assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
 	}
 
@@ -114,14 +111,13 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_invalid, date, username/*, image*/);
+			progressMock = progressDao.createProgress(weight_invalid, date, username);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: weight must be positive.\n",error);
 		assertEquals(0, progressMock.getWeight(),0);
 		assertNull(progressMock.getUserId());
-	//	assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
 
 	}
@@ -130,14 +126,13 @@ class CreateProgressTest {
 		String error = null;
 		assertEquals(true, user.getProgresses().isEmpty());
 		try {
-			progressMock = progressDao.createProgress(weight_invalid, null, null/*, image*/);
+			progressMock = progressDao.createProgress(weight_invalid, null, null);
 		} catch (ParseException | InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Required fields cannot be empty.\n",error);
 		assertEquals(0, progressMock.getWeight(),0);
 		assertNull(progressMock.getUserId());
-	//	assertNull(progressMock.getPicture());
 		assertEquals(0, user.getProgresses().size());
 
 	}

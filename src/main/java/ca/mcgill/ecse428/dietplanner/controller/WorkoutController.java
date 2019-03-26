@@ -40,7 +40,7 @@ public class WorkoutController {
 	}//works
 	
 	@GetMapping("/get/{workoutId}")
-	public WorkoutDTO getWorkout(@PathVariable("workoutId") int workoutId) {
+	public WorkoutDTO getWorkout(@PathVariable("workoutId") int workoutId) throws InvalidInputException {
 		Workout result = repository.getWorkout(workoutId);
 		if(result!=null) {
 			WorkoutDTO workout = new WorkoutDTO(result.getDuration(), result.getCaloriesLost(), result.getType(), result.getId(), result.getEntryId());

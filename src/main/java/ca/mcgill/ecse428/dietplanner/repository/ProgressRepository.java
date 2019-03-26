@@ -24,7 +24,7 @@ public class ProgressRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Progress createProgress(double weight, String date, String username/*, String image*/) throws ParseException, InvalidInputException {
+	public Progress createProgress(double weight, String date, String username) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
 		if(date == null || username == null) {
 			throw new InvalidInputException("Error: Required fields cannot be empty.\n");
@@ -45,8 +45,6 @@ public class ProgressRepository {
 		progress.setDate(sqlEntryDate);
 		progress.setUserId(username);
 		progress.setWeight(weight);
-	//	progress.setPicture(image.getBytes());
-//		progress.setPicture(new byte[0]);
 
 		Set<Progress> progresses = user.getProgresses();
 		progresses.add(progress);

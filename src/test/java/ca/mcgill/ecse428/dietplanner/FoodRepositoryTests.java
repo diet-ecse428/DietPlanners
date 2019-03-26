@@ -1,43 +1,38 @@
 package ca.mcgill.ecse428.dietplanner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-
-import org.junit.After;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import ca.mcgill.ecse428.dietplanner.controller.*;
-import ca.mcgill.ecse428.dietplanner.dto.*;
-import ca.mcgill.ecse428.dietplanner.model.*;
-import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
-import ca.mcgill.ecse428.dietplanner.repository.*;
-
-import static org.junit.Assert.*;
-
-import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
-
-import java.sql.Date;
-import java.util.Set;
 import java.util.HashSet;
-
+import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import ca.mcgill.ecse428.dietplanner.model.Entry;
+import ca.mcgill.ecse428.dietplanner.model.Food;
+import ca.mcgill.ecse428.dietplanner.model.Food.MealType;
+import ca.mcgill.ecse428.dietplanner.model.User;
+import ca.mcgill.ecse428.dietplanner.repository.FoodRepository;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FoodRepositoryTests{
 
@@ -52,7 +47,6 @@ public class FoodRepositoryTests{
 	private double serving_valid = 180.0;
 	private double serving_invalid = -180.0;
 	private String fType = "Dinner";
-	//	private MealType fType = MealType.Dinner;
 	private int testId = 1;
 	private int testId_invalid = 2;
 
@@ -77,7 +71,6 @@ public class FoodRepositoryTests{
 	@BeforeEach
 	void init(){
 		foodMock = mock(Food.class);
-		//Food testfood = new Food();
 		foodMock.setId(10);
 		foodMock.setEntryId(testId);
 		foods.add(foodMock);
@@ -216,18 +209,65 @@ public class FoodRepositoryTests{
 
 	@Test
 	void successful_deleteFood(){
-//		String error = null;
-//		boolean result = false;
-//		try {
-//			Food food = frep.createFood(name,testId,calories_valid,serving_valid,fType);
-//			result = frep.removeFood(food.getId());
-//		}
-//		catch(Exception e){
-//			error = e.getMessage();
-//		}
-//		assertNull(error);
-//		assertTrue(result);
-
+		String errorCreate = null;	
+		Food food = null;
+		try{
+			food = frep.createFood(name,testId,calories_valid,serving_valid,fType);
+		}
+		catch(Exception e){
+			errorCreate = e.getMessage();
+		}
+		assertNull(errorCreate);
+		assertNotNull(food);
+		assertNotNull(food.getId());
+		int id = food.getId();
+		
+		String str= "delete from Food where id = " + id;
+		TypedQuery<String> query = Mockito.mock(TypedQuery.class);
+		
+		when(em.createQuery(str)).thenReturn(query);
+		when(em.createQuery(str).executeUpdate()).thenReturn(1);
+		
+		boolean result = false;
+		String errorDelete = null;
+		try {
+			result = frep.removeFood(food.getId());
+		}
+		catch(NullPointerException e){
+			errorDelete = e.getMessage();
+		}
+		assertNull(errorDelete);
+		assertTrue(result);
+	}
+	@Test
+	void unsuccessful_deleteFood(){
+		String errorCreate = null;	
+		Food food = null;
+		try{
+			food = frep.createFood(name,testId,calories_valid,serving_valid,fType);
+		}
+		catch(Exception e){
+			errorCreate = e.getMessage();
+		}
+		assertNull(errorCreate);
+		assertNotNull(food);
+		assertNotNull(food.getId());
+		
+		String str= "delete from Food where id = " + 10;
+		TypedQuery<String> query = Mockito.mock(TypedQuery.class);
+		
+		when(em.createQuery(str)).thenReturn(query);
+		
+		boolean result = false;
+		String errorDelete = null;
+		try {
+			result = frep.removeFood(10);
+		}
+		catch(NullPointerException e){
+			errorDelete = e.getMessage();
+		}
+		assertNull(errorDelete);
+		assertFalse(result);
 	}
 
 

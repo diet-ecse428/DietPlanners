@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNull;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import java.text.ParseException;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +104,7 @@ public class LoginTests {
 			error = e.getMessage();
 		}
 		assertEquals("Error: User not found. \n", error);
+		assertNull(result);
 	}
 	
 	@Test void testNullInputs() {

@@ -14,9 +14,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,8 +41,6 @@ class UpdateProgressTest {
 	private static double new_weight_invalid = -200;
 	private static String old_date = "20-06-2019";
 	private static String new_date = "21-07-2019";
-	private static String old_image = "image.png";
-	private static String new_image = "image2.png";
 	
 	private static int progressId = 1;
 	private static int progressId_invalid = 2;
@@ -73,7 +68,6 @@ class UpdateProgressTest {
 		} // Returns a Date format object with the pattern
 		java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 		progress.setDate(sqlEntryDate);
-	//	progress.setPicture(old_image.getBytes());
 		progress.setUserId(username);
 		progress.setWeight(old_weight_valid);
 		
@@ -88,7 +82,6 @@ class UpdateProgressTest {
 	void successful_updateProgress() {
 		String error = null;
 		assertEquals(progressId, progress.getId());
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
@@ -99,14 +92,12 @@ class UpdateProgressTest {
 		}
 		assertNull(error);
 		assertEquals(new_weight_valid, progress.getWeight());
-//		assertEquals(new_image.getBytes().length,progress.getPicture().length);
 		Iterator<Progress> userProgresses = user.getProgresses().iterator();
 		while(userProgresses.hasNext()) {
 			Progress userProgress = userProgresses.next();
 			if(userProgress.getId()==progressId) {
 				assertEquals(username, userProgress.getUserId());
 				assertEquals(new_weight_valid, userProgress.getWeight());
-//				assertEquals(new_image.getBytes().length,userProgress.getPicture().length);
 			}
 		}
 	}
@@ -114,7 +105,6 @@ class UpdateProgressTest {
 	void unsuccessful_userNotFound() {
 		String error = null;
 		assertEquals(progressId, progress.getId());
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
@@ -124,7 +114,6 @@ class UpdateProgressTest {
 			error = e.getMessage();
 		}
 		assertEquals("Error: User not found.\n",error);
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		
 	}
@@ -132,7 +121,6 @@ class UpdateProgressTest {
 	void unsuccessful_weightInvalid() {
 		String error = null;
 		assertEquals(progressId, progress.getId());
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
@@ -142,14 +130,12 @@ class UpdateProgressTest {
 			error = e.getMessage();
 		}
 		assertEquals("Error: weight must be positive.\n",error);
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 	}
 	@Test
 	void unsuccessful_progressIdNotFound() {
 		String error = null;
 		assertEquals(progressId, progress.getId());
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
@@ -159,14 +145,12 @@ class UpdateProgressTest {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Progress with this id was not found.\n",error);
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 	}
 	@Test
 	void unsuccessful_nullInputs() {
 		String error = null;
 		assertEquals(progressId, progress.getId());
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		assertEquals(username, progress.getUserId());
 		assertEquals(1, progresses.size());
@@ -176,7 +160,6 @@ class UpdateProgressTest {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Required fields cannot be empty.\n",error);
-//		assertEquals(old_image.getBytes().length, progress.getPicture().length);
 		assertEquals(old_weight_valid, progress.getWeight());
 		
 	}

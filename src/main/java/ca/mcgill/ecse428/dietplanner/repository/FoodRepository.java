@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -77,7 +78,17 @@ public class FoodRepository {
 	
 	@Transactional
 	public boolean removeFood(int id) {
-		int rowsDeleted = em.createQuery("delete from Food where id = '" + id + "'").executeUpdate();
+//		TypedQuery<Food> query = em.createQuery("select e from Food e", Food.class);
+//		List<Food> foods = query.getResultList();
+//		for(Food f: foods) {
+//			if(id==f.getId()) {
+//				
+//			}
+//		}
+		String str = "delete from Food where id = " + id;
+		Query query = em.createQuery(str);
+		int rowsDeleted = query.executeUpdate();
+		int rowsDeleted2 = em.createQuery("delete from Food where id = " + id).executeUpdate();
 		if(rowsDeleted == 1) {
 			return true;
 		}

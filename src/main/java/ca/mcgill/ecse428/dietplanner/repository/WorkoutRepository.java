@@ -22,9 +22,18 @@ public class WorkoutRepository {
 	@Transactional
 	public Workout createWorkout(int entry_id, int caloriesLost, String type, double duration) throws InvalidInputException{
 		Entry entry = em.find(Entry.class, entry_id);
-		if(entry==null) throw new InvalidInputException("Error: Entry not found.\n");
-		if (duration < 0) throw new InvalidInputException("Error: duration must be positive.\n");
-		if (caloriesLost < 0) throw new InvalidInputException("Error: calories lost must be positive.\n");
+		if(type == null) {
+			throw new InvalidInputException("Error: Workout type missing.\n");
+		}
+		if(entry==null) {
+			throw new InvalidInputException("Error: Entry not found.\n");
+		}
+		if (duration < 0) {
+			throw new InvalidInputException("Error: duration must be positive.\n");
+		}
+		if (caloriesLost < 0) {
+			throw new InvalidInputException("Error: calories lost must be positive.\n");
+		}
 		
 		Workout workout = new Workout();
 		workout.setCaloriesLost(caloriesLost);
@@ -45,8 +54,11 @@ public class WorkoutRepository {
 	}
 
 	@Transactional
-	public Workout getWorkout(int workoutId) {
+	public Workout getWorkout(int workoutId) throws InvalidInputException {
 		Workout workout = em.find(Workout.class, workoutId);
+		if(workout==null) {
+			throw new InvalidInputException("Error: workout not found.\n");
+		}
 		return workout;
 	}
 

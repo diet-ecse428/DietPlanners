@@ -135,7 +135,6 @@ public class UserRepository {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
-
 		User user = em.find(User.class, username);
 		
 		if(user == null) {
