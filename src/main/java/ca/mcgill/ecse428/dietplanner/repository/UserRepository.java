@@ -167,7 +167,7 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			throw new InvalidInputException("Error: The date you have entered is incorrect. \n")
+			throw new InvalidInputException("Error: The date you have entered is incorrect. \n");
 		}
 		
 		user.setStartWeight(startWeight);
