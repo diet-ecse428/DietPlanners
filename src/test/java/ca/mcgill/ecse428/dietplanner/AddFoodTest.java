@@ -70,6 +70,7 @@ public class AddFoodTest{
 	
 	Set<Food> foods = new HashSet<Food>();
 
+
 	@BeforeAll
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -77,6 +78,10 @@ public class AddFoodTest{
 
 	@BeforeAll
 	void init(){
+			Food testfood = new Food();
+			testfood.setId(10);
+			testfood.setEntryId(testId);
+			foods.add(testfood);
 			entr.setDate(targetDate);
 			entr.setRemaingCal(remCal);
 			entr.setTotalCalCount(totCal);
@@ -100,7 +105,7 @@ public class AddFoodTest{
 	@Test
 	public void testOne() {
 		try{
-			Food foodRes = frep.createFood(testId,fCalories,fServings,fType);
+			Food foodRes = frep.createFood(name,testId,fCalories,fServings,fType);
 			assertEquals(foodRes.getEntryId(),testId);
 		}
 		catch(Exception e){
@@ -112,7 +117,7 @@ public class AddFoodTest{
 	public void unsuccessfulEntryNotFound() {
 		String error = null;
 		try{
-			Food foodRes = frep.createFood(-1,fCalories,fServings,fType);
+			Food foodRes = frep.createFood(name,-1,fCalories,fServings,fType);
 			assertNull(foodRes);
 		}
 		catch(Exception e){
@@ -125,7 +130,7 @@ public class AddFoodTest{
 	void unsuccessfulInvalidCals() {
 		String error = null;
 		try{
-			Food foodRes = frep.createFood(testId,badCals,fServings,fType);
+			Food foodRes = frep.createFood(name,testId,badCals,fServings,fType);
 			assertNull(foodRes);
 		}
 		catch(Exception e){
@@ -138,13 +143,25 @@ public class AddFoodTest{
 
 		String error = null;
 		try{
-			Food foodRes = frep.createFood(testId,fCalories,badServings,fType);
+			Food foodRes = frep.createFood(name,testId,fCalories,badServings,fType);
 			assertNull(foodRes);
 		}
 		catch(Exception e){
 			error = e.getMessage();
 		}
 		assertEquals("Error: servings must be positive.\n",error);
+	}
+	@Test
+	void deleteFood(){
+		String error = null;
+		try {
+			boolean result = frep.removeFood(10);
+			assertEquals(result,true);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+
 	}
 
 

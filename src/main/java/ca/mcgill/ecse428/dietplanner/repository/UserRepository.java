@@ -49,8 +49,8 @@ public class UserRepository {
 		boolean emailValid = validateEmail(email);
 		if(!emailValid) {
 			throw new InvalidInputException("Error: Email is invalid.\n");	
-		}
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		}	
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 		boolean dateValid = validateDate(sqlStartDate);
@@ -128,7 +128,7 @@ public class UserRepository {
 
 	
 	@Transactional
-	public User login(String username, String password) throws InvalidInputException {
+	public User login(String username, String password) throws ParseException, InvalidInputException {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
@@ -151,6 +151,7 @@ public class UserRepository {
 	
 	@Transactional
 	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException, InvalidInputException {
+//<<<<<<< HEAD
 		if(username==null || targetDate == null || height == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
@@ -167,6 +168,22 @@ public class UserRepository {
 		boolean dateValid = validateDate(sqltargetDate);
 		if(!dateValid) {
 			throw new InvalidInputException("Error: Target date must be in the future.\n");
+//=======
+//		User user = em.find(User.class, username);
+//		if(user==null) {
+//			throw new InvalidInputException("Error: user not found. \n");
+//		}
+//		user.setTargetWeight(targetWeight);
+//		
+//		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+//	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
+//	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+//		boolean dateValid = validateDate(sqlStartDate);
+//		if(dateValid) {
+//			user.setTargetDate(sqlStartDate);
+//		} else {
+//			throw new InvalidInputException("Error: The date you have entered is incorrect. \n");
+//>>>>>>> 76113ea12bfebc1d2d07e519aab071be52efd42d
 		}
 		boolean validHeight = checkValidHeight(height);
 		if(!validHeight) {
@@ -206,7 +223,7 @@ public class UserRepository {
 
 		Set<Progress> progs = user.getProgresses();
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 	    java.util.Date date = new java.util.Date(); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 

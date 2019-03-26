@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
-
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class LoginTests {
 		String error = null;
 		try {
 			result = userDao.login(username, password_correct);
-		} catch (InvalidInputException e) {
+		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
 		}
 		assertNull(error);
@@ -89,7 +89,7 @@ public class LoginTests {
 		String error = null;
 		try {
 			userDao.login(username, password_incorrect);
-		} catch (InvalidInputException e) {
+		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: wrong password. \n", error);
@@ -100,7 +100,7 @@ public class LoginTests {
 		String error = null;
 		try {
 			result = userDao.login(username_incorrect, password_incorrect);
-		} catch (InvalidInputException e) {
+		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: User not found. \n", error);
@@ -110,7 +110,7 @@ public class LoginTests {
 		String error = null;
 		try {
 			userDao.login(null, null);
-		} catch (InvalidInputException e) {
+		} catch (InvalidInputException | ParseException e) {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Required fields can't be null. \n", error);

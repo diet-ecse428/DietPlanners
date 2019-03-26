@@ -81,7 +81,7 @@ public class ProgressRepository {
 			throw new InvalidInputException("Error: Progress with this id was not found.\n");
 		}
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 		java.util.Date entryDate = sdf1.parse(date); // Returns a Date format object with the pattern
 		java.sql.Date sqlEntryDate = new java.sql.Date(entryDate.getTime());
 		progress.setDate(sqlEntryDate);

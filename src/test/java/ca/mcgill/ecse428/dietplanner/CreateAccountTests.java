@@ -48,8 +48,8 @@ public class CreateAccountTests {
 	private static String height_invalid2 = "notaheight"; 
 	private static double targetWeight = 100; 
 	private static double startWeight = 130;
-	private static String targetDate_valid = "20-06-2019";//new Date(2019,05,20);
-	private static String targetDate_invalid = "20-06-2018";//new Date(2018,05,20);
+	private static String targetDate_valid = "2019-06-20";//new Date(2019,05,20);
+	private static String targetDate_invalid = "2018-06-20";//new Date(2018,05,20);
 	
 	private static final String NONEXISTING_KEY = "NotAUser";
 	
