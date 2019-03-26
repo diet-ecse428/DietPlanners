@@ -31,9 +31,9 @@ public class FoodController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public FoodDTO createFood(@RequestParam("entryid") int entry_id, @RequestParam("calories") int calories, @RequestParam("serving") double serving,
+	public FoodDTO createFood(@RequestParam("name") String name, @RequestParam("entryid") int entry_id, @RequestParam("calories") int calories, @RequestParam("serving") double serving,
 								@RequestParam("mealtype") String meal_type) throws InvalidInputException {
-		Food result = repository.createFood(entry_id, calories, serving, meal_type);
+		Food result = repository.createFood(name, entry_id, calories, serving, meal_type);
 		if(result!=null) {
 			String correctMealType = result.getMealType().toString();
 			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId(), result.getName());
@@ -83,11 +83,11 @@ public class FoodController {
 	
 	@RequestMapping(value = "/updatemeal", method=RequestMethod.POST)
 	@ResponseBody
-		public FoodDTO updateUserMeal(@RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
+		public FoodDTO updateUserMeal(@RequestParam("name") String name, @RequestParam("mealType") String mealType, @RequestParam("calories") int calories, 
 				@RequestParam("serving") double serving, @RequestParam("mealId") int mealId, 
 				@RequestParam("entryId") int entryId, @RequestParam("username") String username) throws ParseException, InvalidInputException {
 
-			Food result = repository.updateUserMealInfo(username, mealType,calories,serving,mealId,entryId);
+			Food result = repository.updateUserMealInfo(name, username, mealType,calories,serving,mealId,entryId);
 			
 			if (result != null ) {
 				String correctMealType = result.getMealType().toString();
