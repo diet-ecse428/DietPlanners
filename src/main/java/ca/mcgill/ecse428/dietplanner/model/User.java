@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.sql.Date;
 
 // line 3 "../../../../../dietplanner_model.ump"
-@Entity(name="User")
-@Table
+@Entity
+@Table(name = "users")
 @NamedQueries({
 	@NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
 })
