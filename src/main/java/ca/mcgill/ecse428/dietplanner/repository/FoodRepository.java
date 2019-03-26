@@ -32,11 +32,11 @@ public class FoodRepository {
 	public EntityManager em;
 	
 	@Transactional
-	public Food createFood(int entry_id, int calories, double serving, String meal_type) {
+	public Food createFood(int entry_id, int calories, double serving, String meal_type) throws InvalidInputException{
 		Entry entry = em.find(Entry.class, entry_id);
-		if(entry==null || calories<0 || serving<0) {
-			return null;
-		}
+		if(entry==null) throw new InvalidInputException("Error: Entry not found.\n");
+		if (serving < 0.0) throw new InvalidInputException("Error: servings must be positive.\n");
+		if (calories < 0) throw new InvalidInputException("Error: calories must be positive.\n");
 		
 		Food food = new Food();
 		food.setCalories(calories);

@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Liquid;
@@ -20,11 +21,11 @@ public class LiquidRepository {
 	public EntityManager em;
 
 	@Transactional
-	public Liquid createLiquid(int entry_id, int calories, double volume) {
+	public Liquid createLiquid(int entry_id, int calories, double volume) throws InvalidInputException {
 		Entry entry = em.find(Entry.class, entry_id);
-		if(entry==null || calories<0 || volume<0) {
-			return null;
-		}
+		if(entry==null) throw new InvalidInputException("Error: Entry not found.\n");
+		if (volume < 0.0) throw new InvalidInputException("Error: volume must be positive.\n");
+		if (calories < 0) throw new InvalidInputException("Error: calories must be positive.\n");
 		Liquid liquid = new Liquid();
 		liquid.setCalories(calories);
 		liquid.setEntryId(entry_id);
