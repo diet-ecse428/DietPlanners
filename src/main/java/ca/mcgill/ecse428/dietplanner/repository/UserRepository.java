@@ -125,7 +125,7 @@ public class UserRepository {
 		return true;
 	}
 	public List<String> findByUsername(String username){
-		return em.createQuery("select e.username from Users e" , String.class)
+		return em.createQuery("SELECT e.username FROM User e" , String.class)
 				.getResultList();
 	}
 
