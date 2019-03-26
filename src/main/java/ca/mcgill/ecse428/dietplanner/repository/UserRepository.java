@@ -187,7 +187,7 @@ public class UserRepository {
 
 		Set<Progress> progs = user.getProgresses();
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 	    java.util.Date date = new java.util.Date(); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 
