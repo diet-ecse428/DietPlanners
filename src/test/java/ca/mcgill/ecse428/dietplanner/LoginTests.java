@@ -57,7 +57,7 @@ public class LoginTests {
 		user.setUsername(username);
 		user.setPassword(password_correct);
 	
-		String str = "select e.username from User e";
+		String str = "select e.username from Users e";
 		TypedQuery query = Mockito.mock(TypedQuery.class);
 		when(em.createQuery(str, String.class)).thenReturn(query);
 		
@@ -92,7 +92,7 @@ public class LoginTests {
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
-		assertEquals("Error: wrong password.\n", error);
+		assertEquals("Error: wrong password. \n", error);
 	}
 	
 	@Test void testBothWrong() {
@@ -103,8 +103,7 @@ public class LoginTests {
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
-		assertNull(error);
-		assertEquals(true, result == null);
+		assertEquals("Error: User not found. \n", error);
 	}
 	
 	@Test void testNullInputs() {
