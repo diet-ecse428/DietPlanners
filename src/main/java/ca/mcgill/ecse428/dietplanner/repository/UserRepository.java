@@ -131,7 +131,7 @@ public class UserRepository {
 
 	
 	@Transactional
-	public User login(String username, String password) throws InvalidInputException {
+	public User login(String username, String password) throws ParseException, InvalidInputException {
 		if(username == null | password == null) {
 			throw new InvalidInputException("Error: Required fields can't be null. \n");
 		}
@@ -153,10 +153,10 @@ public class UserRepository {
 
 	
 	@Transactional
-	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {
+	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException, InvalidInputException {
 		User user = em.find(User.class, username);
 		if(user==null) {
-			return null;
+			throw new InvalidInputException("Error: user not found. \n");
 		}
 		user.setTargetWeight(targetWeight);
 		
@@ -167,7 +167,7 @@ public class UserRepository {
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
-			return null;
+			throw new InvalidInputException("Error: The date you have entered is incorrect. \n")
 		}
 		
 		user.setStartWeight(startWeight);
