@@ -16,10 +16,10 @@ public class LogBookRepository {
 	public EntityManager em;
 
 	@Transactional
-	public LogBook createLogBook(String username) {
+	public LogBook createLogBook(String username) throws InvalidInputException {
 		User user = em.find(User.class, username);
 		if(user==null) {
-			return null;
+			throw new InvalidInputException("Error: User not found.\n");
 		}
 		LogBook lb = new LogBook();
 		user.setLogBook(lb);
@@ -30,8 +30,11 @@ public class LogBookRepository {
 	}
 
 	@Transactional
-	public LogBook getLogBook(int logbookId) {
+	public LogBook getLogBook(int logbookId) throws InvalidInputException {
 		LogBook lb = em.find(LogBook.class, logbookId);
+		if(lb==null) {
+			throw new InvalidInputException("Error: There are no logbooks yet for this user. \n");
+		}
 		return lb;
 	}
 

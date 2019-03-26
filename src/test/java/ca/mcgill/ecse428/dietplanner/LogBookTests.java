@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
 import ca.mcgill.ecse428.dietplanner.model.User;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.LogBookRepository;
 
 import static org.junit.Assert.assertEquals;
@@ -56,7 +57,7 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 		lb.setId(VALID_LOGBOOK_ID);
 		lbMock = mock(LogBook.class);
 		
-		String str = "select e.username from User e";
+		String str = "select e.username from Users e";
 		TypedQuery query = Mockito.mock(TypedQuery.class);
 		when(em.createQuery(str, String.class)).thenReturn(query);
 		
@@ -75,19 +76,39 @@ EntityManager em = mock(EntityManager.class, CALLS_REAL_METHODS);
 	}
 	@Test
 	public void successfulCreateLogBook() {
-		lbMock = logBookDao.createLogBook(username);
+		String error = null;
+		try {
+			lbMock = logBookDao.createLogBook(username);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(error);
 		assertNotNull(lbMock);
 	}
 
 
 	@Test
 	public void testLogBookQueryFound() {
-		assertEquals(VALID_LOGBOOK_ID, logBookDao.getLogBook(VALID_LOGBOOK_ID).getId());
+		String error = null;
+		try {
+			lbMock = logBookDao.getLogBook(VALID_LOGBOOK_ID);
+			
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(error);
+		assertEquals(VALID_LOGBOOK_ID, lbMock.getId());
 	}
 	
 	@Test
 	public void testLogBookQueryNotFound() {
-		assertNull(logBookDao.getLogBook(INVALID_LOGBOOK_ID));
+		String error = null;
+		try {
+			lbMock = logBookDao.getLogBook(INVALID_LOGBOOK_ID);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Error: There are no logbooks yet for this user. \n",error);
 	}
 	
 }

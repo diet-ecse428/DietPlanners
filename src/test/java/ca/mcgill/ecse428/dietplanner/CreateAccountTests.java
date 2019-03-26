@@ -20,6 +20,8 @@ import static org.junit.Assert.*;
 import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -50,6 +52,7 @@ public class CreateAccountTests {
 	private static final String NONEXISTING_KEY = "NotAUser";
 	
 	User userMock;
+	List<String> users = new ArrayList<String>();
 	
 	@BeforeAll
 	public void setUp() throws Exception {
@@ -59,9 +62,11 @@ public class CreateAccountTests {
 	@BeforeEach
 	void setMockOutput() {
 		userMock = mock(User.class);
-		String str = "select e.username from User e";
+		users.add(userMock.getUsername());
+		String str = "select e.username from Users e";
 		TypedQuery query = Mockito.mock(TypedQuery.class);
 		when(em.createQuery(str, String.class)).thenReturn(query);
+//		when(em.createQuery(str, String.class).getResultList()).thenReturn(users);
 		when(em.find(eq(User.class),eq(USER_KEY))).thenReturn(userMock);
 	}
 	

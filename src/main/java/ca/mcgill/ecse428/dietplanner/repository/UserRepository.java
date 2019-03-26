@@ -138,13 +138,16 @@ public class UserRepository {
 
 		User user = em.find(User.class, username);
 		
-		if(user == null)
-			return null;
+		if(user == null) {
+			throw new InvalidInputException("Error: User not found. \n");
+		}
 		
-		if(user.getPassword().equals(password))
+		if(user.getPassword().equals(password)) {
 			return user;
-		else
-			return null;
+		}	
+		else {
+			throw new InvalidInputException("Error: wrong password. \n");
+		}
 	}
 
 
