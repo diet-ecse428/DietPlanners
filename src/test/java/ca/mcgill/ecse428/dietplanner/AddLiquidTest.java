@@ -44,10 +44,12 @@ public class AddLiquidTest{
 	private String password = "password";
 	private String height = "6'0''";
 	private int lCalories = 150;
+	private int badCalories = -150;
 	private int remCal = 111;
 	private int totCal = 2000;
 	private Date targetDate = new Date(2000, 11, 21);
 	private double lVolume = 180.0;
+	private double badVolume = -180.0;
 	private String woType = "cardio";
 	private int testId = 1;
 
@@ -104,16 +106,41 @@ public class AddLiquidTest{
 		
 	}
 	@Test
-	public void test_two() {
+	public void unsuccessful_entryNotFound() {
+		String error = null;
 		try{
-			Liquid liquidRes =  lrep.createLiquid(-1,lCalories,lVolume);
-			assertNull(liquidRes);
+			Liquid liquidRes = lrep.createLiquid(-1,lCalories,lVolume);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			error = e.getMessage();
 		}
+		assertEquals("Error: Entry not found.\n",error);
 		
 	}
+	@Test
+	void unsuccessful_invalidCals() {
+		String error = null;
+		try{
+			Liquid liquidRes = lrep.createLiquid(testId,badCalories,lVolume);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: calories must be positive.\n",error);
+	}
+	@Test
+	void unsuccessful_invalidVolume() {
+
+		String error = null;
+		try{
+			Liquid liquidRes = lrep.createLiquid(testId,lCalories,badVolume);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: volume must be positive.\n",error);
+	}
+
 
 
 

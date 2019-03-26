@@ -44,10 +44,12 @@ public class AddWorkoutTest{
 	private String password = "password";
 	private String height = "6'0''";
 	private int calLost = 150;
+	private int badCalLost = -150;
 	private int remCal = 111;
 	private int totCal = 2000;
 	private Date targetDate = new Date(2000, 11, 21);
 	private double woDuration = 180.0;
+	private double badWoDuration = -100.0;
 	private String woType = "cardio";
 	private int testId = 1;
 
@@ -104,16 +106,45 @@ public class AddWorkoutTest{
 		
 	}
 	@Test
-	public void test_two() {
+	public void unsuccessful_entryNotFound() {
+		String error = null;
 		try{
 			Workout workoutRes = wrep.createWorkout(-1,calLost,woType,woDuration);
-			assertNull(workoutRes);
+			//assertNull(workoutRes);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			error = e.getMessage();
 		}
+		assertEquals("Error: Entry not found.\n",error);
 		
 	}
+	@Test
+	void unsuccessful_invalidCalLost() {
+		String error = null;
+		try{
+			Workout workoutRes = wrep.createWorkout(testId,badCalLost,woType,woDuration);
+			//assertNull(workoutRes);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: calories lost must be positive.\n",error);
+	}
+	@Test
+	void unsuccessful_invalidWoDuration() {
+
+		String error = null;
+		try{
+			Workout workoutRes = wrep.createWorkout(testId,badCalLost,woType,badWoDuration);
+			//assertNull(workoutRes);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: duration must be positive.\n",error);
+	}
+
+
 
 
 

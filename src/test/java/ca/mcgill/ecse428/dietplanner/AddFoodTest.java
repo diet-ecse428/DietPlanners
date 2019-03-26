@@ -45,10 +45,12 @@ public class AddFoodTest{
 	private String password = "password";
 	private String height = "6'0''";
 	private int fCalories = 150;
+	private int badCals = -150;
 	private int remCal = 111;
 	private int totCal = 2000;
 	private Date targetDate = new Date(2000, 11, 21);
 	private double fServings = 180.0;
+	private double badServings = -180.0;
 	private String fType = "Dinner";
 	private int testId = 1;
 
@@ -107,15 +109,39 @@ public class AddFoodTest{
 		
 	}
 	@Test
-	public void test_two() {
+	public void unsuccessful_entryNotFound() {
+		String error = null;
 		try{
 			Food foodRes = frep.createFood(-1,fCalories,fServings,fType);
-			assertNull(foodRes);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			error = e.getMessage();
 		}
+		assertEquals("Error: Entry not found.\n",error);
 		
+	}
+	@Test
+	void unsuccessful_invalidCals() {
+		String error = null;
+		try{
+			Food foodRes = frep.createFood(testId,badCals,fServings,fType);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: calories must be positive.\n",error);
+	}
+	@Test
+	void unsuccessful_invalidServings() {
+
+		String error = null;
+		try{
+			Food foodRes = frep.createFood(testId,fCalories,badServings,fType);
+		}
+		catch(Exception e){
+			error = e.getMessage();
+		}
+		assertEquals("Error: servings must be positive.\n",error);
 	}
 
 
