@@ -62,6 +62,7 @@ public class UserRepository {
 	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 		boolean dateValid = validateDate(sqlStartDate);
+		
 		if(dateValid) {
 			user.setTargetDate(sqlStartDate);
 		} else {
@@ -153,10 +154,16 @@ public class UserRepository {
 
 	
 	@Transactional
-	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException {
+	public User userInfo(String username, String height, double startWeight, double targetWeight, String targetDate) throws ParseException, InvalidInputException {
+		if(username==null || targetDate == null || height == null) {
+			throw new InvalidInputException("Error: Required fields can't be null. \n");
+		}
+		if(startWeight < 0 || targetWeight <0) {
+			throw new InvalidInputException("Error: Weight values cannot be negative. \n");
+		}
 		User user = em.find(User.class, username);
 		if(user==null) {
-			return null;
+			throw new InvalidInputException("Error: user not found.\n");
 		}
 		user.setTargetWeight(targetWeight);
 		

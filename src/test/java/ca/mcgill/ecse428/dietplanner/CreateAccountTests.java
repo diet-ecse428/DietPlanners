@@ -63,10 +63,12 @@ public class CreateAccountTests {
 	void setMockOutput() {
 		userMock = mock(User.class);
 		users.add(userMock.getUsername());
-		String str = "select e.username from Users e";
+		String str = "select e.username from User e";
+		String str2= "SELECT e.username FROM User e";
 		TypedQuery query = Mockito.mock(TypedQuery.class);
 		when(em.createQuery(str, String.class)).thenReturn(query);
-//		when(em.createQuery(str, String.class).getResultList()).thenReturn(users);
+		when(em.createQuery(str2, String.class)).thenReturn(query);
+		when(em.createQuery(str, String.class).getResultList()).thenReturn(users);
 		when(em.find(eq(User.class),eq(USER_KEY))).thenReturn(userMock);
 	}
 	

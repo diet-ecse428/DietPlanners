@@ -59,7 +59,7 @@ public class UserController {
 	@ResponseBody
 	public UserDTO userDetails(@PathVariable("username") String username, @PathVariable("height") String height, 
 			@PathVariable("targetWeight") double targetWeight, @PathVariable("targetDate") String targetDate, 
-			@PathVariable("startWeight") double startWeight) throws ParseException {
+			@PathVariable("startWeight") double startWeight) throws ParseException, InvalidInputException {
 		User result = repository.userInfo(username, height, startWeight, targetWeight, targetDate);
 		
 		if (result != null ) {

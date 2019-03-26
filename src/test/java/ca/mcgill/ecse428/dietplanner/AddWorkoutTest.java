@@ -38,11 +38,6 @@ import javax.persistence.EntityManager;
 public class AddWorkoutTest{
 
 	public User testuser = new User();
-	private String name = "John";
-	private String lastName = "Smith";
-	private String email = "Jsmith@gmail.com";
-	private String password = "password";
-	private String height = "6'0''";
 	private int calLost = 150;
 	private int remCal = 111;
 	private int totCal = 2000;
