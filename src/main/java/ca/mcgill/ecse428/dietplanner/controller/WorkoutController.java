@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.WorkoutDTO;
 import ca.mcgill.ecse428.dietplanner.model.Workout;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.WorkoutRepository;
 
 @CrossOrigin
@@ -28,7 +29,7 @@ public class WorkoutController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public WorkoutDTO createWorkout(@RequestParam("entryid") int entry_id, @RequestParam("caloriesLost") int caloriesLost, @RequestParam("type") String type,
-								@RequestParam("duration") double duration) {
+								@RequestParam("duration") double duration)throws InvalidInputException{
 		Workout result = repository.createWorkout(entry_id, caloriesLost, type, duration);
 		if(result!=null) {
 			WorkoutDTO workout = new WorkoutDTO(result.getDuration(), result.getCaloriesLost(), result.getType(), result.getId(), result.getEntryId());

@@ -18,6 +18,7 @@ import ca.mcgill.ecse428.dietplanner.dto.LiquidDTO;
 import ca.mcgill.ecse428.dietplanner.model.Entry;
 import ca.mcgill.ecse428.dietplanner.model.Liquid;
 import ca.mcgill.ecse428.dietplanner.repository.LiquidRepository;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 
 @CrossOrigin
 @RestController
@@ -29,7 +30,7 @@ public class LiquidController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public LiquidDTO createLiquid(@RequestParam("entryid") int entry_id, @RequestParam("calories") int calories, @RequestParam("volume") double volume) {
+	public LiquidDTO createLiquid(@RequestParam("entryid") int entry_id, @RequestParam("calories") int calories, @RequestParam("volume") double volume) throws InvalidInputException {
 		Liquid result = repository.createLiquid(entry_id, calories, volume);
 		if(result!=null) {
 			LiquidDTO liquid = new LiquidDTO(result.getCalories(), result.getVolume(), result.getId(), result.getEntryId());
