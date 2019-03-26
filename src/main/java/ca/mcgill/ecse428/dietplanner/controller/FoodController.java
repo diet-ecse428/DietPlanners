@@ -36,7 +36,7 @@ public class FoodController {
 		Food result = repository.createFood(entry_id, calories, serving, meal_type);
 		if(result!=null) {
 			String correctMealType = result.getMealType().toString();
-			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId(), result.getName());
 			return food;
 		}else {
 			return null;
@@ -48,7 +48,7 @@ public class FoodController {
 		Food result = repository.getFood(foodId);
 		if(result!=null) {
 			String correctMealType = result.getMealType().toString();
-			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+			FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId(), result.getName());
 			return food;
 		}else {
 			return null;
@@ -74,7 +74,7 @@ public class FoodController {
 		for(Food food : allFoods) {
 			if(food.getEntryId()==entryId){
 				String correctMealType = food.getMealType().toString();
-				foodDTOs.add(new FoodDTO(EntryDTO.MealType.valueOf(correctMealType), food.getCalories(), food.getServing(), food.getId(), food.getEntryId()));
+				foodDTOs.add(new FoodDTO(EntryDTO.MealType.valueOf(correctMealType), food.getCalories(), food.getServing(), food.getId(), food.getEntryId(), food.getName()));
 			}
 		}
 		return foodDTOs;
@@ -91,7 +91,7 @@ public class FoodController {
 			
 			if (result != null ) {
 				String correctMealType = result.getMealType().toString();
-				FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId());
+				FoodDTO food = new FoodDTO((EntryDTO.MealType.valueOf(correctMealType)), result.getCalories(), result.getServing(), result.getId(), result.getEntryId(), result.getName());
 				return food;
 			}
 			else {

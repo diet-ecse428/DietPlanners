@@ -10,13 +10,15 @@ public class FoodDTO {
 	private double serving;
 	private int id;
 	private int entryId;
+	private String name;
 	
-	public FoodDTO(MealType mealType, int calories, double serving, int id, int entryId) {
+	public FoodDTO(MealType mealType, int calories, double serving, int id, int entryId, String name) {
 		this.mealType = mealType;
 		this.calories = calories;
 		this.serving = serving;
 		this.id = id;
 		this.entryId = entryId;
+		this.name = name;
 	}
 	
 	public MealType getMealType() {
@@ -34,8 +36,14 @@ public class FoodDTO {
 	public int getEntryId() {
 		return entryId;
 	}
+	public String getName() {
+		return name;
+	}
 	public void setMealType(MealType mealType) {
 		this.mealType = mealType;
+	}
+	public void setName(String name) {
+		this.name=name;
 	}
 	public void setCalories(int calories) {
 		this.calories = calories;
