@@ -32,7 +32,7 @@ public class FoodRepository {
 	public EntityManager em;
 	
 	@Transactional
-	public Food createFood(int entry_id, int calories, double serving, String meal_type) throws InvalidInputException{
+	public Food createFood(String name, int entry_id, int calories, double serving, String meal_type) throws InvalidInputException{
 		Entry entry = em.find(Entry.class, entry_id);
 		if(entry==null) throw new InvalidInputException("Error: Entry not found.\n");
 		if (serving < 0.0) throw new InvalidInputException("Error: servings must be positive.\n");
@@ -40,6 +40,7 @@ public class FoodRepository {
 		
 		Food food = new Food();
 		food.setCalories(calories);
+		food.setName(name);
 		food.setEntryId(entry_id);
 		food.setMealType(Food.MealType.valueOf(meal_type));
 		food.setServing(serving);
@@ -78,7 +79,7 @@ public class FoodRepository {
 	}
 	
 	@Transactional
-	public Food updateUserMealInfo(String username, String newMealType, int calories, double serving, int mealId, int entryId) throws InvalidInputException{
+	public Food updateUserMealInfo(String name, String username, String newMealType, int calories, double serving, int mealId, int entryId) throws InvalidInputException{
 		if(calories < 0) {
 			throw new InvalidInputException("Error: Invalid value for calories. \n");
 		}
@@ -100,7 +101,8 @@ public class FoodRepository {
 
 		meal.setMealType(MealType.valueOf(newMealType));
 		meal.setServing(serving);
-
+		meal.setName(name);
+		
 		Set<Entry> userEntries = user.getLogBook().getEntries();
 		Iterator<Entry> it_entries = userEntries.iterator();
 		int oldCalories = 0;
