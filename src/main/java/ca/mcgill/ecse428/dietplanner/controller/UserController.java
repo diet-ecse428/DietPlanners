@@ -87,12 +87,16 @@ public class UserController {
 	
 	@GetMapping("/getLogbook/{username}")
 	@ResponseBody
-	public LogBookDTO getLogbookFromUser(@PathVariable("username") String username) {
+	public LogBookDTO getLogbookFromUser(@PathVariable("username") String username) throws InvalidInputException {
 		User user = repository.getUser(username);
 		if(user == null) {
 			return null;
 		}
+		
 		LogBook logbook = user.getLogBook();
+		if(logbook == null) {
+			throw new InvalidInputException("This user has no logbook yet.\n");
+		}
 		LogBookDTO logbookDTO = new LogBookDTO(logbook.getId());
 		return logbookDTO;
 	}//works
