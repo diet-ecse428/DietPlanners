@@ -43,7 +43,9 @@ public class CreateAccountTests {
 	private static String lastName = "Last";
 	private static String username = USER_KEY;
 	private static String password = "testpass123"; 
-	private static String height = "5\"2"; 
+	private static String height = "120"; 
+	private static String height_invalid = "-120"; 
+	private static String height_invalid2 = "notaheight"; 
 	private static double targetWeight = 100; 
 	private static double startWeight = 130;
 	private static String targetDate_valid = "20-06-2019";//new Date(2019,05,20);
@@ -163,7 +165,42 @@ public class CreateAccountTests {
 		assertNull(userMock.getPassword());
 		assertNull(userMock.getHeight());
 		assertNull(userMock.getTargetDate());
-		
+	}
+	@Test
+	public void testCreateUser_InvalidHeightNegative() {
+		String error = null;
+		try {
+			userMock = userDao.createAccount(firstName, lastName, username, email_valid,
+					password, height_invalid, targetWeight, targetDate_valid, startWeight);
+		} catch (ParseException | InvalidInputException e1) {
+			error= e1.getMessage();
+		}
+		assertEquals("Error: Height value is invalid.\n", error);
+		assertNull(userMock.getEmail());
+		assertNull(userMock.getName());
+		assertNull(userMock.getLastName());
+		assertNull(userMock.getUsername());
+		assertNull(userMock.getPassword());
+		assertNull(userMock.getHeight());
+		assertNull(userMock.getTargetDate());
+	}
+	@Test
+	public void testCreateUser_InvalidHeightNotNumber() {
+		String error = null;
+		try {
+			userMock = userDao.createAccount(firstName, lastName, username, email_valid,
+					password, height_invalid2, targetWeight, targetDate_valid, startWeight);
+		} catch (ParseException | InvalidInputException e1) {
+			error= e1.getMessage();
+		}
+		assertEquals("Error: Height value is invalid.\n", error);
+		assertNull(userMock.getEmail());
+		assertNull(userMock.getName());
+		assertNull(userMock.getLastName());
+		assertNull(userMock.getUsername());
+		assertNull(userMock.getPassword());
+		assertNull(userMock.getHeight());
+		assertNull(userMock.getTargetDate());
 	}
 
 

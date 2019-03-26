@@ -38,39 +38,35 @@ public class UserRepository {
 		if(firstName == null || lastName == null || username == null || email == null || password == null) {
 			throw new InvalidInputException("Error: Required fields cannot be null.\n");
 		}
-		user.setName(firstName);
-		user.setLastName(lastName);
-		boolean userValid = validateUsername(username);
-		if(userValid) {
-			user.setUsername(username);
-		}else {
-			throw new InvalidInputException("Error: an account with this username already exists.\n");
-
+		boolean validHeight = checkValidHeight(height);
+		if(!validHeight) {
+			throw new InvalidInputException("Error: Height value is invalid.\n");
 		}
-		user.setPassword(password);
+		boolean userValid = validateUsername(username);
+		if(!userValid) {
+			throw new InvalidInputException("Error: an account with this username already exists.\n");
+		}
 		boolean emailValid = validateEmail(email);
-		if(emailValid) {
-			user.setEmail(email);
-		} else {
+		if(!emailValid) {
 			throw new InvalidInputException("Error: Email is invalid.\n");	
 		}
-		
-		user.setHeight(height);
-		user.setTargetWeight(targetWeight);
-		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy"); // New Pattern
 	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
 	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
 		boolean dateValid = validateDate(sqlStartDate);
-		
-		if(dateValid) {
-			user.setTargetDate(sqlStartDate);
-		} else {
+		if(!dateValid) {
 			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
 		
+		user.setTargetDate(sqlStartDate);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setUsername(username);
+		user.setName(firstName);
+		user.setLastName(lastName);
+		user.setHeight(height);
+		user.setTargetWeight(targetWeight);
 		user.setStartWeight(startWeight);
-		
 		
 		em.persist(user);
 		return user;
@@ -164,19 +160,20 @@ public class UserRepository {
 		User user = em.find(User.class, username);
 		if(user==null) {
 			throw new InvalidInputException("Error: user not found.\n");
-		}
-		user.setTargetWeight(targetWeight);
-		
+		}		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
 	    java.util.Date date = sdf1.parse(targetDate); // Returns a Date format object with the pattern
-	    java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-		boolean dateValid = validateDate(sqlStartDate);
-		if(dateValid) {
-			user.setTargetDate(sqlStartDate);
-		} else {
-			return null;
+	    java.sql.Date sqltargetDate = new java.sql.Date(date.getTime());
+		boolean dateValid = validateDate(sqltargetDate);
+		if(!dateValid) {
+			throw new InvalidInputException("Error: Target date must be in the future.\n");
 		}
-		
+		boolean validHeight = checkValidHeight(height);
+		if(!validHeight) {
+			throw new InvalidInputException("Error: New height value is invalid.\n");
+		}
+		user.setTargetDate(sqltargetDate);
+		user.setTargetWeight(targetWeight);
 		user.setStartWeight(startWeight);
 		user.setHeight(height);
 
@@ -185,6 +182,21 @@ public class UserRepository {
 	}
 
 
+
+	private boolean checkValidHeight(String height_str) {
+		double height = 0.0;
+		try{
+			height = Double.parseDouble(height_str);
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+		if(height <= 0.0) {
+			return false;
+		}
+		
+		return true;
+	}
 
 	@Transactional
 	public User updateUserWeight(String username, double newWeight) throws ParseException{
