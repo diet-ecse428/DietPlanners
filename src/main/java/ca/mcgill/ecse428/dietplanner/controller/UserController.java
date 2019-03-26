@@ -34,24 +34,44 @@ public class UserController {
 	@Autowired
 	private UserRepository repository;
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+//	@RequestMapping(value = "/create", method = RequestMethod.POST)
+//	@ResponseBody
+//	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
+//			@RequestParam("username") String username, @RequestParam("email") String email, 
+//			@RequestParam("password") String password, @RequestParam("height") String height, 
+//			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
+//			@RequestParam("startWeight") double startWeight) throws ParseException, InvalidInputException  {
+//
+//		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
+//		
+//		if(result != null) {
+//			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
+//					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
+//			return user;
+//		}else {
+//			
+//			return null;
+//		}
+//	}//works
+	
+	@PostMapping(value = "/create/{name}/{last}/{username}/{email}/{password}/{height}/{targetWeight}/{targetDate}/{startWeight}")
 	@ResponseBody
-	public UserDTO createUser(@RequestParam("name") String name, @RequestParam("last") String lastName,
-			@RequestParam("username") String username, @RequestParam("email") String email, 
-			@RequestParam("password") String password, @RequestParam("height") String height, 
-			@RequestParam("targetWeight") double targetWeight, @RequestParam("targetDate") String targetDate, 
-			@RequestParam("startWeight") double startWeight) throws ParseException, InvalidInputException  {
-
+	public UserDTO createUser(@PathVariable("name") String name, @PathVariable("last") String lastName,
+			@PathVariable("username") String username, @PathVariable("email") String email, 
+			@PathVariable("password") String password, @PathVariable("height") String height, 
+			@PathVariable("targetWeight") double targetWeight, @PathVariable("targetDate") String targetDate, 
+			@PathVariable("startWeight") double startWeight) throws ParseException, InvalidInputException {
 		User result = repository.createAccount(name, lastName, username, email, password, height, targetWeight, targetDate, startWeight);
 		
-		if(result != null) {
+		if (result != null ) {
 			UserDTO user = new UserDTO(result.getName(), result.getLastName(), result.getEmail(), result.getUsername(), result.getPassword(), result.getHeight(),
 					result.getTargetWeight(), result.getTargetDate(), result.getStartWeight());
 			return user;
-		}else {
-			
+		}
+		else {
 			return null;
 		}
+		
 	}//works
 	
 	
