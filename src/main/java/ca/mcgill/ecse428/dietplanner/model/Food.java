@@ -30,6 +30,7 @@ public class Food
 	private double serving;
 	private int id;
 	private int entryId;
+	private String name;
 
 	//------------------------
 	// INTERFACE
@@ -66,6 +67,10 @@ public class Food
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Id
 	@Column
@@ -96,6 +101,11 @@ public class Food
 	@Column(name="fk_entry_id")
 	public int getEntryId() {
 		return entryId;
+	}
+	
+	@Column
+	public String getName() {
+		return name;
 	}
 
 }
