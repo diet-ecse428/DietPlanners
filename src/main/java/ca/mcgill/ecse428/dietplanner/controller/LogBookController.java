@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.dietplanner.dto.LogBookDTO;
 import ca.mcgill.ecse428.dietplanner.model.LogBook;
+import ca.mcgill.ecse428.dietplanner.repository.InvalidInputException;
 import ca.mcgill.ecse428.dietplanner.repository.LogBookRepository;
 
 @CrossOrigin
@@ -23,7 +24,7 @@ public class LogBookController {
 	
 	@RequestMapping(value = "/create/{username}", method = RequestMethod.POST)
 	@ResponseBody
-	public LogBookDTO createLogBook(@PathVariable("username") String username) {
+	public LogBookDTO createLogBook(@PathVariable("username") String username) throws InvalidInputException {
 		LogBook result = repository.createLogBook(username);
 		if(result!=null) {
 			LogBookDTO logbook = new LogBookDTO(result.getId());
@@ -34,7 +35,7 @@ public class LogBookController {
 	}//works
 	
 	@GetMapping("/get/{logbookId}")
-	public LogBookDTO getLogBook(@PathVariable("logbookId") int logbookId) {
+	public LogBookDTO getLogBook(@PathVariable("logbookId") int logbookId) throws InvalidInputException {
 		LogBook result = repository.getLogBook(logbookId);
 		if(result!=null) {
 			LogBookDTO logbook = new LogBookDTO(result.getId());
