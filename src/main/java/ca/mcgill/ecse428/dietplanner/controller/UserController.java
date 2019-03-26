@@ -54,7 +54,7 @@ public class UserController {
 //		}
 //	}//works
 	
-	@PostMapping(value = "/create/{name}/{last}/{username}/{email}/{height}/{targetWeight}/{targetDate}/{startWeight}")
+	@PostMapping(value = "/create/{name}/{last}/{username}/{email}/{password}/{height}/{targetWeight}/{targetDate}/{startWeight}")
 	@ResponseBody
 	public UserDTO createUser(@PathVariable("name") String name, @PathVariable("last") String lastName,
 			@PathVariable("username") String username, @PathVariable("email") String email, 
