@@ -35,53 +35,37 @@ The Slack application will help us communicate efficiently within various channe
 * [SLACK](https://slack.com/lp/three?cvosrc=ppc.google.d_ppc_google_ca_en_brand-hv&cvo_creative=257480048359&utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_ca_en_brand-hv&utm_term=slack&ds_rl=1249094&cvosrc=ppc.google.slack&cvo_campaign=&cvo_crid=257480048359&Matchtype=e&utm_source=google&utm_medium=ppc&c3api=5523,257480048359,slack&gclid=EAIaIQobChMI2szs_LuO4QIVCWSGCh0w0gfwEAAYASAAEgIu0fD_BwE&gclsrc=aw.ds)- Communication Tool
 
 
-### Installing
+## Contributing
 
-TODO 
+Ilana Haddad
 
-A step by step series of examples 
+Jordan Itzkovitz
 
-```
-Give the example
-```
+Arielle Lasry
 
-And repeat
+Eden Ovadia
 
-```
-until finished
-```
+Rebecca Weill
 
-End with an example of getting some data out of the system or using it for a little demo
+Benjamin Szwimer
 
-## Running the tests
+Ethan Itovitch
 
-In order to run automated tests, simply build using Maven with the following command
-```
-mvn test
-```
+Kamy Moussavi
 
-### Break down into end to end tests
+Lucas Bellido
 
-what do these tests do?
+Matthew Zoltak
 
-```
-Give an example
-```
+Noam Suissa
 
-### And coding style tests
+Oliver Clark
 
-Explain what these tests test and why
+Paul Attara
 
-```
-Give an example
-```
+Spencer Handfield
 
 
-## Built With
-
-
-* [Maven](https://maven.apache.org/) - Dependency Management
-TODO
 
 ## Final Report
 
@@ -104,9 +88,11 @@ The Sprint Demo was an important aspect of this project, it allowed the team to 
 
 ### 1.6 Sprint Retrospective
 The Sprint Retrospective is an opportunity for the Scrum Team to inspect itself and create a plan for improvements to be applied to the next Sprint. At the end of the first sprint, our team would meet for a sprint retrospective. This concept of retrospective proved very helpful from the beginning as it helped sort out any misunderstandings between team members with regards to merging code and division of work. In the sprint retrospective, certain things we discussed were:
+
 - What went well in the Sprint
 - What could be improved
 - What will we commit to improve in the next Sprint
+
 In a software project, it is often hard to divide the tasks without any overlap, and even more difficult considering we were a group of 15 people. Due to this, a lot of members ended up working with different versions of others code. This resulted in a lot of overwriting and difficulty in understanding another person’s work. Additionally, during our retrospective of Sprint 1, we realised that not enough tasks were assigned and if we didn’t increase the workload of each student, we wouldn’t be able to finish in time for the end of Sprint 2. Therefore, the retrospective helped clear these doubts, set standards for code for the following sprint, and we were able to adjust our tasks to meet our goals.
 
 ### 1.7 Collaboration Between Team Members
@@ -180,40 +166,9 @@ Following the end-of-sprint meetings and meetings with the TA or Professor, sugg
 
 ### 5. References
 [1]"The Four Values of the Agile Manifesto", Neotys.com, 2019. [Online]. Available: https://www.neotys.com/blog/the-four-values-of-the-agile-manifesto/. [Accessed: 31- Mar- 2019].
+
 [2]P. Landau, "Top 12 Agile Principles", ProjectManager.com, 2019. [Online]. Available: https://www.projectmanager.com/blog/agile-principles. [Accessed: 31- Mar- 2019].
+
 [3]J. Ondiek, "The 12 Agile Manifesto Principles Simply Explained", Linkedin.com, 2019. [Online]. Available: https://www.linkedin.com/pulse/12-agile-manifesto-principles-simply-explained-jacob-aliet-ondiek/. [Accessed: 31- Mar- 2019].
+
 [4]"A Project Sponsor Isn’t A Project Manager, Scrum Master or Product Owner!", Software Process and Measurement, 2019. [Online]. Available: https://tcagley.wordpress.com/2014/09/03/a-project-sponsor-isnt-a-project-manager-scrum-master-or-product-owner/. [Accessed: 01- Apr- 2019].
-
-
-## Contributing
-
-Ilana Haddad
-
-Jordan Itzkovitz
-
-Arielle Lasry
-
-Eden Ovadia
-
-Rebecca Weill
-
-Benjamin Szwimer
-
-Ethan Itovitch
-
-Kamy Moussavi
-
-Lucas Bellido
-
-Matthew Zoltak
-
-Noam Suissa
-
-Oliver Clark
-
-Paul Attara
-
-Spencer Handfield
-
-
-
