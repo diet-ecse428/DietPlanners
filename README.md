@@ -58,7 +58,7 @@ mvn test
 - UpdateWeightTest
 
 
-## Contributing
+## Contributors
 
 Ilana Haddad
 
